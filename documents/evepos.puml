@@ -1,0 +1,70 @@
+@startuml
+entity "Users" {
+  *id : int <<PK>>
+  --
+  name : string
+  email : string <<unique>>
+  password_digest : string
+  thumbnail : string
+  description : text
+  authentication_token : string
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "Events" {
+  *id : int <<PK>>
+  --
+  title : string
+  date : datetime
+  location : string
+  description : text
+  price : decimal
+  user_id : int <<FK>>
+  image : string
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "Tags" {
+  *id : int <<PK>>
+  --
+  name : string
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "Event_Tags" {
+  *event_id : int <<FK>>
+  *tag_id : int <<FK>>
+  --
+  created_at : datetime
+}
+
+entity "Likes" {
+  *id : int <<PK>>
+  --
+  user_id : int <<FK>>
+  event_id : int <<FK>>
+  created_at : datetime
+}
+
+entity "Comments" {
+  *id : int <<PK>>
+  --
+  user_id : int <<FK>>
+  event_id : int <<FK>>
+  content : text
+  created_at : datetime
+  updated_at : datetime
+}
+
+' Relationships
+Users ||--o{ Events : "posts"
+Events ||--o{ Event_Tags : ""
+Tags ||--o{ Event_Tags : ""
+Users ||--o{ Likes : ""
+Events ||--o{ Likes : ""
+Users ||--o{ Comments : ""
+Events ||--o{ Comments : ""
+@enduml

@@ -1,0 +1,9 @@
+# .rubocop.yml
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.0 # プロジェクトのRubyバージョンに合わせてください
+
+Rails:
+  Enabled: true

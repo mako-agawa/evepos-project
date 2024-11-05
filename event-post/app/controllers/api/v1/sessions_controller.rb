@@ -1,38 +1,46 @@
-class Api::V1::SessionsController < ApplicationController
-  before_action :authenticate_user, only: [:destroy]
-  skip_before_action :verify_authenticity_token
+# frozen_string_literal: true
 
-  def create
-    user = User.find_by(email: params[:email])
+module Api
+  module V1
+    class SessionsController < ApplicationController
+      before_action :authenticate_user, only: [:destroy]
+      # skip_before_action :verify_authenticity_token
 
-    if user && user.authenticate(params[:password])
-      token = SecureRandom.hex(10)
-      user.update(authentication_token: token)
+      def create
+        user = User.find_by(email: params[:email])
 
-      render json: { token: token, message:"Login successful" }, status: :ok
-    else
-      render json: { error: "Invalid email or password" }, status: :unauthorized
-    end
-  end
+        if user&.authenticate(params[:password])
+          token = SecureRandom.hex(10)
+          user.update(authentication_token: token)
 
-  def destroy
-    user = User.find_by(authentication_token: request.headers['Authorization'])
+          render json: { token: token, message: 'Login successful' }, status: :ok
+          Rails.logger.debug 'Login!!'
+        else
+          render json: { error: 'Invalid email or password' }, status: :unauthorized
+        end
+      end
 
-    if user
-      user.update(authentication_token: nil)
-      render json: { message: "Logout successful" }, status: :ok
-    else
-      render json: { error: "Invalid token" }, status: :unauthorized
-    end
-  end
-  private
+      def destroy
+        user = User.find_by(authentication_token: request.headers['Authorization'])
 
-  def authenticate_user
-    token = request.headers['Authorization']
-    @current_user = User.find_by(authentication_token: token)
+        if user
+          user.update(authentication_token: nil)
+          render json: { message: 'Logout successful' }, status: :ok
+        else
+          render json: { error: 'Invalid token' }, status: :unauthorized
+        end
+      end
 
-    unless @current_user
-      render json: { error: "Unauthorized" }, status: :unauthorized
+      private
+
+      def authenticate_user
+        token = request.headers['Authorization']
+        @current_user = User.find_by(authentication_token: token)
+
+        return if @current_user
+
+        render json: { error: 'Unauthorized' }, status: :unauthorized
+      end
     end
   end
 end

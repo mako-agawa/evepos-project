@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class UsersController < ApplicationController
       # before_action を使用して必要に応じて認証やフィルタリングを設定
-      before_action :set_user, only: [:show, :update, :destroy]
+      before_action :set_user, only: %i[show update destroy]
 
       # GET /api/v1/users
       def index
@@ -18,11 +20,10 @@ module Api
       # POST /api/v1/users
       def create
         user = User.new(user_params)
-
         if user.save
-          render json: user, status: :created
+          render json: { message: 'User created successfully' }, status: :created
         else
-          render json: user.errors, status: :unprocessable_entity
+          render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
@@ -49,6 +50,7 @@ module Api
       end
 
       # Strong Parameters
+
       def user_params
         params.require(:user).permit(:name, :email, :password, :thumbnail, :description)
       end
