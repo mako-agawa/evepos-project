@@ -1,45 +1,31 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     class SessionsController < ApplicationController
-      before_action :authenticate_user, only: [:destroy]
-      # skip_before_action :verify_authenticity_token
+      before_action :authenticate_user
+      skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
 
       def create
+        puts "====== sessions ======="
         user = User.find_by(email: params[:email])
-
+        puts "====== #{@current_user} ======="
         if user&.authenticate(params[:password])
-          token = SecureRandom.hex(10)
-          user.update(authentication_token: token)
-
-          render json: { token: token, message: 'Login successful' }, status: :ok
-          Rails.logger.debug 'Login!!'
+          token = encode_token({ user_id: user.id }) # トークンを生成
+          render json: { token: token, message: 'Logged in successfully!' }, status: :ok
         else
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
 
       def destroy
-        user = User.find_by(authentication_token: request.headers['Authorization'])
-
-        if user
-          user.update(authentication_token: nil)
-          render json: { message: 'Logout successful' }, status: :ok
-        else
-          render json: { error: 'Invalid token' }, status: :unauthorized
-        end
+        # APIの場合、サーバー側でセッションをクリアする処理はないため、
+        # クライアント側でトークンを削除するだけでログアウトとする。
+        render json: { message: 'Logged out!' }, status: :ok
       end
 
       private
 
-      def authenticate_user
-        token = request.headers['Authorization']
-        @current_user = User.find_by(authentication_token: token)
-
-        return if @current_user
-
-        render json: { error: 'Unauthorized' }, status: :unauthorized
+      def encode_token(payload)
+        JWT.encode(payload, 'your_secret_key', 'HS256') # トークン生成に秘密鍵を使用
       end
     end
   end

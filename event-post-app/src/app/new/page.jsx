@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function EditEvent({ params }) {
+export default function CreateEvent() {
     const [formData, setFormData] = useState({
         title: '',
         date: '',
@@ -11,11 +11,11 @@ export default function EditEvent({ params }) {
         image: '',
         description: '',
         price: '',
-        user_id: '',
     });
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const [message, setMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(null); // 成功・失敗を判定するフラグ
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -26,32 +26,29 @@ export default function EditEvent({ params }) {
         }));
     };
 
-    // イベント編集時の送信処理
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const eventPayload = {
             event: { 
-                title: formData.title,
-                date: formData.date,
-                location: formData.location,
-                image: formData.image,
-                description: formData.description,
-                price: formData.price,
-                user_id: formData.user_id,
+                ...formData,
             }
         };
 
-        // 正しいAPI URLにデータを送信
+        // 認証トークンを取得
+        const authToken = localStorage.getItem("authToken");
+
         const res = await fetch(`${API_URL}/events`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': authToken ? `Bearer ${authToken}` : '', // トークンを設定
             },
             body: JSON.stringify(eventPayload),
         });
 
         if (res.ok) {
+            setIsSuccess(true);
             setMessage('Event created successfully!');
             setFormData({
                 title: '',
@@ -60,10 +57,10 @@ export default function EditEvent({ params }) {
                 image: '',
                 description: '',
                 price: '',
-                user_id: '',
             });
             router.push("/"); // 成功時にリダイレクト
         } else {
+            setIsSuccess(false);
             const data = await res.json();
             setMessage('Event creation failed. Please try again.');
         }
@@ -82,7 +79,7 @@ export default function EditEvent({ params }) {
                         value={formData.title}
                         onChange={handleChange}
                         required
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                     />
                 </div>
                 <div>
@@ -94,7 +91,7 @@ export default function EditEvent({ params }) {
                         value={formData.date}
                         onChange={handleChange}
                         required
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                     />
                 </div>
                 <div>
@@ -106,7 +103,7 @@ export default function EditEvent({ params }) {
                         value={formData.location}
                         onChange={handleChange}
                         required
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                     />
                 </div>
                 <div>
@@ -117,7 +114,7 @@ export default function EditEvent({ params }) {
                         name="image"
                         value={formData.image}
                         onChange={handleChange}
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                     />
                 </div>
                 <div>
@@ -128,7 +125,7 @@ export default function EditEvent({ params }) {
                         value={formData.description}
                         onChange={handleChange}
                         required
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                         rows="4"
                     />
                 </div>
@@ -140,23 +137,16 @@ export default function EditEvent({ params }) {
                         value={formData.price}
                         onChange={handleChange}
                         required
-                        className="w-full border  rounded p-2"
-                    />
-                </div>
-                <div>
-                    <label className="text-xl block mb-2" htmlFor="user_id">ユーザーID:</label>
-                    <input
-                        id="user_id"
-                        name="user_id"
-                        value={formData.user_id}
-                        onChange={handleChange}
-                        required
-                        className="w-full border  rounded p-2"
+                        className="w-full border rounded p-2"
                     />
                 </div>
                 <button className="w-full text-white bg-blue-500 hover:bg-blue-600 rounded p-3 text-xl" type="submit">投稿する</button>
             </form>
-            {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
+            {message && (
+                <p className={`mt-4 text-xl ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>
+                    {message}
+                </p>
+            )}
         </div>
     );
 }

@@ -75,8 +75,8 @@ export default function EventShow({ params }) {
         <p className="pb-8">ユーザーID: {data.user_id}</p>
         <div className="flex flex-col">
           <Link href={`/${eventId}/edit`} className="text-yellow-600 hover:cursor">Edit</Link>
-          <button onClick={handleDelete} className="text-red-600 hover:cursor mt-4">Delete</button>
           <Link href="/" className="text-green-700 hover:cursor">Back</Link>
+          <button onClick={handleDelete} className="text-red-600 hover:cursor mt-4">Delete</button>
         </div>
       </div>
     </div>

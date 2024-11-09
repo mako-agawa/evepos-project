@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_31_040130) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_013258) do
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.datetime "date"

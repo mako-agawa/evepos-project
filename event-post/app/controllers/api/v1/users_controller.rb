@@ -1,58 +1,56 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     class UsersController < ApplicationController
-      # before_action を使用して必要に応じて認証やフィルタリングを設定
-      before_action :set_user, only: %i[show update destroy]
+      skip_before_action :authenticate_user, only: [:create, :index, :show] # 必要に応じてアクションをスキップ
 
-      # GET /api/v1/users
       def index
         users = User.all
-        render json: users
+        render json: users, status: :ok
       end
 
-      # GET /api/v1/users/:id
       def show
-        render json: @user
+        user = User.find(params[:id])
+        render json: user, status: :ok
       end
 
-      # POST /api/v1/users
       def create
         user = User.new(user_params)
         if user.save
-          render json: { message: 'User created successfully' }, status: :created
+          render json: { message: 'User created successfully', user: user, token: user.authentication_token }, status: :created
         else
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
-      # PATCH/PUT /api/v1/users/:id
       def update
-        if @user.update(user_params)
-          render json: @user
+        if current_user&.id == params[:id].to_i
+          if current_user.update(user_params)
+            render json: { message: 'User updated successfully', user: current_user }, status: :ok
+          else
+            render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+          end
         else
-          render json: @user.errors, status: :unprocessable_entity
+          render json: { error: 'Unauthorized action' }, status: :unauthorized
         end
       end
 
-      # DELETE /api/v1/users/:id
       def destroy
-        @user.destroy
-        head :no_content
+        if current_user&.id == params[:id].to_i
+          current_user.destroy
+          render json: { message: 'User deleted successfully' }, status: :ok
+        else
+          render json: { error: 'Unauthorized action' }, status: :unauthorized
+        end
       end
 
       private
 
-      # コールバックで共通の処理をまとめる
-      def set_user
-        @user = User.find(params[:id])
+      def encode_token(payload)
+        JWT.encode(payload, 'your_secret_key', 'HS256')
       end
 
-      # Strong Parameters
-
       def user_params
-        params.require(:user).permit(:name, :email, :password, :thumbnail, :description)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :thumbnail, :description)
       end
     end
   end
