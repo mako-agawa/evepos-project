@@ -1,18 +1,16 @@
-"use client";
+"use client"
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation"; // useRouterを使う
 
-// 非同期の params を unwrap する
 export default function EventShow({ params }) {
   const [data, setData] = useState(null);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
-  // 非同期にparamsをアンラップ
-  const resolvedParams = use(params);
-  const eventId = resolvedParams.id;
+  const eventId = params.id;
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -21,8 +19,16 @@ export default function EventShow({ params }) {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        const data = await res.json();
-        setData(data);
+        const eventData = await res.json();
+        setData(eventData);
+
+        // ユーザー情報を取得
+        const userRes = await fetch(`${API_URL}/users/${eventData.user_id}`);
+        if (!userRes.ok) {
+          throw new Error(`Failed to fetch user data: ${userRes.status}`);
+        }
+        const userData = await userRes.json();
+        setUser(userData);
       } catch (error) {
         setError(error.message);
       }
@@ -58,7 +64,7 @@ export default function EventShow({ params }) {
     return <div>Error: {error}</div>;
   }
 
-  if (!data) {
+  if (!data || !user) {
     return <div>Loading...</div>;
   }
 
@@ -69,10 +75,10 @@ export default function EventShow({ params }) {
         <p className="pb-8">タイトル: {data.title}</p>
         <p className="pb-8">日時: {data.date}</p>
         <p className="pb-8">場所: {data.location}</p>
-        <p className="pb-8">場所: {data.image}</p>
+        <p className="pb-8">画像: {data.image}</p>
         <p className="pb-8">説明: {data.description}</p>
         <p className="pb-8">金額: {data.price}</p>
-        <p className="pb-8">ユーザーID: {data.user_id}</p>
+        <p className="pb-8">投稿者: {user.name}</p>
         <div className="flex flex-col">
           <Link href={`/${eventId}/edit`} className="text-yellow-600 hover:cursor">Edit</Link>
           <Link href="/" className="text-green-700 hover:cursor">Back</Link>

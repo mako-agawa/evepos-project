@@ -4,7 +4,8 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users, only: %i[index show create update destroy]
+      resources :users, only: [:index, :show, :create, :update, :destroy]
+    get '/current_user', to: 'users#current_user' # 現在のユーザーを取得するエンドポイント
       resources :events do
         resources :comments, only: %i[create destroy]
         member do

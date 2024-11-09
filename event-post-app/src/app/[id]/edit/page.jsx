@@ -177,7 +177,7 @@ export default function EditEvent({ params }) {
                         className="w-full border  rounded p-2"
                     />
                 </div>
-                <button className="w-full text-white bg-blue-500 hover:bg-blue-600 rounded p-3 text-xl" type="submit">編集する</button>
+                <button className="w-full inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300" type="submit">編集する</button>
             </form>
             {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>

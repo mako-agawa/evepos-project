@@ -1,18 +1,40 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function UserShow({ params }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null); // ログイン中のユーザー情報
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
-  // 非同期にparamsをアンラップ
-  const resolvedParams = use(params);
-  const userId = resolvedParams.id; // 解決したparamsオブジェクトからidを取得
+  const userId = params.id; // paramsからユーザーIDを取得
 
+  // ログイン中のユーザー情報を取得
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const authToken = localStorage.getItem("authToken");
+      if (authToken) {
+        try {
+          const res = await fetch(`${API_URL}/current_user`, {
+            headers: { Authorization: `Bearer ${authToken}` },
+          });
+          if (res.ok) {
+            const userData = await res.json();
+            setCurrentUser(userData); // ログイン中のユーザー情報を設定
+          }
+        } catch (error) {
+          console.error("Failed to fetch current user:", error);
+        }
+      }
+    };
+
+    fetchCurrentUser();  
+  }, [API_URL]);
+
+  // 表示するユーザー情報を取得
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -39,6 +61,7 @@ export default function UserShow({ params }) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("authToken")}` // 認証トークンを設定
         },
       });
 
@@ -61,21 +84,26 @@ export default function UserShow({ params }) {
     return <div>Loading...</div>;
   }
 
+  // currentUserと表示中のユーザーが一致するかを確認
+  const isCurrentUser = currentUser && currentUser.id === data.id;
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold py-24">User Page</h1>
+      <h1 className="text-4xl font-bold py-24">{isCurrentUser ? "マイページ" : "ユーザーページ"}</h1>
       <div className="text-2xl">
         <p>Name: {data.name}</p>
         <p className="pb-12">Email: {data.email}</p>
         <p className="pb-12">Description: {data.description}</p>
-        <div className="flex flex-row w-full my-4">
-          <Link href={`/users/${userId}/edit`} className="text-yellow-600 pr-8 hover:cursor">
-            Edit
-          </Link>
-          <button onClick={handleDelete} className="text-red-600 hover:cursor">
-            Delete
-          </button>
-        </div>
+        {isCurrentUser && (
+          <div className="flex flex-row w-full my-4">
+            <Link href={`/users/${userId}/edit`} className="text-yellow-600 pr-8 hover:cursor">
+              Edit
+            </Link>
+            <button onClick={handleDelete} className="text-red-600 hover:cursor">
+              Delete
+            </button>
+          </div>
+        )}
         <Link href="/users" className="text-green-700 hover:cursor">
           Back
         </Link>

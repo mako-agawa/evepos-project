@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   before_create :generate_authentication_token
 
+  has_many :events, dependent: :destroy  # この行を追加
+
   private
 
   def generate_authentication_token

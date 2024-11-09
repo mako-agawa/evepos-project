@@ -4,8 +4,8 @@ module Api
   module V1
     class EventsController < ApplicationController
       before_action :authenticate_user, only: %i[create update destroy like]
-      # before_action を使用して必要に応じて認証やフィルタリングを設定
       before_action :set_event, only: %i[show update destroy like]
+      before_action :authorize_user!, only: %i[update destroy]
 
       # GET /api/v1/events
       def index
@@ -18,8 +18,9 @@ module Api
         render json: @event
       end
 
+      # POST /api/v1/events
       def create
-        event = Event.new(event_params)
+        event = current_user.events.build(event_params) # current_userが作成
         if event.save
           render json: { message: 'Event created successfully', event: event }, status: :created
         else
@@ -43,7 +44,6 @@ module Api
       end
 
       def like
-        # 例: likes_countをインクリメントする場合
         @event.increment!(:likes_count)
         render json: { message: 'Liked successfully' }, status: :ok
       end
@@ -55,11 +55,15 @@ module Api
         @event = Event.find(params[:id])
       end
 
-      # Strong Parameters
-      def event_params
-        params.require(:event).permit(:title, :date, :location, :description, :price, :user_id, :image, :likes_count)
+      # イベント作成者であるか確認する
+      def authorize_user!
+        render json: { error: 'Unauthorized' }, status: :forbidden unless @event.user_id == current_user.id
       end
 
+      # Strong Parameters
+      def event_params
+        params.require(:event).permit(:title, :date, :location, :description, :price, :image, :likes_count)
+      end
     end
   end
 end
