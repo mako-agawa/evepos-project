@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 export default function EventShow({ params }) {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+  const [comments, setComments] = useState([]); // コメントの状態を追加
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null); // ログイン中のユーザー情報
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -33,7 +34,7 @@ export default function EventShow({ params }) {
     fetchCurrentUser();
   }, [API_URL]);
 
-  // イベントと投稿者情報を取得
+  // イベント、投稿者情報、コメント一覧を取得
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -56,26 +57,40 @@ export default function EventShow({ params }) {
       }
     };
 
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`${API_URL}/events/${eventId}/comments`);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch comments: ${res.status}`);
+        }
+        const commentsData = await res.json();
+        setComments(commentsData); // コメントデータを状態に保存
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
     fetchEvent();
+    fetchComments(); // コメントを取得
   }, [eventId, API_URL]);
 
   const handleDelete = async () => {
-    const confirmed = confirm('Are you sure you want to delete this event?');
+    const confirmed = confirm("Are you sure you want to delete this event?");
     if (!confirmed) return;
 
     try {
       const res = await fetch(`${API_URL}/events/${eventId}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (res.ok) {
-        alert('Event deleted successfully');
-        router.push('/'); // ユーザー削除後にリダイレクト
+        alert("Event deleted successfully");
+        router.push("/"); // ユーザー削除後にリダイレクト
       } else {
-        throw new Error('Failed to delete event');
+        throw new Error("Failed to delete event");
       }
     } catch (error) {
       setError(error.message);
@@ -107,15 +122,45 @@ export default function EventShow({ params }) {
         <div className="flex flex-col">
           {isCurrentUser && (
             <div className="flex flex-row w-full my-4">
-              <Link href={`${eventId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8">
+              <Link
+                href={`/${eventId}/edit`}
+                className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8"
+              >
                 Edit
               </Link>
-              <button onClick={handleDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8">
+              <button
+                onClick={handleDelete}
+                className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8"
+              >
                 Delete
               </button>
             </div>
           )}
-          <Link href="/" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8">
+
+          <div className="flex flex-col items-center justify-center">
+            <Link
+              href={`/${eventId}/comments`}
+              className="text-2xl hover:cursor p-3"
+            >
+              コメントを書く
+            </Link>
+            <h1 className="text-xl font-bold my-4">コメント欄</h1>
+            {comments.length > 0 ? (
+              comments.map((comment) => (
+                <div key={comment.id} className="p-3 border-b-2">
+                  <Link href={`/users/${comment.user.id}`} className="text-xl">
+                    <span className="font-semibold">{comment.user.name}</span>: {comment.content}
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">コメントはまだありません。</p>
+            )}
+          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+          >
             Back
           </Link>
         </div>

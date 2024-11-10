@@ -1,9 +1,17 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class CommentsController < ApplicationController
       before_action :authenticate_user, only: %i[create destroy]
-      before_action :set_event, only: %i[create destroy]
+      before_action :set_event, only: %i[index create destroy]
       before_action :set_comment, only: :destroy
+
+      # イベントに紐づくコメント一覧を取得
+      def index
+        comments = @event.comments
+        render json: comments, include: :user # ユーザー情報も含めて返す場合
+      end
 
       def create
         comment = @event.comments.build(comment_params)

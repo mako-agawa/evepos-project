@@ -6024,3 +6024,1944 @@ FOREIGN KEY ("user_id")
   [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241110043716') RETURNING "version"[0m
   [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/rails/info" for ::1 at 2024-11-10 19:29:20 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::InfoController#index as HTML
+Redirected to http://localhost:3001/rails/info/routes
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/info/routes" for ::1 at 2024-11-10 19:29:20 +0900
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/actionpack-7.2.1.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [41 times] (Duration: 4.9ms | GC: 0.0ms)
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/actionpack-7.2.1.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 8.8ms | GC: 0.0ms)
+  Rendered layout /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/layouts/application.html.erb (Duration: 9.1ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 11.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/favicon.ico" for ::1 at 2024-11-10 19:29:20 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/rails/info/routes" for ::1 at 2024-11-10 19:29:25 +0900
+Processing by Rails::InfoController#routes as HTML
+  Rendering layout /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/layouts/application.html.erb
+  Rendering /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application
+  Rendered collection of /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/actionpack-7.2.1.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb [41 times] (Duration: 7.3ms | GC: 0.6ms)
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/actionpack-7.2.1.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/info/routes.html.erb within layouts/application (Duration: 10.2ms | GC: 1.2ms)
+  Rendered layout /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/layouts/application.html.erb (Duration: 10.3ms | GC: 1.2ms)
+Completed 200 OK in 11ms (Views: 10.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/api/v1/users/" for ::1 at 2024-11-10 19:35:24 +0900
+Processing by Api::V1::UsersController#index as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/api/v1/users_controller.rb:18:in `index'
+Completed 200 OK in 4ms (Views: 2.0ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/4/comments?Authorization=Bearer%206fe8e2471927bcbe3952" for ::1 at 2024-11-10 19:36:05 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "Authorization"=>"Bearer 6fe8e2471927bcbe3952", "event_id"=>"4"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/4/comments" for ::1 at 2024-11-10 19:37:45 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"4"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/4/comments" for ::1 at 2024-11-10 19:37:57 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"4"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/2/comments" for ::1 at 2024-11-10 19:38:18 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"2"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/" for ::1 at 2024-11-10 19:38:24 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+Started POST "/api/v1/events/2/comments" for ::1 at 2024-11-10 19:38:45 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"2"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/2/comments" for ::1 at 2024-11-10 19:40:30 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"2"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 19:51:06 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (1.2ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 19:51:06 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:00:23 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:00:23 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (1.4ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 1.4ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:00:24 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:00:24 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:00:24 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:00:24 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:00:24 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:00:24 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:16 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:01:16 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:16 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:01:16 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:20 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:01:20 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mEvent Load (5.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:20 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:01:20 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:25 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:01:25 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:25 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:01:25 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:01:53 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:53 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:01:53 +0900
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:01:53 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:02:01 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:02:01 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:02:01 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:02:01 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:02:38 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:02:38 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:02:38 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:02:38 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:01 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:01 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:23 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:23 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:23 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:23 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:31 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:31 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by Api::V1::EventsController#show as */*
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:31 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:31 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:40 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:40 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:40 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:40 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:44 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:44 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:44 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:44 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:03:52 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:52 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:03:52 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:03:52 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:08 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:08 +0900
+Processing by Api::V1::EventsController#show as */*
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Parameters: {"id"=>"1"}
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 11ms (Views: 1.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:08 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:08 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:14 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:14 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by Api::V1::UsersController#current_user as */*
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:14 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:14 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:36 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:36 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:36 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:37 +0900
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:38 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:38 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:38 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:38 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by Api::V1::UsersController#current_user as */*
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:40 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:40 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:40 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:40 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 4ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:57 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:57 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (1.5ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:57 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:57 +0900
+Processing by Api::V1::UsersController#current_user as */*
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 16ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:59 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:04:59 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:04:59 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:04:59 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:01 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:01 +0900
+  [1m[36mEvent Load (1.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 1.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:03 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:03 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:03 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:03 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:07 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:07 +0900
+Processing by Api::V1::UsersController#current_user as */*
+Processing by Api::V1::EventsController#show as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 1.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:07 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:07 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:08 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:08 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:08 +0900
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:08 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:10 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:10 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:10 +0900
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:10 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:12 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:12 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:12 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:12 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:13 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:13 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:13 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:13 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:17 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:17 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:17 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:17 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Processing by Api::V1::UsersController#current_user as */*
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:20 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:20 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:20 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:20 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:39 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:39 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:39 +0900
+Completed 200 OK in 13ms (Views: 1.0ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:39 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:43 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:43 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.6ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:43 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:43 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:05:44 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:44 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:05:44 +0900
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:05:44 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:04 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:04 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:04 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:04 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:06 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:06 +0900
+Processing by Api::V1::UsersController#current_user as */*
+Processing by Api::V1::EventsController#show as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  Parameters: {"id"=>"1"}
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 4ms (Views: 1.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:06 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:06 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::UsersController#show as */*
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:11 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:11 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:11 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:11 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::UsersController#show as */*
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:19 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:19 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:19 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:19 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:47 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:47 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Processing by Api::V1::UsersController#current_user as */*
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:47 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:47 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:49 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:06:49 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:06:49 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:06:49 +0900
+Processing by Api::V1::UsersController#current_user as */*
+Processing by Api::V1::UsersController#show as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:07:50 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:10:09 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"テストです"}, "event_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:30:in `set_event'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+  [1m[36mComment Create (0.9ms)[0m  [1m[32mINSERT INTO "comments" ("content", "event_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "テストです"], ["event_id", 1], ["user_id", 1], ["created_at", "2024-11-10 11:10:09.215024"], ["updated_at", "2024-11-10 11:10:09.215024"]]
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+Completed 201 Created in 23ms (Views: 0.2ms | ActiveRecord: 1.8ms (3 queries, 0 cached) | GC: 2.4ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:10:09 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:29 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:32 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:33 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:43 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:11:43 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:43 +0900
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:11:43 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:11:51 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:14 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:15 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:19 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:12:19 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:19 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Processing by Api::V1::UsersController#current_user as */*
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:12:19 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"testです"}, "event_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:30:in `set_event'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+  [1m[36mComment Create (0.6ms)[0m  [1m[32mINSERT INTO "comments" ("content", "event_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "testです"], ["event_id", 1], ["user_id", 1], ["created_at", "2024-11-10 11:12:55.535623"], ["updated_at", "2024-11-10 11:12:55.535623"]]
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:11:in `create'
+Completed 201 Created in 4ms (Views: 0.1ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:55 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:12:55 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:14:49 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:14:49 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 8ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:14:49 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:14:49 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:19:15 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"comment"=>{"content"=>"This is a sample comment."}, "event_id"=>"1"}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `events' for #<Api::V1::CommentsController:0x00000000017728>):
+  
+app/controllers/api/v1/comments_controller.rb:10:in `index'
+Started GET "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:19:31 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"1"}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `events' for #<Api::V1::CommentsController:0x000000000177f0>):
+  
+app/controllers/api/v1/comments_controller.rb:10:in `index'
+Started GET "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:20:32 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Completed 200 OK in 13ms (Views: 6.6ms | ActiveRecord: 1.1ms (4 queries, 1 cached) | GC: 0.1ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:21:21 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:21:21 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:21:21 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:21:21 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:01 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:32:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:01 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:32:01 +0900
+Processing by Api::V1::UsersController#current_user as */*
+Processing by Api::V1::UsersController#show as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Parameters: {"id"=>"1"}
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:17 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:17 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:32:17 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Processing by Api::V1::EventsController#show as */*
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:32:18 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:32:27 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:27 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:32:27 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:32:27 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:39:14 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users" for ::1 at 2024-11-10 20:39:14 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:39:14 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#index as */*
+  Parameters: {"user"=>{}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/api/v1/users_controller.rb:18:in `index'
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.1ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:39:18 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:39:18 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:39:19 +0900
+Started GET "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:39:19 +0900
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:39:19 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:39:19 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Completed 200 OK in 9ms (Views: 6.1ms | ActiveRecord: 0.4ms (4 queries, 1 cached) | GC: 0.1ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/1" for ::1 at 2024-11-10 20:39:19 +0900
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:39:19 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/1" for ::1 at 2024-11-10 20:39:19 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/events/1/comments" for ::1 at 2024-11-10 20:39:19 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"1"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms (4 queries, 1 cached) | GC: 0.1ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:40:01 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:40:01 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:40:02 +0900
+Started GET "/api/v1/events/2/comments" for ::1 at 2024-11-10 20:40:02 +0900
+Started GET "/api/v1/events/2" for ::1 at 2024-11-10 20:40:02 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:40:02 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"2"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 2]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 9ms (Views: 0.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/2" for ::1 at 2024-11-10 20:40:02 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Started GET "/api/v1/users/3" for ::1 at 2024-11-10 20:40:02 +0900
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 5ms (Views: 2.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/3" for ::1 at 2024-11-10 20:40:02 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/2/comments" for ::1 at 2024-11-10 20:40:02 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"2"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 2]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 0.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/events/2/comments" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::CommentsController#create as */*
+  Parameters: {"comment"=>{"content"=>"コメント"}, "event_id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:19:in `create'
+  [1m[36mComment Create (1.3ms)[0m  [1m[32mINSERT INTO "comments" ("content", "event_id", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["content", "コメント"], ["event_id", 2], ["user_id", 1], ["created_at", "2024-11-10 11:40:10.438382"], ["updated_at", "2024-11-10 11:40:10.438382"]]
+  ↳ app/controllers/api/v1/comments_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/comments_controller.rb:19:in `create'
+Completed 201 Created in 8ms (Views: 0.3ms | ActiveRecord: 2.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events/2/comments" for ::1 at 2024-11-10 20:40:10 +0900
+Started GET "/api/v1/events/2" for ::1 at 2024-11-10 20:40:10 +0900
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"2"}
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 2]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Started GET "/api/v1/events/2" for ::1 at 2024-11-10 20:40:10 +0900
+Completed 200 OK in 6ms (Views: 3.6ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/current_user" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::UsersController#current_user as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `authenticate_user'
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::EventsController#show as */*
+  Parameters: {"id"=>"2"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/events_controller.rb:55:in `set_event'
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/3" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/3" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::UsersController#show as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/users_controller.rb:22:in `show'
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/events/2/comments" for ::1 at 2024-11-10 20:40:10 +0900
+Processing by Api::V1::CommentsController#index as */*
+  Parameters: {"event_id"=>"2"}
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:38:in `set_event'
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."event_id" = ?[0m  [["event_id", 2]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/comments_controller.rb:13:in `index'
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:40:25 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/events" for ::1 at 2024-11-10 20:40:25 +0900
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.1ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
