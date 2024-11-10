@@ -96,15 +96,15 @@ export default function UserShow({ params }) {
         <p className="pb-12">Description: {data.description}</p>
         {isCurrentUser && (
           <div className="flex flex-row w-full my-4">
-            <Link href={`/users/${userId}/edit`} className="text-yellow-600 pr-8 hover:cursor">
+            <Link href={`/users/${userId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8">
               Edit
             </Link>
-            <button onClick={handleDelete} className="text-red-600 hover:cursor">
+            <button onClick={handleDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8">
               Delete
             </button>
           </div>
         )}
-        <Link href="/users" className="text-green-700 hover:cursor">
+        <Link href="/users" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8">
           Back
         </Link>
       </div>
