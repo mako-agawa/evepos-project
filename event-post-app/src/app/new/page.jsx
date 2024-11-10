@@ -140,7 +140,7 @@ export default function CreateEvent() {
                         className="w-full border rounded p-2"
                     />
                 </div>
-                <button className="w-full text-white bg-blue-500 hover:bg-blue-600 rounded p-3 text-xl" type="submit">投稿する</button>
+                <button className="w-full inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300" type="submit">投稿する</button>
             </form>
             {message && (
                 <p className={`mt-4 text-xl ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>

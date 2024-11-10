@@ -34,7 +34,6 @@ export default function Events() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Link href="/new">Event Create</Link>
       <h1 className="text-4xl font-bold p-24">Hello Events</h1>
       <ul className="flex flex-col">
         {data.map((event) => (
@@ -43,6 +42,12 @@ export default function Events() {
           </Link> 
         ))}
       </ul>
+      <Link 
+  href="/new" 
+  className="inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
+>
+  Event Create
+</Link>
     </div>
   );
 }
