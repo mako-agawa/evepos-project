@@ -27,10 +27,10 @@ const Header = () => {
     fetchCurrentUser();
   }, [API_URL]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken"); // ログアウト時にトークンを削除
-    setCurrentUser(null); // currentUserをリセット
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("authToken"); // ログアウト時にトークンを削除
+  //   setCurrentUser(null); // currentUserをリセット
+  // };
 
   return (
     <div className="flex justify-between items-center bg-orange-400 h-20 px-24">

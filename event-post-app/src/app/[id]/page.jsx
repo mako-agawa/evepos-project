@@ -6,14 +6,13 @@ import { useRouter } from "next/navigation";
 export default function EventShow({ params }) {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
-  const [comments, setComments] = useState([]); // コメントの状態を追加
+  const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); // ログイン中のユーザー情報
+  const [currentUser, setCurrentUser] = useState(null);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const eventId = params.id;
 
-  // ログイン中のユーザー情報を取得
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const authToken = localStorage.getItem("authToken");
@@ -24,7 +23,7 @@ export default function EventShow({ params }) {
           });
           if (res.ok) {
             const userData = await res.json();
-            setCurrentUser(userData); // ログイン中のユーザー情報を設定
+            setCurrentUser(userData);
           }
         } catch (error) {
           console.error("Failed to fetch current user:", error);
@@ -34,22 +33,16 @@ export default function EventShow({ params }) {
     fetchCurrentUser();
   }, [API_URL]);
 
-  // イベント、投稿者情報、コメント一覧を取得
   useEffect(() => {
     const fetchEvent = async () => {
       try {
         const res = await fetch(`${API_URL}/events/${eventId}`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const eventData = await res.json();
         setData(eventData);
 
-        // 投稿者情報を取得
         const userRes = await fetch(`${API_URL}/users/${eventData.user_id}`);
-        if (!userRes.ok) {
-          throw new Error(`Failed to fetch user data: ${userRes.status}`);
-        }
+        if (!userRes.ok) throw new Error(`Failed to fetch user data: ${userRes.status}`);
         const userData = await userRes.json();
         setUser(userData);
       } catch (error) {
@@ -60,18 +53,16 @@ export default function EventShow({ params }) {
     const fetchComments = async () => {
       try {
         const res = await fetch(`${API_URL}/events/${eventId}/comments`);
-        if (!res.ok) {
-          throw new Error(`Failed to fetch comments: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Failed to fetch comments: ${res.status}`);
         const commentsData = await res.json();
-        setComments(commentsData); // コメントデータを状態に保存
+        setComments(commentsData);
       } catch (error) {
         setError(error.message);
       }
     };
 
     fetchEvent();
-    fetchComments(); // コメントを取得
+    fetchComments();
   }, [eventId, API_URL]);
 
   const handleDelete = async () => {
@@ -81,14 +72,12 @@ export default function EventShow({ params }) {
     try {
       const res = await fetch(`${API_URL}/events/${eventId}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (res.ok) {
         alert("Event deleted successfully");
-        router.push("/"); // ユーザー削除後にリダイレクト
+        router.push("/");
       } else {
         throw new Error("Failed to delete event");
       }
@@ -97,19 +86,38 @@ export default function EventShow({ params }) {
     }
   };
 
-  // 現在のユーザーが投稿者かどうかを確認
+  const handleCommentDelete = async (commentId) => {
+    const confirmed = confirm("Are you sure you want to delete this comment?");
+    if (!confirmed) return;
+  
+    try {
+      const authToken = localStorage.getItem("authToken"); // トークンを取得
+      const res = await fetch(`${API_URL}/events/${eventId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`, // トークンを追加
+        },
+      });
+  
+      if (res.ok) {
+        alert("Comment deleted successfully");
+        setComments(comments.filter((comment) => comment.id !== commentId));
+      } else {
+        throw new Error("Failed to delete comment");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!data || !user) {
-    return <div>Loading...</div>;
-  }
+  if (error) return <div>Error: {error}</div>;
+  if (!data || !user) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center">
       <h1 className="text-4xl font-bold p-24">Event Details</h1>
       <div className="text-2xl">
         <p className="pb-8">タイトル: {data.title}</p>
@@ -119,7 +127,7 @@ export default function EventShow({ params }) {
         <p className="pb-8">説明: {data.description}</p>
         <p className="pb-8">金額: {data.price}</p>
         <p className="pb-8">投稿者: {user.name}</p>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center justify-center">
           {isCurrentUser && (
             <div className="flex flex-row w-full my-4">
               <Link
@@ -137,20 +145,29 @@ export default function EventShow({ params }) {
             </div>
           )}
 
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col bg-gray-200 w-full my-12 p-4">
             <Link
               href={`/${eventId}/comments`}
-              className="text-2xl hover:cursor p-3"
+              className="inline-flex items-center justify-center px-6 py-3 text-2xl text-white bg-orange-400 font-bold rounded-md shadow-md hover:bg-orange-500 hover:shadow-lg transition-all duration-300 mb-8"
             >
               コメントを書く
             </Link>
-            <h1 className="text-xl font-bold my-4">コメント欄</h1>
+            <h1 className="text-xl my-4">コメント欄</h1>
             {comments.length > 0 ? (
               comments.map((comment) => (
-                <div key={comment.id} className="p-3 border-b-2">
+                <div
+                  key={comment.id}
+                  className="flex items-center justify-between w-full p-1 bg-white rounded-md mb-4"
+                >
                   <Link href={`/users/${comment.user.id}`} className="text-xl">
                     <span className="font-semibold">{comment.user.name}</span>: {comment.content}
                   </Link>
+                  <button
+                    onClick={() => handleCommentDelete(comment.id)}
+                    className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300"
+                  >
+                    D
+                  </button>
                 </div>
               ))
             ) : (
