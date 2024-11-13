@@ -1,28 +1,15 @@
 "use client"
-import { useAuth } from "@/hooks/useAuth";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRecoilState } from 'recoil';
-import { authState } from "@/atoms/authState"; 
+
+ 
 
 
 export default function Events() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-
-  const[auth, setAuth ] = useRecoilState(authState)  
-  // const { auth, login, logout } = useAuth();
-
-  const handleLogin = () => {
-    // const user = { id: 1, name: 'makoto' }; 
-    setAuth({
-      isLoggedIn: true,
-      currentUser: {name: "ccc"},
-    })
-    // login(user);
-  };
 
   useEffect(() => {
     const fetchEvnets = async () => {
@@ -68,7 +55,7 @@ export default function Events() {
 
 
      
-        <p className="text-xl font-bold">coming soon</p>
+
     </div>
   );
 }

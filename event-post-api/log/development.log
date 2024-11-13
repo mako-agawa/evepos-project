@@ -11226,3 +11226,11 @@ Processing by Api::V1::UsersController#current_user as */*
 Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/api/v1/events" for ::1 at 2024-11-13 19:44:50 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::EventsController#index as */*
+  [1m[36mEvent Load (0.8ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ app/controllers/api/v1/events_controller.rb:13:in `index'
+Completed 200 OK in 18ms (Views: 4.3ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 1.5ms)
+
+
