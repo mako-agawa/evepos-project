@@ -2,7 +2,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { authState } from "@/atoms/authState"; 
 
 
@@ -12,12 +12,16 @@ export default function Events() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
-  const auth = useRecoilValue(authState)  
+  const[auth, setAuth ] = useRecoilState(authState)  
   // const { auth, login, logout } = useAuth();
 
   const handleLogin = () => {
-    const user = { id: 1, name: 'makoto' }; // ユーザー情報
-    login(user);
+    // const user = { id: 1, name: 'makoto' }; 
+    setAuth({
+      isLoggedIn: true,
+      currentUser: {name: "ccc"},
+    })
+    // login(user);
   };
 
   useEffect(() => {
@@ -62,18 +66,8 @@ export default function Events() {
         Event Create
       </Link>
 
-      <h1 className="text-4xl font-bold pt-24 pb-12">Recoil Output</h1>
-      {auth.isLoggedIn ? (
-        <div>
-        aaa
-          {/* <p>Logged in as: {auth.currentUser.name}</p> */}
-          {/* <button onClick={logout}>Logout</button> */}
-        </div>
-      ) : (
-        <div>bbb
-        {/* <button onClick={handleLogin}>Login</button> */}
-        </div>
-      )}
+
+     
         <p className="text-xl font-bold">coming soon</p>
     </div>
   );
