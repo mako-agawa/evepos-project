@@ -3,9 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
- 
-
-
 export default function Events() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -54,7 +51,7 @@ export default function Events() {
       </Link>
 
 
-     
+
 
     </div>
   );
