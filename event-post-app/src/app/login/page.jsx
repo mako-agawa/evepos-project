@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authAtom } from '@/atoms/authAtom';
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const setAuth = useSetAtom(authAtom);
+    const [auth, setAuth] = useAtom(authAtom);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [message, setMessage] = useState('');
     const router = useRouter();
@@ -23,6 +23,7 @@ export default function Login() {
             });
             if (response.ok) {
                 const data = await response.json();
+                console.log(data.user);
                 localStorage.setItem('token', data.token);
 
                 // 認証状態を設定して再描画をトリガー
@@ -30,7 +31,8 @@ export default function Login() {
                     isLoggedIn: true,
                     currentUser: data.user,
                 });
-                router.refresh(); // 状態変更を強制的に再レンダリング
+                console.log(auth);
+
                 router.push("/");
             } else {
                 setMessage('Failed to log in');
@@ -63,12 +65,12 @@ export default function Login() {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <button className="w-full text-white bg-blue-500 hover:bg-blue-600 rounded p-3 text-xl" type="submit">ログインする</button>
+                <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">ログインする</button>
             </form>
             {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>

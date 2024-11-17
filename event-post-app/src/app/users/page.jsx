@@ -65,8 +65,8 @@ export default function Users() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Link href="/users/new">Create User</Link>
-      <h1 className="text-4xl font-bold p-24">Hello Users</h1>
+      
+      <h1 className="text-4xl font-bold p-24">ユーザー管理</h1>
       <ul className="flex flex-col">
         {data.map((user) => {
           // ログイン中のユーザーと一致する場合はテキストカラーをオレンジにする
@@ -84,6 +84,7 @@ export default function Users() {
           );
         })}
       </ul>
+      <Link href="/users/new"  className="inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300">Create User</Link>
     </div>
   );
 }

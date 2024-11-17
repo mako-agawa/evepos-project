@@ -32,7 +32,7 @@ export default function CreateComment() {
         };
 
         // 認証トークンを取得
-        const authToken = localStorage.getItem("authToken");
+        const authToken = localStorage.getItem("token");
 
         const res = await fetch(`${API_URL}/events/${id}/comments`, {
             method: 'POST',

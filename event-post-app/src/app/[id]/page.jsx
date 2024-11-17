@@ -15,7 +15,7 @@ export default function EventShow({ params }) {
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
-      const authToken = localStorage.getItem("authToken");
+      const authToken = localStorage.getItem("token");
       if (authToken) {
         try {
           const res = await fetch(`${API_URL}/current_user`, {
@@ -89,9 +89,9 @@ export default function EventShow({ params }) {
   const handleCommentDelete = async (commentId) => {
     const confirmed = confirm("Are you sure you want to delete this comment?");
     if (!confirmed) return;
-  
+
     try {
-      const authToken = localStorage.getItem("authToken"); // トークンを取得
+      const authToken = localStorage.getItem("token"); // トークンを取得
       const res = await fetch(`${API_URL}/events/${eventId}/comments/${commentId}`, {
         method: "DELETE",
         headers: {
@@ -99,7 +99,7 @@ export default function EventShow({ params }) {
           Authorization: `Bearer ${authToken}`, // トークンを追加
         },
       });
-  
+
       if (res.ok) {
         alert("Comment deleted successfully");
         setComments(comments.filter((comment) => comment.id !== commentId));
@@ -162,12 +162,14 @@ export default function EventShow({ params }) {
                   <Link href={`/users/${comment.user.id}`} className="text-xl">
                     <span className="font-semibold">{comment.user.name}</span>: {comment.content}
                   </Link>
-                  <button
-                    onClick={() => handleCommentDelete(comment.id)}
-                    className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300"
-                  >
-                    D
-                  </button>
+                  {currentUser && comment.user.id === currentUser.id && ( // コメント投稿者だけが削除可能
+                    <button
+                      onClick={() => handleCommentDelete(comment.id)}
+                      className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               ))
             ) : (

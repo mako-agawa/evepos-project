@@ -36,7 +36,7 @@ export default function CreateEvent() {
         };
 
         // 認証トークンを取得
-        const authToken = localStorage.getItem("authToken");
+        const authToken = localStorage.getItem("token"); // 'authToken'から'token'に修正
 
         const res = await fetch(`${API_URL}/events`, {
             method: 'POST',
@@ -49,7 +49,7 @@ export default function CreateEvent() {
 
         if (res.ok) {
             setIsSuccess(true);
-            setMessage('Event created successfully!');
+            setMessage('イベントが正常に作成されました！');
             setFormData({
                 title: '',
                 date: '',
@@ -62,14 +62,14 @@ export default function CreateEvent() {
         } else {
             setIsSuccess(false);
             const data = await res.json();
-            setMessage('Event creation failed. Please try again.');
+            setMessage('イベントの作成に失敗しました。もう一度お試しください。');
         }
     };
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <h1 className="text-4xl font-bold p-8">イベント投稿</h1>
-            <form onSubmit={handleSubmit} className=" p-8 rounded shadow-md w-full max-w-lg space-y-6">
+            <form onSubmit={handleSubmit} className="p-8 rounded shadow-md w-full max-w-lg space-y-6">
                 <div>
                     <label className="text-xl block mb-2" htmlFor="title">タイトル:</label>
                     <input
@@ -140,7 +140,12 @@ export default function CreateEvent() {
                         className="w-full border rounded p-2"
                     />
                 </div>
-                <button className="w-full inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300" type="submit">投稿する</button>
+                <button
+                    className="w-full inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
+                    type="submit"
+                >
+                    投稿する
+                </button>
             </form>
             {message && (
                 <p className={`mt-4 text-xl ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>

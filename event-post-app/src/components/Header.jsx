@@ -6,9 +6,9 @@ import { useAtom } from 'jotai';
 import { authAtom } from '@/atoms/authAtom';
 
 
-
 const Header = () => {
   const [auth, setAuth] = useAtom(authAtom);
+  console.log(auth);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
@@ -23,6 +23,7 @@ const Header = () => {
           });
           if (res.ok) {
             const userData = await res.json();
+            console.log(userData);
             setAuth({
               isLoggedIn: true,
               currentUser: userData,
@@ -33,7 +34,9 @@ const Header = () => {
         }
       }
     };
-
+    console.log("aaa");
+    console.log(auth.isLoggedIn);
+    console.log(auth.currentUser);
     fetchCurrentUser();
 
   }, [auth.isLoggedIn, setAuth, API_URL]);
