@@ -62,7 +62,7 @@ module Api
 
       # Strong Parameters
       def event_params
-        params.require(:event).permit(:title, :date, :location, :description, :price, :image, :likes_count)
+        params.require(:event).permit(:title, :date, :location, :description, :price, :image, :like)
       end
     end
   end

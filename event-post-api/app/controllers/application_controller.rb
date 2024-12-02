@@ -4,12 +4,16 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_user
-    decoded_token = decode_token
-    if decoded_token
-      user_id = decoded_token[0]['user_id']
-      @current_user = User.find_by(id: user_id)
+    token = request.headers['Authorization']&.split(' ')&.last
+    if token.present?
+      begin
+        payload = JWT.decode(token, 'your_secret_key', true, algorithm: 'HS256')[0]
+        @current_user = User.find_by(id: payload['user_id'])
+      rescue JWT::DecodeError
+        render json: { error: 'Invalid token' }, status: :unauthorized
+      end
     else
-      render json: { error: 'Unauthorized access' }, status: :unauthorized
+      render json: { error: 'Missing token' }, status: :unauthorized
     end
   end
 

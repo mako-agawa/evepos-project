@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+
 export default function EventShow({ params }) {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
@@ -68,13 +69,17 @@ export default function EventShow({ params }) {
   const handleDelete = async () => {
     const confirmed = confirm("Are you sure you want to delete this event?");
     if (!confirmed) return;
-
+  
     try {
+      const authToken = localStorage.getItem("token"); // トークンを取得
       const res = await fetch(`${API_URL}/events/${eventId}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`, // トークンを追加
+        },
       });
-
+  
       if (res.ok) {
         alert("Event deleted successfully");
         router.push("/");
@@ -127,6 +132,7 @@ export default function EventShow({ params }) {
         <p className="pb-8">説明: {data.description}</p>
         <p className="pb-8">金額: {data.price}</p>
         <p className="pb-8">投稿者: {user.name}</p>
+       
         <div className="flex flex-col items-center justify-center">
           {isCurrentUser && (
             <div className="flex flex-row w-full my-4">

@@ -1,19 +1,24 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      # ユーザーリソース
       resources :users, only: [:index, :show, :create, :update, :destroy]
       get '/current_user', to: 'users#current_user' # 現在のユーザーを取得するエンドポイント
 
+      # イベントリソース
       resources :events do
-        resources :comments, only: %i[index create destroy] # コメントにindexを追加
+        # コメントリソースをネスト
+        resources :comments, only: %i[index create destroy]
+
+        # いいね機能
         member do
-          post 'like'
+          post 'like', to: 'likes#create'
+          delete 'like', to: 'likes#destroy'
         end
       end
 
-      resources :sessions, only: %i[create destroy] # sessionsリソースのルート設定
+      # セッション管理
+      resources :sessions, only: %i[create destroy]
     end
   end
 end
