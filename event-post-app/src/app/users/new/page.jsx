@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // useRouterフックをインポート
+import { useSetAtom } from "jotai";
+import { authAtom } from '@/atoms/authAtom';
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ export default function Register() {
         thumbnail: '',
         description: '',
     });
+    const setAuth = useSetAtom(authAtom); // authAtomを使用して認証状態を設定
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const [message, setMessage] = useState('');
@@ -29,13 +32,8 @@ export default function Register() {
         e.preventDefault();
 
         const userPayload = {
-            user: { // パラメータをuserオブジェクト内にネスト
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-                password_confirmation: formData.password_confirmation,
-                thumbnail: formData.thumbnail,
-                description: formData.description,
+            user: {
+                ...formData, // formDataからuserオブジェクトを作成
             }
         };
 
@@ -44,10 +42,16 @@ export default function Register() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userPayload), // userオブジェクトを送信
+            body: JSON.stringify(userPayload),
         });
 
         if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('token', data.token); // トークンを保存
+            setAuth({
+                isLoggedIn: true,
+                currentUser: data.user, // ログインユーザー情報を設定
+            });
             setMessage('Registration successful!');
             setFormData({
                 name: '',
@@ -57,7 +61,8 @@ export default function Register() {
                 thumbnail: '',
                 description: '',
             });
-            router.push('/users'); // 登録成功後にリダイレクト
+            router.refresh();
+            router.push('/'); // ホームページにリダイレクト
         } else {
             setMessage('Registration failed. Please try again.');
         }
@@ -104,7 +109,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="password_confirmation">Password_confirmation:</label>
+                    <label className="text-xl block mb-2" htmlFor="password_confirmation">Password Confirmation:</label>
                     <input
                         type="password"
                         id="password_confirmation"
@@ -139,7 +144,7 @@ export default function Register() {
                         rows="4"
                     />
                 </div>
-                <button className="w-full text-white bg-blue-500 hover:bg-blue-600 rounded p-3 text-xl" type="submit">登録する</button>
+                <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">登録する</button>
             </form>
             {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>

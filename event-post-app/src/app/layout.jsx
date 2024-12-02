@@ -4,7 +4,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from '../components/Header';
 import Footer from "@/components/Footer";
-import RecoilProvider from "../components/RecoilProvider";
+
 
 
 export const metadata = {
@@ -22,11 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body className={`${notoSansJP.variable} antialiased`}>
-        <RecoilProvider>
+
           <Header />
           {children}
           <Footer />
-        </RecoilProvider>
+
       </body>
     </html>
   );

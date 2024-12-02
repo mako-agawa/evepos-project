@@ -7,10 +7,10 @@ module Api
       def create
         puts "====== sessions ======="
         user = User.find_by(email: params[:email])
-        puts "====== #{@current_user} ======="
+        puts
         if user&.authenticate(params[:password])
           token = encode_token({ user_id: user.id }) # トークンを生成
-          render json: { token: token, message: 'Logged in successfully!' }, status: :ok
+          render json: { token: token, message: 'Logged in successfully!', user: user }, status: :ok
         else
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end

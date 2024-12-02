@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_10_043716) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_30_023146) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "event_id", null: false
@@ -33,6 +33,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_043716) do
     t.string "image"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "event_id"], name: "index_likes_on_user_id_and_event_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -47,4 +55,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_043716) do
 
   add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "events"
+  add_foreign_key "likes", "users"
 end

@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_many :events, dependent: :destroy  # この行を追加
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_events, through: :likes, source: :event
 
   private
 

@@ -15,7 +15,7 @@ export default function UserShow({ params }) {
   // ログイン中のユーザー情報を取得
   useEffect(() => {
     const fetchCurrentUser = async () => {
-      const authToken = localStorage.getItem("authToken");
+      const authToken = localStorage.getItem("token");
       if (authToken) {
         try {
           const res = await fetch(`${API_URL}/current_user`, {
@@ -61,7 +61,7 @@ export default function UserShow({ params }) {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("authToken")}` // 認証トークンを設定
+          "Authorization": `Bearer ${localStorage.getItem("token")}` // 認証トークンを設定
         },
       });
 
