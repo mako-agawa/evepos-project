@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+nslookup amazonlinux-2-repos-ap-northeast-1.s3.dualstack.ap-northeast-1.amazonaws.comnslookup amazonlinux-2-repos-ap-northeast-1.s3.dualstack.ap-northeast-1.amazonaws.com# frozen_string_literal: true
 
 source 'https://rubygems.org'
 

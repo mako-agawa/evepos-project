@@ -1,2 +1,4 @@
 /storage/*
 !/storage/.keep
+# Ignore .env files
+.env
