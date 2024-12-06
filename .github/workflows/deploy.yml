@@ -1,0 +1,50 @@
+name: Deploy Rails App
+
+on:
+  push:
+    branches:
+      - main # mainブランチへのpushをトリガー
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. リポジトリをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Ruby環境をセットアップ
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.4 # 使用しているRubyバージョン
+        bundler-cache: true
+
+    # 3. 必要なパッケージをインストール
+    - name: Install dependencies
+      run: |
+        bundle install --deployment --without development test
+
+    # 4. アプリケーションをビルド
+    - name: Build app
+      run: |
+        RAILS_ENV=production bundle exec rake assets:precompile
+
+    # 5. EC2にデプロイ
+    - name: Deploy to EC2
+      env:
+        AWS_HOST: ${{ secrets.AWS_HOST }}
+        AWS_USER: ${{ secrets.AWS_USER }}
+        AWS_KEY: ${{ secrets.AWS_KEY }}
+      run: |
+        echo "${AWS_KEY}" > deploy_key.pem
+        chmod 600 deploy_key.pem
+        scp -i deploy_key.pem -r . "${AWS_USER}@${AWS_HOST}:/home/${AWS_USER}/app"
+        ssh -i deploy_key.pem "${AWS_USER}@${AWS_HOST}" << EOF
+          cd /home/${AWS_USER}/app
+          bundle install --deployment --without development test
+          RAILS_ENV=production rails db:migrate
+          RAILS_ENV=production rails assets:precompile
+          sudo systemctl restart rails-app
+        EOF
