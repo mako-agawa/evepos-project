@@ -11,10 +11,10 @@ Rails.application.routes.draw do
         resources :comments, only: %i[index create destroy]
 
         # いいね機能
-        member do
-          post 'like', to: 'likes#create'
-          delete 'like', to: 'likes#destroy'
-        end
+        # member do
+        #   post 'like', to: 'likes#create'
+        #   delete 'like', to: 'likes#destroy'
+        # end
       end
 
       # セッション管理
