@@ -19732,3 +19732,50 @@ Migrating to DropLikesTable (20241207025923)
   [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
 [dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, and [36mDB_HOST[0m
 [dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, and [36mDB_HOST[0m
+[dotenv] Loaded [33m.env[0m
+Started GET "/" for 127.0.0.1 at 2024-12-07 14:56:01 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 3.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/icon.png" for 127.0.0.1 at 2024-12-07 14:56:01 +0900
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+Started GET "/" for 127.0.0.1 at 2024-12-07 14:56:16 +0900
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.2.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | GC: 0.0ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users/" for ::1 at 2024-12-07 14:58:57 +0900
+Processing by Api::V1::UsersController#index as */*
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/api/v1/users_controller.rb:18:in `index'
+Completed 200 OK in 13ms (Views: 1.1ms | ActiveRecord: 1.3ms (1 query, 0 cached) | GC: 1.1ms)
+
+
+Started POST "/api/v1/users/" for ::1 at 2024-12-07 14:59:22 +0900
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"name"=>"agawasun", "email"=>"[FILTERED]", "password"=>"[FILTERED]", "thumbnail"=>"http://example.com/image.png", "description"=>"あとで削除します"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "thumbnail", "description", "created_at", "updated_at", "authentication_token") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "agawasun"], ["email", "[FILTERED]"], ["password_digest", "[FILTERED]"], ["thumbnail", "http://example.com/image.png"], ["description", "あとで削除します"], ["created_at", "2024-12-07 05:59:22.862424"], ["updated_at", "2024-12-07 05:59:22.862424"], ["authentication_token", "[FILTERED]"]]
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/users_controller.rb:28:in `create'
+Completed 201 Created in 285ms (Views: 0.2ms | ActiveRecord: 2.4ms (1 query, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/api/v1/users/" for ::1 at 2024-12-07 14:59:27 +0900
+Processing by Api::V1::UsersController#index as */*
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/api/v1/users_controller.rb:18:in `index'
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+

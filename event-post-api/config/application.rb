@@ -14,7 +14,7 @@ module EventPost
     # CORS設定
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3000' # フロントエンドのオリジンを許可
+        origins 'http://localhost:3000', 'http://18.178.110.119' # フロントエンドのオリジンを許可
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],
