@@ -104,6 +104,7 @@ GEM
     json (2.7.2)
     jwt (2.9.3)
       base64
+    kgio (2.11.4)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
     loofah (2.22.0)
@@ -147,8 +148,6 @@ GEM
       racc
     psych (5.1.2)
       stringio
-    puma (6.4.3)
-      nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
     rack-cors (2.0.2)
@@ -190,6 +189,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
+    raindrops (0.20.1)
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
@@ -242,6 +242,9 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
+    unicorn (6.1.0)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     useragent (0.16.10)
     webrick (1.8.2)
     websocket-driver (0.7.6)
@@ -273,7 +276,6 @@ DEPENDENCIES
   dotenv-rails
   jwt
   mysql2 (~> 0.5)
-  puma (>= 5.0)
   rack-cors
   rails (~> 7.2.1, >= 7.2.1.1)
   rubocop
@@ -281,6 +283,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   sqlite3 (>= 1.4)
   tzinfo-data
+  unicorn
 
 BUNDLED WITH
    2.5.17

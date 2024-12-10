@@ -8,7 +8,7 @@ gem 'sqlite3', '>= 1.4', groups: [:development, :test] # SQLite for development 
 gem 'mysql2', '~> 0.5'                                # MySQL for production
 
 # Web Server
-gem 'puma', '>= 5.0'
+gem 'unicorn'
 
 # Authentication
 gem 'bcrypt', '~> 3.1.7'

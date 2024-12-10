@@ -1,0 +1,322 @@
+I, [2024-12-09T22:50:15.751322 #4921]  INFO -- : Refreshing Gem list
+I, [2024-12-09T22:50:16.051974 #4921]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T22:50:16.055847 #4921]  INFO -- : master process ready
+I, [2024-12-09T22:50:16.058321 #4936]  INFO -- : worker=0 ready
+I, [2024-12-09T22:50:16.058680 #4937]  INFO -- : worker=1 ready
+I, [2024-12-09T22:51:24.737013 #4921]  INFO -- : reaped #<Process::Status: pid 4937 exit 0> worker=1
+I, [2024-12-09T22:51:24.737416 #4921]  INFO -- : reaped #<Process::Status: pid 4936 exit 0> worker=0
+I, [2024-12-09T22:51:24.737665 #4921]  INFO -- : master complete
+I, [2024-12-09T22:54:45.669726 #6081]  INFO -- : Refreshing Gem list
+I, [2024-12-09T22:54:45.962037 #6081]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T22:54:45.966106 #6081]  INFO -- : master process ready
+I, [2024-12-09T22:54:45.967632 #6102]  INFO -- : worker=0 ready
+I, [2024-12-09T22:54:45.967868 #6103]  INFO -- : worker=1 ready
+bundler: failed to load command: unicorn (/Users/makotoagawa/.rbenv/versions/3.2.4/bin/unicorn)
+/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:206:in `pid=': Already running on PID:6081 (or pid=/Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid is stale) (ArgumentError)
+
+        raise ArgumentError, "Already running on PID:#{x} " \
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:138:in `start'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/bin/unicorn:128:in `<top (required)>'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/bin/unicorn:25:in `load'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/bin/unicorn:25:in `<top (required)>'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli/exec.rb:58:in `load'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli/exec.rb:58:in `kernel_load'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli/exec.rb:23:in `run'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli.rb:455:in `exec'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/vendor/thor/lib/thor/command.rb:28:in `run'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/vendor/thor/lib/thor/invocation.rb:127:in `invoke_command'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/vendor/thor/lib/thor.rb:527:in `dispatch'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli.rb:35:in `dispatch'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/vendor/thor/lib/thor/base.rb:584:in `start'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/cli.rb:29:in `start'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/exe/bundle:28:in `block in <top (required)>'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/bundler/friendly_errors.rb:117:in `with_friendly_errors'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/exe/bundle:20:in `<top (required)>'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/bin/bundle:25:in `load'
+	from /Users/makotoagawa/.rbenv/versions/3.2.4/bin/bundle:25:in `<main>'
+Exception `Errno::ESRCH' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:784 - No such process
+I, [2024-12-09T22:57:52.752211 #6926]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T22:57:53.041093 #6926]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T22:57:53.045457 #6926]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T22:57:53.047494 #6947]  INFO -- : worker=0 ready
+I, [2024-12-09T22:57:53.047586 #6948]  INFO -- : worker=1 ready
+I, [2024-12-09T22:59:03.621372 #6926]  INFO -- : reaped #<Process::Status: pid 6948 exit 0> worker=1
+I, [2024-12-09T22:59:03.621897 #6926]  INFO -- : reaped #<Process::Status: pid 6947 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T22:59:03.622485 #6926]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:00:06.713220 #7530]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:00:07.006590 #7530]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:00:07.010452 #7530]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:00:07.012540 #7551]  INFO -- : worker=0 ready
+I, [2024-12-09T23:00:07.012599 #7552]  INFO -- : worker=1 ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/delegation.rb:87 - undefined method `type_for_attribute' for class `#<Class:ActiveRecord::Base>'
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/inflector/methods.rb:290 - uninitialized constant Api::V1::User
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/inflector/methods.rb:290 - uninitialized constant Api::User
+127.0.0.1 - - [09/Dec/2024:23:00:14 +0900] "GET /api/v1/users HTTP/1.1" 200 - 0.1111
+I, [2024-12-09T23:01:05.940955 #7530]  INFO -- : reaped #<Process::Status: pid 7552 exit 0> worker=1
+I, [2024-12-09T23:01:05.941026 #7530]  INFO -- : reaped #<Process::Status: pid 7551 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T23:01:05.941094 #7530]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:04:37.225087 #8660]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:04:37.522252 #8660]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:04:37.526222 #8660]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:04:37.527773 #8681]  INFO -- : worker=0 ready
+I, [2024-12-09T23:04:37.527879 #8682]  INFO -- : worker=1 ready
+I, [2024-12-09T23:06:34.125014 #8660]  INFO -- : reaped #<Process::Status: pid 8682 exit 0> worker=1
+I, [2024-12-09T23:06:34.128751 #8660]  INFO -- : reaped #<Process::Status: pid 8681 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T23:06:34.129570 #8660]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:07:59.259791 #9511]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:07:59.547060 #9511]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:07:59.550850 #9511]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:07:59.552605 #9526]  INFO -- : worker=1 ready
+I, [2024-12-09T23:07:59.552718 #9525]  INFO -- : worker=0 ready
+I, [2024-12-09T23:09:50.881229 #9511]  INFO -- : reaped #<Process::Status: pid 9526 exit 0> worker=1
+I, [2024-12-09T23:09:50.881841 #9511]  INFO -- : reaped #<Process::Status: pid 9525 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T23:09:50.882340 #9511]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:10:13.040509 #10060]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:10:13.336405 #10060]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:10:13.340250 #10060]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:10:13.341555 #10074]  INFO -- : worker=0 ready
+I, [2024-12-09T23:10:13.341703 #10075]  INFO -- : worker=1 ready
+I, [2024-12-09T23:10:48.898160 #10060]  INFO -- : reaped #<Process::Status: pid 10075 exit 0> worker=1
+I, [2024-12-09T23:10:48.898620 #10060]  INFO -- : reaped #<Process::Status: pid 10074 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T23:10:48.899019 #10060]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:12:31.718397 #10669]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:12:32.013642 #10669]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:12:32.017974 #10669]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:12:32.019154 #10685]  INFO -- : worker=0 ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:12:32.020205 #10686]  INFO -- : worker=1 ready
+I, [2024-12-09T23:12:56.108550 #10669]  INFO -- : reaped #<Process::Status: pid 10686 exit 0> worker=1
+I, [2024-12-09T23:12:56.108873 #10669]  INFO -- : reaped #<Process::Status: pid 10685 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-09T23:12:56.109132 #10669]  INFO -- : master complete
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:782 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/tmp/pids/unicorn.pid
+I, [2024-12-09T23:12:57.683609 #10839]  INFO -- : Refreshing Gem list
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rubocop-rails-omakase-1.0.0/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rails-7.2.1.1/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:48 - No such file or directory @ rb_file_s_stat - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bootsnap-1.18.4/lib/bootsnap/load_path_cache/path.rb:33 - No such file or directory @ rb_check_realpath_internal - /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/bundler-2.5.17/lib
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/psych-5.1.2/lib/psych/class_loader.rb:70 - uninitialized constant BigDecimal
+Using Ext extension for JSON.
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/concurrent_ruby_ext
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- concurrent/3.2/concurrent_ruby_ext
+Exception `TypeError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.2.1.1/lib/active_support/core_ext/object/duplicable.rb:32 - allocator undefined for UnboundMethod
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- prism
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- rbnacl
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.local
+Exception `Errno::ENOENT' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/dotenv-3.1.4/lib/dotenv/environment.rb:22 - No such file or directory @ rb_sysopen - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/.env.development
+Exception `LoadError' at <internal:/Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/site_ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:37 - cannot load such file -- tzinfo/data
+Exception `Errno::ENOTTY' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/3.2.0/pp.rb:77 - Inappropriate ioctl for device - /Users/makotoagawa/Documents/dev/apprentice/original-product/event-post-api/log/unicorn.stdout.log
+I, [2024-12-09T23:12:57.971257 #10839]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-09T23:12:57.975367 #10839]  INFO -- : master process ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:12:57.976883 #10853]  INFO -- : worker=0 ready
+Exception `NameError' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:708 - uninitialized constant Unicorn::Waiter
+I, [2024-12-09T23:12:57.977547 #10854]  INFO -- : worker=1 ready
+D, [2024-12-10T00:00:58.871991 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T00:48:50.703963 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T01:47:40.230162 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T02:04:56.297937 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T03:06:05.829383 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T03:19:44.613467 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T03:51:53.643782 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T04:13:33.372793 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T05:18:55.278250 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T06:09:27.287205 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T06:52:05.762835 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T07:42:20.280158 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T08:37:24.579889 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T09:29:33.214008 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T09:54:53.807402 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T10:39:26.867612 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T11:14:02.196712 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T11:40:31.346679 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T11:59:00.721783 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T12:39:34.195978 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T13:07:23.629244 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+D, [2024-12-10T13:10:00.228787 #10839] DEBUG -- : waiting 31.0s after suspend/hibernation
+I, [2024-12-10T13:11:20.649644 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.475074 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.483579 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.499921 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.509175 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.518107 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.527541 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.536109 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.545845 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.558130 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.567179 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.588885 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.609879 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:11:26.639464 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.020841 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.054466 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.096513 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.404122 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.438458 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.463364 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.488923 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:31.516236 #10839]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:14:33.628680 #10839]  INFO -- : reaped #<Process::Status: pid 10854 exit 0> worker=1
+I, [2024-12-10T13:14:33.630029 #10839]  INFO -- : reaped #<Process::Status: pid 10853 exit 0> worker=0
+Exception `Errno::ECHILD' at /Users/makotoagawa/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/unicorn-6.1.0/lib/unicorn/http_server.rb:400 - No child processes
+I, [2024-12-10T13:14:33.630416 #10839]  INFO -- : master complete
+I, [2024-12-10T13:14:48.113006 #15404]  INFO -- : Refreshing Gem list
+I, [2024-12-10T13:14:48.415671 #15404]  INFO -- : listening on addr=0.0.0.0:3001 fd=12
+I, [2024-12-10T13:14:48.419352 #15404]  INFO -- : master process ready
+I, [2024-12-10T13:14:48.420912 #15419]  INFO -- : worker=1 ready
+I, [2024-12-10T13:14:48.420984 #15418]  INFO -- : worker=0 ready
+I, [2024-12-10T13:17:17.326827 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.352519 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.394325 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.669488 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.708642 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.743464 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:17:17.777938 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:18:04.740317 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:20:07.220407 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:20:09.052182 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:20:09.218644 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:20:09.255386 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:40:15.119903 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:40:18.066418 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:41:02.695092 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:41:03.099804 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:41:15.253432 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:41:50.523667 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:42:50.147751 #15404]  INFO -- : SIGWINCH ignored because we're not daemonized
+I, [2024-12-10T13:42:58.046815 #15404]  INFO -- : reaped #<Process::Status: pid 15419 exit 0> worker=1
+I, [2024-12-10T13:42:58.046986 #15404]  INFO -- : reaped #<Process::Status: pid 15418 exit 0> worker=0
+I, [2024-12-10T13:42:58.047113 #15404]  INFO -- : master complete
