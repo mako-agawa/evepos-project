@@ -5,7 +5,7 @@ gem 'rails', '~> 7.2.1', '>= 7.2.1.1'
 
 # Database
 gem 'sqlite3', '>= 1.4', groups: [:development, :test] # SQLite for development and test
-gem 'mysql2', '~> 0.5'                                # MySQL for production
+gem 'mysql2', '>= 0.5'                                # MySQL for production
 
 # Web Server
 gem 'unicorn'
@@ -23,6 +23,9 @@ gem 'bootsnap', require: false
 # Cross-Origin Resource Sharing (CORS)
 gem 'rack-cors', require: 'rack/cors'
 
+# Environment Variables for All Environments
+gem 'dotenv-rails', require: false
+
 # Development and Test Tools
 group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude' # Debugging tool
@@ -30,5 +33,4 @@ group :development, :test do
   gem 'rubocop-rails-omakase', require: false                     # Ruby/ Rails linting
   gem 'rubocop', require: false                                   # General linting
   gem 'rubocop-rails', require: false                             # Rails-specific linting
-  gem 'dotenv-rails', groups: [:development, :test]              # Environment variable management
 end
