@@ -19,21 +19,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 2️⃣ RubyとNode.jsのセットアップ
+    # 2️⃣ RubyとNode.jsのセットアップ (このセクションは必須ではありません)
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.2.4'
 
-    # 3️⃣ AWS CLIをセットアップ
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-1
-
-    # 4️⃣ SSHでEC2に接続し、アプリをデプロイ
+    # 3️⃣ SSHでEC2に接続し、アプリをデプロイ
     - name: Deploy to EC2
       uses: appleboy/ssh-action@v0.1.6
       with:
@@ -41,18 +33,23 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /home/ec2-user/evepos-project/event-post-api
+        
+          export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
+          eval "$(rbenv init -)"
+
+          cd /home/***/evepos-project/event-post-api
+
+          git reset --hard HEAD
           git pull origin main
+
           bundle install --without development test
+
           RAILS_ENV=production bundle exec rake db:migrate
+
+          if pgrep -f 'unicorn.*production' > /dev/null; then
+            pkill -f 'unicorn.*production'
+          fi
+
           RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D
 
-    # 5️⃣ Nginxをリロードして、アプリケーションを起動
-    - name: Reload Nginx
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
           sudo systemctl restart nginx
