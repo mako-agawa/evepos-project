@@ -1,50 +1,58 @@
-name: Deploy Rails App
+name: CI/CD Deploy to AWS
 
 on:
   push:
     branches:
-      - main # mainブランチへのpushをトリガー
+      - main
 
 jobs:
   deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+
     steps:
-    # 1. リポジトリをチェックアウト
-    - name: Checkout code
+    # 1️⃣ GitHubリポジトリをチェックアウト
+    - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 2. Ruby環境をセットアップ
-    - name: Set up Ruby
+    # 2️⃣ RubyとNode.jsのセットアップ
+    - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2.4 # 使用しているRubyバージョン
-        bundler-cache: true
+        ruby-version: '3.2.4'
 
-    # 3. 必要なパッケージをインストール
-    - name: Install dependencies
-      run: |
-        bundle install --deployment --without development test
+    # 3️⃣ AWS CLIをセットアップ
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: ap-northeast-1
 
-    # 4. アプリケーションをビルド
-    - name: Build app
-      run: |
-        RAILS_ENV=production bundle exec rake assets:precompile
-
-    # 5. EC2にデプロイ
+    # 4️⃣ SSHでEC2に接続し、アプリをデプロイ
     - name: Deploy to EC2
-      env:
-        AWS_HOST: ${{ secrets.AWS_HOST }}
-        AWS_USER: ${{ secrets.AWS_USER }}
-        AWS_KEY: ${{ secrets.AWS_KEY }}
-      run: |
-        echo "${AWS_KEY}" > deploy_key.pem
-        chmod 600 deploy_key.pem
-        scp -i deploy_key.pem -r . "${AWS_USER}@${AWS_HOST}:/home/${AWS_USER}/app"
-        ssh -i deploy_key.pem "${AWS_USER}@${AWS_HOST}" << EOF
-          cd /home/${AWS_USER}/app
-          bundle install --deployment --without development test
-          RAILS_ENV=production rails db:migrate
-          RAILS_ENV=production rails assets:precompile
-          sudo systemctl restart rails-app
-        EOF
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /home/ec2-user/evepos-project/event-post-api
+          git pull origin main
+          bundle install --without development test
+          RAILS_ENV=production bundle exec rake db:migrate
+          RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D
+
+    # 5️⃣ Nginxをリロードして、アプリケーションを起動
+    - name: Reload Nginx
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          sudo systemctl restart nginx
