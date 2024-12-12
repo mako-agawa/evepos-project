@@ -15,17 +15,16 @@ jobs:
       EC2_USER: ${{ secrets.EC2_USER }}
 
     steps:
-    # 1️⃣ GitHubリポジトリをチェックアウト
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 2️⃣ RubyとNode.jsのセットアップ (このセクションは必須ではありません)
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
+    - name: Setup AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        ruby-version: '3.2.4'
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
 
-    # 3️⃣ SSHでEC2に接続し、アプリをデプロイ
     - name: Deploy to EC2
       uses: appleboy/ssh-action@v0.1.6
       with:
@@ -37,12 +36,11 @@ jobs:
           export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
           eval "$(rbenv init -)"
     
-          cd /home/***/evepos-project/event-post-api
+          cd /home/${{ secrets.EC2_USER }}/evepos-project/event-post-api
     
           git reset --hard HEAD
           git pull origin main
     
-          # 推奨の新しい方法
           bundle config set without 'development test'
           bundle install
     
