@@ -32,24 +32,26 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        command_timeout: 20m
         script: |
-        
           export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
           eval "$(rbenv init -)"
-
+    
           cd /home/***/evepos-project/event-post-api
-
+    
           git reset --hard HEAD
           git pull origin main
-
-          bundle install --without development test
-
+    
+          # 推奨の新しい方法
+          bundle config set without 'development test'
+          bundle install
+    
           RAILS_ENV=production bundle exec rake db:migrate
-
+    
           if pgrep -f 'unicorn.*production' > /dev/null; then
             pkill -f 'unicorn.*production'
           fi
-
+    
           RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D
-
+    
           sudo systemctl restart nginx
