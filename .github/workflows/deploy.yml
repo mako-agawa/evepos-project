@@ -25,30 +25,51 @@ jobs:
           ruby-version: '3.2.4'
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 40m
-          script: |
-            export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
-            eval "$(rbenv init -)"
+  uses: appleboy/ssh-action@v0.1.6
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ${{ secrets.EC2_USER }}
+    key: ${{ secrets.SSH_PRIVATE_KEY }}
+    command_timeout: 60m
+    script: |
+      export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
+      eval "$(rbenv init -)"
+      
+      echo "🎉 Starting deployment..."
 
-            cd /home/***/evepos-project/event-post-api
+      cd /home/***/evepos-project/event-post-api
+      echo "📁 Changed directory to /home/***/evepos-project/event-post-api"
 
-            git reset --hard HEAD
-            git pull origin main
+      git reset --hard HEAD
+      echo "🔄 Code reset complete"
+      git pull origin main
+      echo "🔄 Code updated to latest version"
 
-            bundle config set without 'development test'
-            bundle install
+      bundle config set without 'development test'
+      echo "📦 Installing gems..."
+      bundle install
+      echo "✅ Gems installed successfully"
 
-            RAILS_ENV=production bundle exec rake db:migrate
+      echo "📅 Running database migrations..."
+      RAILS_ENV=production bundle exec rake db:migrate
+      echo "✅ Migrations complete"
 
-            if pgrep -f 'unicorn.*production' > /dev/null; then
-              pkill -f 'unicorn.*production'
-            fi
+      echo "🛑 Stopping existing Unicorn process..."
+      if [ -f /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
+        kill -QUIT $(cat /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid)
+        sleep 5
+      else
+        if pgrep -f 'unicorn.*production' > /dev/null; then
+          pkill -f 'unicorn.*production'
+          sleep 5
+        fi
+      fi
+      echo "✅ Unicorn process stopped"
 
-            RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D
+      echo "🚀 Starting Unicorn server..."
+      RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D &
+      echo "✅ Unicorn started successfully"
 
-            sudo systemctl restart nginx
+      echo "🔄 Restarting Nginx..."
+      sudo systemctl restart nginx
+      echo "✅ Nginx restarted successfully"
