@@ -9,67 +9,68 @@ jobs:
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣ GitHubリポジトリのチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Cache gems
-        uses: actions/cache@v3
-        with:
-          path: ~/.bundle
-          key: ${{ runner.os }}-gemfile-${{ hashFiles('**/Gemfile.lock') }}
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.4'
-
+      # 2️⃣ EC2へのSSH接続とデプロイ
       - name: Deploy to EC2
-  uses: appleboy/ssh-action@v0.1.6
-  with:
-    host: ${{ secrets.EC2_HOST }}
-    username: ${{ secrets.EC2_USER }}
-    key: ${{ secrets.SSH_PRIVATE_KEY }}
-    command_timeout: 60m
-    script: |
-      export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
-      eval "$(rbenv init -)"
-      
-      echo "🎉 Starting deployment..."
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 60m
+          script: |
+            echo "🎉 Starting deployment..."
 
-      cd /home/***/evepos-project/event-post-api
-      echo "📁 Changed directory to /home/***/evepos-project/event-post-api"
+            # PATHの設定
+            source ~/.bashrc
+            export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
+            eval "$(rbenv init -)"
+            
+            # 1️⃣ ディレクトリ移動
+            cd /home/***/evepos-project/event-post-api
+            echo "📁 Changed directory to /home/***/evepos-project/event-post-api"
 
-      git reset --hard HEAD
-      echo "🔄 Code reset complete"
-      git pull origin main
-      echo "🔄 Code updated to latest version"
+            # 2️⃣ コードの更新
+            git reset --hard HEAD
+            echo "🔄 Code reset complete"
+            git pull origin main
+            echo "🔄 Code updated to latest version"
 
-      bundle config set without 'development test'
-      echo "📦 Installing gems..."
-      bundle install
-      echo "✅ Gems installed successfully"
+            # 3️⃣ Bundlerのインストール
+            bundle config set without 'development test'
+            echo "📦 Installing gems..."
+            bundle install --quiet
+            echo "✅ Gems installed successfully"
 
-      echo "📅 Running database migrations..."
-      RAILS_ENV=production bundle exec rake db:migrate
-      echo "✅ Migrations complete"
+            # 4️⃣ データベースのマイグレーション
+            echo "📅 Running database migrations..."
+            RAILS_ENV=production bundle exec rake db:migrate
+            echo "✅ Migrations complete"
 
-      echo "🛑 Stopping existing Unicorn process..."
-      if [ -f /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
-        kill -QUIT $(cat /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid)
-        sleep 5
-      else
-        if pgrep -f 'unicorn.*production' > /dev/null; then
-          pkill -f 'unicorn.*production'
-          sleep 5
-        fi
-      fi
-      echo "✅ Unicorn process stopped"
+            # 5️⃣ Unicornの停止
+            echo "🛑 Stopping existing Unicorn process..."
+            if [ -f /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
+              kill -QUIT $(cat /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid)
+              sleep 5
+            else
+              if pgrep -f 'unicorn.*production' > /dev/null; then
+                pkill -f 'unicorn.*production'
+                sleep 5
+              fi
+            fi
+            echo "✅ Unicorn process stopped"
 
-      echo "🚀 Starting Unicorn server..."
-      RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D &
-      echo "✅ Unicorn started successfully"
+            # 6️⃣ Unicornの起動
+            echo "🚀 Starting Unicorn server..."
+            nohup RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D > unicorn.log 2>&1 &
+            echo "✅ Unicorn started successfully"
 
-      echo "🔄 Restarting Nginx..."
-      sudo systemctl restart nginx
-      echo "✅ Nginx restarted successfully"
+            # 7️⃣ Nginxの再起動
+            echo "🔄 Restarting Nginx..."
+            sudo systemctl restart nginx
+            echo "✅ Nginx restarted successfully"
