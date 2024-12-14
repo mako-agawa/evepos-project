@@ -19,7 +19,8 @@ module EventPost
     # CORSの設定
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://www.evepos.net', 'http://localhost:3000'
+        origins '*'
+        # origins 'https://www.evepos.net', 'http://localhost:3000'
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],
