@@ -275,7 +275,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   jwt
-  mysql2 (~> 0.5)
+  mysql2 (>= 0.5)
   rack-cors
   rails (~> 7.2.1, >= 7.2.1.1)
   rubocop
