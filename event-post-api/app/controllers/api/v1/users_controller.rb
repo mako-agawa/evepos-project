@@ -1,8 +1,8 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :authenticate_user, only: [:current_user] # 認証が必要
-      skip_before_action :authenticate_user, only: [:create, :index, :show] # 必要に応じてアクションをスキップ
+      # 認証が不要なアクション
+      skip_before_action :authenticate_user, only: [:create, :index, :show]
 
       def current_user
         if @current_user
@@ -11,7 +11,6 @@ module Api
           render json: { error: 'Not authenticated' }, status: :unauthorized
         end
       end
-
 
       def index
         users = User.all
@@ -60,7 +59,7 @@ module Api
       private
 
       def encode_token(payload)
-        JWT.encode(payload, 'your_secret_key', 'HS256')
+        JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
       end
 
       def user_params
