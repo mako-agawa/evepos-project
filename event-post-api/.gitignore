@@ -1,4 +1,24 @@
+# ストレージファイルの無視
 /storage/*
 !/storage/.keep
-# Ignore .env files
+
+# .env ファイルの無視
 .env
+.env.local
+.env.production
+.env.development
+.env.test
+
+# バンドルディレクトリの無視
+/vendor/bundle/
+
+# ログファイルの無視
+/log/*.log
+
+# 一時ファイルやキャッシュの無視
+*.swp
+*.swo
+*.DS_Store
+*~
+/tmp
+/cache
