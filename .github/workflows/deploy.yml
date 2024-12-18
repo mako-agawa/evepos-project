@@ -10,7 +10,7 @@ jobs:
     name: Deploy to EC2
     runs-on: ubuntu-latest
 
-     env:
+    env:  # インデントを修正 (2スペース)
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # ここでRAILS_MASTER_KEYを設定
 
     steps:
@@ -35,8 +35,8 @@ jobs:
             eval "$(rbenv init -)"
             
             # 1️⃣ ディレクトリ移動
-            cd /home/***/evepos-project/event-post-api
-            echo "📁 Changed directory to /home/***/evepos-project/event-post-api"
+            cd /home/ec2-user/evepos-project/event-post-api
+            echo "📁 Changed directory to /home/ec2-user/evepos-project/event-post-api"
 
             # 2️⃣ コードの更新
             git reset --hard HEAD
@@ -57,8 +57,8 @@ jobs:
 
             # 5️⃣ Unicornの停止
             echo "🛑 Stopping existing Unicorn process..."
-            if [ -f /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
-              kill -QUIT $(cat /home/***/evepos-project/event-post-api/tmp/pids/unicorn.pid)
+            if [ -f /home/ec2-user/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
+              kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/unicorn.pid)
               sleep 5
             else
               if pgrep -f 'unicorn.*production' > /dev/null; then
