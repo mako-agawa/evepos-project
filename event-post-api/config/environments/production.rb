@@ -6,6 +6,8 @@ Rails.application.configure do
   # eager_loadをtrueにして、すべてのアプリケーションのコードが起動時にロードされるようにする
   config.eager_load = true
 
+  config.secret_key_base = ENV["SECRET_KEY_BASE"] || Rails.application.credentials.secret_key_base
+
   # ログのフォーマット設定
   config.logger = ActiveSupport::Logger.new(Rails.root.join('log', 'production.log'), 1, 50.megabytes)
   config.log_tags = [:request_id]
