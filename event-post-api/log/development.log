@@ -19933,3 +19933,6 @@ Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.2ms (1 query, 0 cached) 
 [dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, [36mDB_HOST[0m, and [36mJWT_SECRET_KEY[0m
 [dotenv] Loaded [33m.env[0m
 [dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, [36mDB_HOST[0m, and [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
