@@ -11,7 +11,6 @@ pid "/home/ec2-user/evepos-project/event-post-api/tmp/pids/unicorn.pid"
 stderr_path "/home/ec2-user/evepos-project/event-post-api/log/unicorn.stderr.log"
 stdout_path "/home/ec2-user/evepos-project/event-post-api/log/unicorn.stdout.log"
 
-
 before_fork do |server, worker|
   old_pid = "#{server.config[:pid]}.oldbin"
   if File.exist?(old_pid) && server.pid != old_pid
@@ -25,12 +24,22 @@ before_fork do |server, worker|
   # ソケットファイルが存在する場合は削除
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
   if File.exist?(socket_path)
-    File.unlink(socket_path)
+    begin
+      File.unlink(socket_path)
+    rescue Errno::ENOENT, Errno::EACCES
+      # ファイル削除時にエラーが発生しても無視
+    end
   end
 end
 
 after_fork do |server, worker|
-  # ソケットファイルの所有者とグループを nginx に設定
+  # ソケットファイルの所有者とグループを設定
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
-File.chmod(0775, socket_path) if File.exist?(socket_path)
+  if File.exist?(socket_path)
+    begin
+      File.chmod(0775, socket_path)
+    rescue Errno::ENOENT, Errno::EACCES
+      # 権限変更時にエラーが発生しても無視
+    end
+  end
 end
