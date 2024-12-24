@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # ヘルスチェックエンドポイント
+  get '/health_check', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
+
   namespace :api do
     namespace :v1 do
       # ユーザーリソース
