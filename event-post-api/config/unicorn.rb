@@ -32,6 +32,6 @@ end
 after_fork do |server, worker|
   # ソケットファイルの所有者とグループを nginx に設定
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
-  File.chown(nil, Process.gid, socket_path)
+  File.chown(Process.uid, Process.gid, socket_path)
   File.chmod(0775, socket_path)
 end
