@@ -12,6 +12,6 @@ workers 2
 stdout_redirect "/home/ec2-user/evepos-project/event-post-api/log/puma.stdout.log", "/home/ec2-user/evepos-project/event-post-api/log/puma.stderr.log", true
 
 # デーモン化
-daemonize false
+daemonize true
 
 preload_app!
