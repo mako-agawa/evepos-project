@@ -17,29 +17,18 @@ before_fork do |server, worker|
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
-      # プロセスが存在しない場合は無視
     end
   end
 
-  # ソケットファイルが存在する場合は削除
+  # ソケットファイルの存在を確認し、削除
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
   if File.exist?(socket_path)
-    begin
-      File.unlink(socket_path)
-    rescue Errno::ENOENT, Errno::EACCES
-      # ファイル削除時にエラーが発生しても無視
-    end
+    File.unlink(socket_path)
   end
 end
 
 after_fork do |server, worker|
-  # ソケットファイルの所有者とグループを設定
+  # ソケットファイルの権限を設定
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
-  if File.exist?(socket_path)
-    begin
-      File.chmod(0775, socket_path)
-    rescue Errno::ENOENT, Errno::EACCES
-      # 権限変更時にエラーが発生しても無視
-    end
-  end
+  File.chmod(0775, socket_path) if File.exist?(socket_path)
 end
