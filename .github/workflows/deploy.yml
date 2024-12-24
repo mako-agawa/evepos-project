@@ -10,8 +10,8 @@ jobs:
     name: Deploy to EC2
     runs-on: ubuntu-latest
 
-    env:  # インデントを修正 (2スペース)
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # ここでRAILS_MASTER_KEYを設定
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     steps:
       # 1️⃣ GitHubリポジトリのチェックアウト
@@ -55,23 +55,23 @@ jobs:
             RAILS_ENV=production bundle exec rake db:migrate
             echo "✅ Migrations complete"
 
-            # 5️⃣ Unicornの停止
-            echo "🛑 Stopping existing Unicorn process..."
-            if [ -f /home/ec2-user/evepos-project/event-post-api/tmp/pids/unicorn.pid ]; then
-              kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/unicorn.pid)
+            # 5️⃣ Pumaの停止
+            echo "🛑 Stopping existing Puma process..."
+            if [ -f /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid ]; then
+              kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid)
               sleep 5
             else
-              if pgrep -f 'unicorn.*production' > /dev/null; then
-                pkill -f 'unicorn.*production'
+              if pgrep -f 'puma.*production' > /dev/null; then
+                pkill -f 'puma.*production'
                 sleep 5
               fi
             fi
-            echo "✅ Unicorn process stopped"
+            echo "✅ Puma process stopped"
 
-            # 6️⃣ Unicornの起動
-            echo "🚀 Starting Unicorn server..."
-            nohup RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -E production -D > unicorn.log 2>&1 &
-            echo "✅ Unicorn started successfully"
+            # 6️⃣ Pumaの起動
+            echo "🚀 Starting Puma server..."
+            RAILS_ENV=production bundle exec puma -C config/puma.rb --daemon
+            echo "✅ Puma started successfully"
 
             # 7️⃣ Nginxの再起動
             echo "🔄 Restarting Nginx..."
