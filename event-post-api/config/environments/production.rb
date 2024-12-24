@@ -17,11 +17,14 @@ Rails.application.configure do
   config.hosts << '18.178.110.119'  # EC2のパブリックIPアドレス
   config.hosts << '127.0.0.1'       # ローカルホスト(IPv4)の許可
   config.hosts << '::1'             # ローカルホスト(IPv6)の許可
+  config.hosts << 'api.evepos.net'  # APIのドメインを許可
 
   # ホストの認証をカスタマイズ
   config.host_authorization = {
     exclude: ->(request) {
-      request.path == '/up' || ['127.0.0.1', '::1', '18.178.110.119'].include?(request.remote_ip)
+      request.path == '/up' ||
+      ['127.0.0.1', '::1', '18.178.110.119'].include?(request.remote_ip) ||
+      request.host == 'api.evepos.net'  # ホスト名で許可
     }
   }
 
