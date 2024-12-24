@@ -26,12 +26,20 @@ before_fork do |server, worker|
     end
   end
 
-  # ソケットファイルの権限を修正
-  File.chmod(0775, "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock")
+  # ソケットファイルが存在する場合は削除
+  socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
+  if File.exist?(socket_path)
+    File.unlink(socket_path)
+  end
 end
 
 # フォーク後の処理
 after_fork do |server, worker|
   # ActiveRecord の接続を再接続
   defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
+
+  # ソケットファイルの権限を修正
+  socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
+  File.chmod(0775, socket_path)
+  File.chown(nil, Process.gid, socket_path)
 end
