@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      root 'events#index' # 例：Events コントローラの index アクションをルートに設定
       # ユーザーリソース
       resources :users, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json }
       get '/current_user', to: 'users#current_user', defaults: { format: :json }
