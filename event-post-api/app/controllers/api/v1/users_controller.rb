@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      # 認証が不要なアクション
+      before_action :check_format # JSONフォーマットを強制するフィルタ
       skip_before_action :authenticate_user, only: [:create, :index, :show]
 
       def current_user
@@ -64,6 +64,10 @@ module Api
 
       def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation, :thumbnail, :description)
+      end
+
+      def check_format
+        render json: { error: 'Unsupported format' }, status: :not_acceptable unless request.format.json?
       end
     end
   end
