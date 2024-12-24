@@ -1,5 +1,5 @@
 # ソケットの設定
-listen "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
+listen "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock", backlog: 64
 worker_processes 2
 timeout 30
 preload_app true
