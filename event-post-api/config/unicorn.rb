@@ -28,7 +28,10 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  # ソケットファイルの権限を設定
   socket_path = "/home/ec2-user/evepos-project/event-post-api/tmp/sockets/unicorn.sock"
-  File.chmod(0775, socket_path) if File.exist?(socket_path)
+  if File.exist?(socket_path)
+    File.chmod(0775, socket_path)
+  else
+    puts "Warning: Socket file #{socket_path} does not exist after fork."
+  end
 end
