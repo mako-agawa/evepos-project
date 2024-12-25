@@ -11,7 +11,7 @@ Rails.application.configure do
   # ログのフォーマット設定
   config.logger = ActiveSupport::Logger.new(Rails.root.join('log', 'production.log'), 1, 50.megabytes)
   config.log_tags = [:request_id]
-  config.log_level = :info
+  config.log_level = :debug
 
   # ホストの許可
   config.hosts << '18.178.110.119'  # EC2のパブリックIPアドレス
