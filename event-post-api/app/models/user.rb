@@ -3,8 +3,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
-  
+  validates :password, presence: true, length: { minimum: 6 }
+
   before_create :generate_authentication_token
 
   has_many :events, dependent: :destroy  # この行を追加
