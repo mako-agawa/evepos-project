@@ -1,5 +1,7 @@
 # ソケットの設定
-bind "unix:///home/ec2-user/evepos-project/event-post-api/tmp/sockets/puma.sock"
+# bind "unix:///home/ec2-user/evepos-project/event-post-api/tmp/sockets/puma.sock"
+# TCPポートでのバインドに変更
+bind "tcp://0.0.0.0:3000"
 
 # PIDファイル
 pidfile "/home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid"
