@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  # ヘルスチェックエンドポイント
+  root to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
   get '/health_check', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
-
+  
   namespace :api do
     namespace :v1 do
       root 'events#index' # 例：Events コントローラの index アクションをルートに設定
