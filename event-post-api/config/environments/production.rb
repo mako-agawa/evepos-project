@@ -44,7 +44,7 @@ Rails.application.configure do
   config.active_record.logger = nil
 
   # 本番環境のSSLリダイレクトを無効化（ロードバランサーがSSLを管理する場合）
-  config.force_ssl = false
+  # config.force_ssl = false
 
   # I18nのフォールバックを有効化
   config.i18n.fallbacks = true
