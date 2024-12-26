@@ -18,6 +18,7 @@ Rails.application.configure do
   config.hosts << '127.0.0.1'       # ローカルホスト(IPv4)の許可
   config.hosts << '::1'             # ローカルホスト(IPv6)の許可
   config.hosts << 'api.evepos.net'  # APIのドメインを許可
+  config.hosts << "evepos-elb-1733878306.ap-northeast-1.elb.amazonaws.com"
 
   # ホストの認証をカスタマイズ
   config.host_authorization = {
