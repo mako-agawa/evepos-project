@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :check_format # JSONフォーマットを強制するフィルタ
-      skip_before_action :authenticate_user, only: [:create, :index, :show]
+      skip_before_action :authenticate_user, only: %i[create index show]
 
       def current_user
         if @current_user
@@ -25,7 +25,10 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          render json: { message: 'User created successfully', user: user }, status: :created
+          render json: {
+            message: 'User created successfully',
+            user: user.slice(:id, :name, :email, :thumbnail, :description)
+          }, status: :created
         else
           Rails.logger.error("User creation failed: #{user.errors.full_messages}")
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
