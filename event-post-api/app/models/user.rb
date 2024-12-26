@@ -15,6 +15,7 @@ class User < ApplicationRecord
   private
 
   def generate_authentication_token
-    self.authentication_token = SecureRandom.hex(10) # 20文字のランダムなトークンを生成
+    payload = { user_id: self.id, exp: 1.year.from_now.to_i } # 有効期限を1年後に設定
+    self.authentication_token = JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
   end
 end
