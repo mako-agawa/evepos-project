@@ -14,8 +14,6 @@ stdout_redirect "/home/ec2-user/evepos-project/event-post-api/log/puma.stdout.lo
 # preload_app を有効化
 preload_app!
 
-daemonize true
-
 # worker 起動時の設定
 on_worker_boot do
   require "active_record"
