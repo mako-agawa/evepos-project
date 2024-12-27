@@ -27,6 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           command_timeout: 60m
           script: |
+            set -x  # 詳細ログの有効化
             echo "🎉 Starting deployment..."
 
             # PATHの設定
@@ -61,19 +62,20 @@ jobs:
               kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid)
               sleep 5
             else
-              if pgrep -f 'puma.*production' > /dev/null; then
-                pkill -f 'puma.*production'
-                sleep 5
-              fi
+              pkill -9 -f 'puma.*production' || echo "No running Puma process found."
+              sleep 5
             fi
             echo "✅ Puma process stopped"
 
             # 6️⃣ Pumaの起動
             echo "🚀 Starting Puma server..."
-            RAILS_ENV=production bundle exec puma -C config/puma.rb --daemon
+            RAILS_ENV=production bundle exec puma -C config/puma.rb --daemon || echo "Puma failed to start"
+            tail -n 20 log/production.log  # Puma起動後のログを確認
             echo "✅ Puma started successfully"
 
             # 7️⃣ Nginxの再起動
             echo "🔄 Restarting Nginx..."
-            sudo systemctl restart nginx
+            sudo systemctl restart nginx || echo "Failed to restart Nginx"
             echo "✅ Nginx restarted successfully"
+
+            echo "🚀 Deployment complete"
