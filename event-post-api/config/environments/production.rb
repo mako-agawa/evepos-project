@@ -3,6 +3,9 @@
 require 'active_support/core_ext/numeric/bytes'
 
 Rails.application.configure do
+  # Rails の master.key または RAILS_MASTER_KEY を強制的に使用
+  config.require_master_key = true
+
   # eager_loadをtrueにして、すべてのアプリケーションのコードが起動時にロードされるようにする
   config.eager_load = true
 
