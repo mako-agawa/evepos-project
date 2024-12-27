@@ -6,6 +6,7 @@ require 'rails/all'
 # dotenvを使って環境変数を読み込む
 require 'dotenv/load'
 
+
 Bundler.require(*Rails.groups)
 
 module EventPost
