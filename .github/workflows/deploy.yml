@@ -25,6 +25,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
           command_timeout: 60m
           script: |
             set -x  # 詳細ログの有効化
@@ -34,7 +35,7 @@ jobs:
             source ~/.bashrc
             export PATH="$PATH:$HOME/.rbenv/shims:$HOME/.rbenv/bin"
             eval "$(rbenv init -)"
-            
+
             # 1️⃣ ディレクトリ移動
             cd /home/ec2-user/evepos-project/event-post-api
             echo "📁 Changed directory to /home/ec2-user/evepos-project/event-post-api"
@@ -59,18 +60,18 @@ jobs:
             # 5️⃣ Pumaの停止
             echo "🛑 Stopping existing Puma process..."
             if [ -f /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid ]; then
-              kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid)
+              kill -QUIT $(cat /home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid) || echo "Failed to stop Puma process gracefully."
               sleep 5
             else
-              pkill -9 -f 'puma.*production' || echo "No running Puma process found."
+              pkill -f 'puma.*production' && echo "Puma stopped with pkill" || echo "No running Puma process found."
               sleep 5
             fi
             echo "✅ Puma process stopped"
 
             # 6️⃣ Pumaの起動
             echo "🚀 Starting Puma server..."
-            RAILS_ENV=production bundle exec puma -C config/puma.rb --daemon || echo "Puma failed to start"
-            tail -n 20 log/production.log  # Puma起動後のログを確認
+            RAILS_ENV=production bundle exec puma -C config/puma.rb --daemon || echo "Failed to start Puma server."
+            tail -n 20 log/production.log  # 起動後のログ確認
             echo "✅ Puma started successfully"
 
             # 7️⃣ Nginxの再起動
