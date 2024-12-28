@@ -1,5 +1,5 @@
 # TCPポートでのバインド
-bind "tcp://0.0.0.0:3000"
+bind "tcp://0.0.0.0:3001"
 
 # PIDファイル
 pidfile "/home/ec2-user/evepos-project/event-post-api/tmp/pids/puma.pid"
