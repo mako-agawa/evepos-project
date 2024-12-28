@@ -4,9 +4,15 @@ threads threads_count, threads_count
 
 preload_app!
 
-# rackup DefaultRackup は削除
+# Pumaが待ち受けるポートを指定
 port ENV.fetch('PORT') { 3001 }
+bind 'tcp://127.0.0.1:3001'
+
+# 環境設定
 environment ENV.fetch('RAILS_ENV') { 'production' }
 
+# PIDファイルの場所を指定
 pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
+
+# 再起動用のプラグインを有効化
 plugin :tmp_restart
