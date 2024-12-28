@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
+  # デフォルトのルート
   root to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
+
+  # ヘルスチェック用
   get '/health_check', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
-  
+
+  # デバッグ用ルート
+  get '/debug', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['Debug endpoint reached']] }
+
+  # APIエンドポイント
   namespace :api do
     namespace :v1 do
-      root 'events#index' # 例：Events コントローラの index アクションをルートに設定
+      # デフォルトのルート (必要に応じて変更可能)
+      root 'events#index'
+
       # ユーザーリソース
-      resources :users, only: [:index, :show, :create, :update, :destroy], defaults: { format: :json }
+      resources :users, only: %i[index show create update destroy], defaults: { format: :json }
       get '/current_user', to: 'users#current_user', defaults: { format: :json }
 
       # イベントリソース
@@ -14,7 +23,7 @@ Rails.application.routes.draw do
         # コメントリソースをネスト
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
 
-        # いいね機能
+        # いいね機能（必要なら有効化）
         # member do
         #   post 'like', to: 'likes#create'
         #   delete 'like', to: 'likes#destroy'
