@@ -5,8 +5,8 @@ threads threads_count, threads_count
 preload_app!
 
 # Pumaが待ち受けるポートを指定
-port ENV.fetch('PORT') { 3001 }
-bind 'tcp://127.0.0.1:3001'
+# 既存のポート設定を削除し、SSLバインディングを記述
+bind 'ssl://127.0.0.1:3001?key=/etc/letsencrypt/live/api.evepos.net/privkey.pem&cert=/etc/letsencrypt/live/api.evepos.net/fullchain.pem'
 
 # 環境設定
 environment ENV.fetch('RAILS_ENV') { 'production' }
