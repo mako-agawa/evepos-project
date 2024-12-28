@@ -4,8 +4,7 @@ threads threads_count, threads_count
 
 preload_app!
 
-# Pumaが待ち受けるポートを指定
-# 既存のポート設定を削除し、SSLバインディングを記述
+# Pumaが待ち受けるHTTPポートを指定
 bind 'tcp://127.0.0.1:3001'
 
 # 環境設定
