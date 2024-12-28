@@ -20001,3 +20001,12 @@ Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.2ms (1 query, 0 cached) 
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1000]]
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+[dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, [36mDB_HOST[0m, and [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, [36mDB_HOST[0m, and [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Set [36mDB_NAME[0m, [36mDB_USER[0m, [36mDB_PASSWORD[0m, [36mDB_HOST[0m, and [36mJWT_SECRET_KEY[0m
+[dotenv] Loaded [33m.env[0m
+[dotenv] Loaded [33m.env[0m
