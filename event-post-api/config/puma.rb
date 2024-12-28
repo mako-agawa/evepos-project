@@ -5,7 +5,7 @@ threads threads_count, threads_count
 preload_app!
 
 # Pumaが待ち受けるHTTPポートを指定
-bind 'tcp://127.0.0.1:3001'
+bind 'tcp://0.0.0.0:80'
 
 # 環境設定
 environment ENV.fetch('RAILS_ENV') { 'production' }
