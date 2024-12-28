@@ -9,7 +9,7 @@ Rails.application.configure do
   # eager_loadをtrueにして、すべてのアプリケーションのコードが起動時にロードされるようにする
   config.eager_load = true
 
-  config.force_ssl = true
+  # config.force_ssl = true
 
   config.secret_key_base = ENV["SECRET_KEY_BASE"] || Rails.application.credentials.secret_key_base
 
