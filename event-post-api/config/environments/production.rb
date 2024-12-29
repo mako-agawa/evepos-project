@@ -26,21 +26,24 @@ Rails.application.configure do
 
   # ホストの許可リスト
   config.hosts += [
-    '18.178.110.119',                                # EC2のパブリックIP
-    '127.0.0.1',                                     # ローカルホスト (IPv4)
-    '::1',                                           # ローカルホスト (IPv6)
     'api.evepos.net',                                # カスタムドメイン
-    'evepos-elb-1733878306.ap-northeast-1.elb.amazonaws.com' # ALBのDNS
+    'evepos-elb-1733878306.ap-northeast-1.elb.amazonaws.com', # ALBのDNS
+    '10.0.1.83',                                     # ALBまたはプロキシの内部IP
+    '10.0.2.30',                                     # 他の内部IP (必要に応じて)
+    '127.0.0.1',                                     # ローカルホスト (IPv4)
+    '::1'                                            # ローカルホスト (IPv6)
   ]
 
-  # ホスト認証の例外条件
+  # ホスト認証の例外条件を追加
   config.host_authorization = {
     exclude: ->(request) {
-      request.path == '/up' ||                        # 特定のパスを除外
-      %w[127.0.0.1 ::1 18.178.110.119].include?(request.remote_ip) || # 信頼するIP
-      request.host == 'api.evepos.net'                # 信頼するホスト
+      # 特定のパスやIPを除外
+      request.path == '/health_check' ||                          # ヘルスチェック用
+      %w[127.0.0.1 ::1 10.0.1.83 10.0.2.30].include?(request.remote_ip) || # 内部IP
+      request.host == 'api.evepos.net'                           # 信頼するホスト
     }
   }
+
 
   # 静的ファイルの配信を無効化 (Nginxなどが管理する場合)
   config.public_file_server.enabled = false
