@@ -13,8 +13,8 @@ module Api
       end
 
       def index
-        users = User.all
-        render json: users, status: :ok
+        @users = User.all
+        render json: @users, except: [:password_digest, :authentication_token]
       end
 
       def show
