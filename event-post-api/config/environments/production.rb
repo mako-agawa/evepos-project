@@ -52,6 +52,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = false
 
+  
   # アクティブストレージ (必要に応じて設定)
   # config.active_storage.service = :local
 
