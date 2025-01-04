@@ -2,40 +2,45 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authAtom } from '@/atoms/authAtom';
 import { useAtom } from "jotai";
+import { authAtom, AUTH_STORAGE_KEY, TOKEN_STORAGE_KEY } from '@/atoms/authAtom';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [auth, setAuth] = useAtom(authAtom);
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const [auth, setAuth] = useAtom(authAtom); // JotaiのauthAtomを使用
     const [message, setMessage] = useState('');
     const router = useRouter();
 
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
         try {
             const response = await fetch(`${API_URL}/sessions`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
+
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.user);
-                localStorage.setItem('token', data.token);
-
-                // 認証状態を設定して再描画をトリガー
-                setAuth({
+                const newAuth = {
                     isLoggedIn: true,
                     currentUser: data.user,
-                });
-                console.log(auth);
+                };
+
+                // トークンの保存
+                localStorage.setItem(TOKEN_STORAGE_KEY, data.token);
+
+                // Jotaiの状態を更新
+                setAuth(newAuth);
 
                 router.push("/");
             } else {
-                setMessage('Failed to log in');
+                const errorData = await response.json();
+                setMessage(errorData.message || 'Failed to log in');
             }
         } catch (error) {
             setMessage(`Login error: ${error.message}`);
@@ -70,7 +75,9 @@ export default function Login() {
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">ログインする</button>
+                <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">
+                    ログインする
+                </button>
             </form>
             {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>

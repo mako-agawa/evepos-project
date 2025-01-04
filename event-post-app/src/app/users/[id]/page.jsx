@@ -1,67 +1,62 @@
-"use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+'use client';
 
-export default function UserShow({ params }) {
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useAtom } from "jotai";
+import { authAtom } from "@/atoms/authAtom";
+import Link from "next/link";
+
+export default function UserShow() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); // ログイン中のユーザー情報
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const [loading, setLoading] = useState(true);
+  const { currentUser } = useCurrentUser();
+  const [auth] = useAtom(authAtom);
+  const params = useParams();
   const router = useRouter();
 
-  const userId = params.id; // paramsからユーザーIDを取得
+  const userId = params.id;
 
-  // ログイン中のユーザー情報を取得
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const authToken = localStorage.getItem("token");
-      if (authToken) {
-        try {
-          const res = await fetch(`${API_URL}/current_user`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-          if (res.ok) {
-            const userData = await res.json();
-            setCurrentUser(userData); // ログイン中のユーザー情報を設定
-          }
-        } catch (error) {
-          console.error("Failed to fetch current user:", error);
-        }
-      }
-    };
-
-    fetchCurrentUser();  
-  }, [API_URL]);
-
-  // 表示するユーザー情報を取得
   useEffect(() => {
     const fetchUser = async () => {
+      if (!userId) return;
+
       try {
-        const res = await fetch(`${API_URL}/users/${userId}`);
+        setLoading(true);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`);
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        const data = await res.json();
-        setData(data);
+        const userData = await res.json();
+        setData(userData);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUser();
-  }, [userId, API_URL]);
+  }, [userId]);
+
+  // currentUserが読み込まれるまで待機
+  useEffect(() => {
+    if (auth && !auth.isLoggedIn) {
+      router.push('/login');
+    }
+  }, [auth, router]);
 
   const handleDelete = async () => {
     const confirmed = confirm("Are you sure you want to delete this user?");
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`${API_URL}/users/${userId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}` // 認証トークンを設定
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -76,16 +71,12 @@ export default function UserShow({ params }) {
     }
   };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!data) return null;
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
-  // currentUserと表示中のユーザーが一致するかを確認
-  const isCurrentUser = currentUser && currentUser.id === data.id;
+  // currentUserとdataの両方が存在する場合のみisCurrentUserを計算
+  const isCurrentUser = currentUser && data && currentUser.id === data.id;
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -96,15 +87,24 @@ export default function UserShow({ params }) {
         <p className="pb-12">Description: {data.description}</p>
         {isCurrentUser && (
           <div className="flex flex-row w-full my-4">
-            <Link href={`/users/${userId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8">
+            <Link
+              href={`/users/${userId}/edit`}
+              className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8"
+            >
               Edit
             </Link>
-            <button onClick={handleDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8">
+            <button
+              onClick={handleDelete}
+              className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8"
+            >
               Delete
             </button>
           </div>
         )}
-        <Link href="/users" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8">
+        <Link
+          href="/users"
+          className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+        >
           Back
         </Link>
       </div>
