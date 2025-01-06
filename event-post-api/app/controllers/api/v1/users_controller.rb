@@ -1,47 +1,39 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :check_format # JSONフォーマットを強制するフィルタ
       skip_before_action :authenticate_user, only: %i[create index show]
 
+      # 現在のユーザー情報を返す
       def current_user
-        if @current_user
-          render json: @current_user, status: :ok
-        else
-          render json: { error: 'Not authenticated' }, status: :unauthorized
-        end
+        render json: @current_user || { error: 'Not authenticated' }, status: :ok
       end
 
+      # ユーザーの一覧を取得
       def index
-        @users = User.all
-        render json: @users
+        render json: User.all
       end
 
+      # 特定のユーザー情報を取得
       def show
         user = User.find(params[:id])
-        render json: user, status: :ok
+        render json: user
       end
 
+      # ユーザーを作成
       def create
         user = User.new(user_params)
         if user.save
-          render json: {
-            message: 'User created successfully',
-            user: user.slice(:id, :name, :email, :thumbnail, :description)
-          }, status: :created
+          render json: { message: 'User created successfully', user: user.slice(:id, :name, :email, :thumbnail, :description) }, status: :created
         else
-          Rails.logger.error("User creation failed: #{user.errors.full_messages}")
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
-      rescue StandardError => e
-        Rails.logger.error("Unexpected error during user creation: #{e.message}")
-        render json: { error: 'Unexpected error occurred' }, status: :internal_server_error
       end
 
+      # ユーザー情報の更新
       def update
         if current_user&.id == params[:id].to_i
           if current_user.update(user_params)
-            render json: { message: 'User updated successfully', user: current_user }, status: :ok
+            render json: { message: 'User updated successfully', user: current_user }
           else
             render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
           end
@@ -50,10 +42,11 @@ module Api
         end
       end
 
+      # ユーザー削除
       def destroy
         if current_user&.id == params[:id].to_i
           current_user.destroy
-          render json: { message: 'User deleted successfully' }, status: :ok
+          render json: { message: 'User deleted successfully' }
         else
           render json: { error: 'Unauthorized action' }, status: :unauthorized
         end
@@ -61,16 +54,8 @@ module Api
 
       private
 
-      def encode_token(payload)
-        JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
-      end
-
       def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation, :thumbnail, :description)
-      end
-
-      def check_format
-        render json: { error: 'Unsupported format' }, status: :not_acceptable unless request.format.json?
       end
     end
   end
