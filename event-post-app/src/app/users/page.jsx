@@ -1,29 +1,24 @@
-"use client";
+'use client';
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useAtom } from "jotai";
-import { authAtom } from "@/atoms/authAtom";
+import { useAuth } from "@/hooks/useAuth";
+
 
 export default function Users() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const { currentUser } = useCurrentUser(); // カスタムフックを使用
-  const [auth] = useAtom(authAtom);
+  const { auth } = useAuth(); // フックを使用
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // ユーザー一覧の取得
   useEffect(() => {
     const fetchUsers = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) return;
-
       try {
         const res = await fetch(`${API_URL}/users`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
           },
         });
         if (!res.ok) {
@@ -53,9 +48,7 @@ export default function Users() {
       <h1 className="text-4xl font-bold p-24">ユーザー管理</h1>
       <ul className="flex flex-col">
         {data.map((user) => {
-          // currentUserとの比較
-          const isCurrentUser = currentUser && currentUser.id === user.id;
-          
+          const isCurrentUser = auth.currentUser && auth.currentUser.id === user.id;
           return (
             <Link href={`/users/${user.id}`} key={user.id}>
               <li

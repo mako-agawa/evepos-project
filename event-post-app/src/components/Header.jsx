@@ -42,7 +42,7 @@ const Header = () => {
         ) : (
           <Link 
             href="/login" 
-            className="text-white text-xl font-bold hover:cursor"
+            className="text-white text-xl pr-8 font-bold hover:cursor"
           >
             ログイン
           </Link>

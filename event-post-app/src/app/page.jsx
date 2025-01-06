@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useAtom } from 'jotai';
-import { authAtom } from '@/atoms/authAtom';
+import { useAtom } from "jotai";
+import { authAtom } from "@/atoms/authAtom";
 
 export default function Events() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const { currentUser } = useCurrentUser();
   const [auth] = useAtom(authAtom);
+  const currentUser = auth.currentUser;
+  
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+  
   useEffect(() => {
+    console.log(auth);
     const fetchEvents = async () => {
       try {
-        const token = localStorage.getItem('token');
         const res = await fetch(`${API_URL}/events`, {
           headers: {
-            'Content-Type': 'application/json',
-            ...(token && { 'Authorization': `Bearer ${token}` })
-          }
+            "Content-Type": "application/json",
+            ...(auth.isLoggedIn && auth.token && { Authorization: `Bearer ${auth.token}` }),
+          },
         });
-        
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -31,19 +31,23 @@ export default function Events() {
         setData(eventData);
       } catch (error) {
         setError(error.message);
-        console.error('Failed to fetch events:', error);
+        console.error("Failed to fetch events:", error);
       }
     };
 
     fetchEvents();
-  }, [API_URL]);
+  }, [API_URL, auth]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-2xl">Loading...</p>
+      </div>
+    );
   }
 
   return (
@@ -51,13 +55,11 @@ export default function Events() {
       <h1 className="text-4xl font-bold p-24">イベント</h1>
       <ul className="flex flex-col">
         {data.map((event) => {
-          // イベントの作成者がcurrentUserと一致するかチェック
           const isCreator = currentUser && event.user_id === currentUser.id;
-          
           return (
-            <Link 
-              href={`/events/${event.id}`} 
-              key={event.id} 
+            <Link
+              href={`/events/${event.id}`}
+              key={event.id}
               className={`text-2xl hover:cursor p-3 ${
                 isCreator ? "text-orange-500" : "text-black"
               }`}
