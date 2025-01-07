@@ -1,48 +1,17 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAtom } from 'jotai';
-import { authAtom } from '@/atoms/authAtom';
+import React from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Logout = () => {
-  const [auth, setAuth] = useAtom(authAtom);
-  const router = useRouter();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const { auth, logout } = useAuth(); // フックを使用
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const authToken = localStorage.getItem("authToken");
-      if (authToken && !auth.isLoggedIn) {
-        try {
-          const res = await fetch(`${API_URL}/current_user`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-          if (res.ok) {
-            const userData = await res.json();
-            setAuth({
-              isLoggedIn: true,
-              currentUser: userData,
-            });
-          }
-        } catch (error) {
-          console.error("Failed to fetch current user:", error);
-        }
-      }
-    };
-
-    fetchCurrentUser();
-  }, [API_URL, auth.isLoggedIn, setAuth]);
-
-  const handleLogout = () => {
-    // トークンを削除し、authAtomの状態をリセット
-    localStorage.removeItem("token");
-    setAuth({ isLoggedIn: false, currentUser: null });
-    router.push("/"); // ホームページにリダイレクト
-  };
-
-  if (!auth.currentUser) {
-    return <div>Loading...</div>;
+  if (!auth.isLoggedIn) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <p className="text-2xl">Loading...</p>
+      </div>
+    );
   }
 
   return (
@@ -53,7 +22,7 @@ const Logout = () => {
         <h1 className="text-2xl pb-10">email: {auth.currentUser.email}</h1>
         <p className="text-xl pb-12 text-gray-500">※上記のアカウントでログアウトします.</p>
         <button
-          onClick={handleLogout}
+          onClick={logout} // フックからの関数を呼び出し
           className="w-full text-white bg-gray-400 hover:bg-gray-500 rounded p-3 text-xl"
         >
           ログアウト
@@ -61,6 +30,6 @@ const Logout = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Logout;

@@ -19,6 +19,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export default function RootLayout({ children }) {
+
+
   return (
     <html lang="ja">
       <body className={`${notoSansJP.variable} antialiased`}>

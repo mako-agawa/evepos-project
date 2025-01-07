@@ -15,11 +15,11 @@ module EventPost
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # フロントエンドのドメインを指定（例: VercelのデプロイURLやカスタムドメイン）
-        origins 'https://original-product-seven.vercel.app', 'https://www.evepos.net'
+        origins 'https://original-product-seven.vercel.app', 'https://www.evepos.net', 'http://localhost:3000'
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],
-                 credentials: false
+                 credentials: true
       end
     end
   end

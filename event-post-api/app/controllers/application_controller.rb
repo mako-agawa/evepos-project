@@ -1,17 +1,16 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_user
+
   private
 
   def authenticate_user
     token = request.headers['Authorization']&.split(' ')&.last
     if token.present?
-      begin
-        secret_key = Rails.application.credentials.secret_key_base
-        payload = JWT.decode(token, secret_key, true, algorithm: 'HS256')[0]
+      payload = decode_token(token)
+      if payload
         @current_user = User.find_by(id: payload['user_id'])
-      rescue JWT::ExpiredSignature
-        render json: { error: 'Token has expired' }, status: :unauthorized
-      rescue JWT::DecodeError
+        render json: { error: 'User not found' }, status: :unauthorized unless @current_user
+      else
         render json: { error: 'Invalid token' }, status: :unauthorized
       end
     else
@@ -19,17 +18,20 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def current_user
-    @current_user
+  attr_reader :current_user
+  def encode_token(payload)
+    expiration_time = 3.month.from_now.to_i # 有効期限は24時間
+    payload[:exp] = expiration_time
+    JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
   end
 
-  def decode_token
-    token = request.headers['Authorization']&.split(' ')&.last
-    return nil unless token
-    begin
-      JWT.decode(token, 'your_secret_key', true, algorithm: 'HS256')
-    rescue JWT::DecodeError
-      nil
-    end
+  def decode_token(token)
+    secret_key = Rails.application.credentials.secret_key_base
+    JWT.decode(token, secret_key, true, algorithm: 'HS256')[0] # ペイロード部分を返す
+  rescue JWT::ExpiredSignature
+    nil # 期限切れトークンの場合
+  rescue JWT::DecodeError
+    nil # トークンの形式が正しくない場合
   end
+
 end

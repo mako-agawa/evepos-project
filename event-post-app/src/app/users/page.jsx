@@ -1,54 +1,34 @@
-"use client";
+'use client';
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+
 
 export default function Users() {
-  const [data, setData] = useState(null);  
-  const [error, setError] = useState(null); 
-  const [currentUser, setCurrentUser] = useState(null); // ログイン中のユーザー情報
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const { auth } = useAuth(); // フックを使用
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // ログイン中のユーザー情報を取得
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const authToken = localStorage.getItem("authToken");
-      if (authToken) {
-        try {
-          const res = await fetch(`${API_URL}/current_user`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-          if (res.ok) {
-            const userData = await res.json();
-            setCurrentUser(userData); // 現在のログイン中のユーザーを設定
-          }
-        } catch (error) {
-          console.error("Failed to fetch current user:", error);
-        }
-      }
-    };
-
-    fetchCurrentUser();
-  }, [API_URL]);
-
-  // ユーザー一覧の取得
   useEffect(() => {
     const fetchUsers = async () => {
-      const authToken = localStorage.getItem("authToken"); // トークンをlocalStorageから取得
       try {
         const res = await fetch(`${API_URL}/users`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`, // トークンを設定
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
           },
         });
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        const data = await res.json();
-        setData(data);  
+        const userList = await res.json();
+        setData(userList);
       } catch (error) {
-        setError(error.message);  
+        setError(error.message);
+        console.error('Failed to fetch users:', error);
       }
     };
 
@@ -65,12 +45,10 @@ export default function Users() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      
       <h1 className="text-4xl font-bold p-24">ユーザー管理</h1>
       <ul className="flex flex-col">
         {data.map((user) => {
-          // ログイン中のユーザーと一致する場合はテキストカラーをオレンジにする
-          const isCurrentUser = currentUser && currentUser.id === user.id;
+          const isCurrentUser = auth.currentUser && auth.currentUser.id === user.id;
           return (
             <Link href={`/users/${user.id}`} key={user.id}>
               <li
@@ -84,7 +62,12 @@ export default function Users() {
           );
         })}
       </ul>
-      <Link href="/users/new"  className="inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300">Create User</Link>
+      <Link 
+        href="/users/new" 
+        className="inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md mt-16 px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
+      >
+        Create User
+      </Link>
     </div>
   );
 }
