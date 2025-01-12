@@ -17,7 +17,7 @@ Rails.application.configure do
 
   # ログ設定
   config.logger = ActiveSupport::Logger.new(
-    Rails.root.join('log', 'production.log'),
+    Rails.root.join('log/production.log'),
     1,
     50.megabytes
   )
@@ -26,7 +26,7 @@ Rails.application.configure do
 
   # ホストの許可リスト
   config.hosts += [
-    'api.evepos.net',                                # カスタムドメイン
+    'api.evepos.net', # カスタムドメイン
     'evepos-elb-1733878306.ap-northeast-1.elb.amazonaws.com', # ALBのDNS
     '10.0.1.83',                                     # ALBまたはプロキシの内部IP
     '10.0.2.30',                                     # 他の内部IP (必要に応じて)
@@ -36,14 +36,13 @@ Rails.application.configure do
 
   # ホスト認証の例外条件を追加
   config.host_authorization = {
-    exclude: ->(request) {
+    exclude: lambda { |request|
       # 特定のパスやIPを除外
-      request.path == '/health_check' ||                          # ヘルスチェック用
-      %w[127.0.0.1 ::1 10.0.1.83 10.0.2.30].include?(request.remote_ip) || # 内部IP
-      request.host == 'api.evepos.net'                           # 信頼するホスト
+      request.path == '/health_check' || # ヘルスチェック用
+        %w[127.0.0.1 ::1 10.0.1.83 10.0.2.30].include?(request.remote_ip) || # 内部IP
+        request.host == 'api.evepos.net' # 信頼するホスト
     }
   }
-
 
   # 静的ファイルの配信を無効化 (Nginxなどが管理する場合)
   config.public_file_server.enabled = false
@@ -51,10 +50,6 @@ Rails.application.configure do
   # メーラー設定
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = false
-
-  
-  # アクティブストレージ (必要に応じて設定)
-  # config.active_storage.service = :local
 
   # ログの詳細設定
   config.active_record.verbose_query_logs = false
@@ -66,4 +61,11 @@ Rails.application.configure do
 
   # 非推奨メッセージを表示しない
   config.active_support.report_deprecations = false
+  Rails.application.routes.default_url_options = {
+    host: 'api.evepos.net'
+  }
+  Rails.application.configure do
+    # S3（本番用バケット）を使う
+    config.active_storage.service = :amazon_prod
+  end
 end

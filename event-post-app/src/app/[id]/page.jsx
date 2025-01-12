@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Image from "next/image";
 
-export default function EventShow({ params }) {
+export default function EventShow() {
   const [data, setData] = useState(null);
+  console.log(data);
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const { currentUser, fetchCurrentUser } = useCurrentUser();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
-  const eventId = params; // paramsのnullチェック
+  const params = useParams(); // useParams() で取得
+  const eventId = params?.id; // `params`オブジェクトから `id` を安全に取得
 
   useEffect(() => {
     if (!eventId) {
@@ -20,31 +24,7 @@ export default function EventShow({ params }) {
       return;
     }
 
-    const fetchCurrentUser = async () => {
-      if (typeof window === "undefined") return; // SSR中はlocalStorageを参照しない
-
-      const authToken = localStorage.getItem("token");
-      if (authToken) {
-        try {
-          const res = await fetch(`${API_URL}/current_user`, {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-          if (res.ok) {
-            const userData = await res.json();
-            setCurrentUser(userData);
-          } else {
-            throw new Error("Failed to fetch current user");
-          }
-        } catch (error) {
-          console.error("Failed to fetch current user:", error);
-        }
-      }
-    };
     fetchCurrentUser();
-  }, [API_URL]);
-
-  useEffect(() => {
-    if (!eventId) return;
 
     const fetchEvent = async () => {
       try {
@@ -80,7 +60,7 @@ export default function EventShow({ params }) {
   }, [eventId, API_URL]);
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this event?")) return;
+    if (!confirm("本当にこのイベントを削除しますか？")) return;
 
     try {
       const authToken = localStorage.getItem("token");
@@ -93,19 +73,19 @@ export default function EventShow({ params }) {
       });
 
       if (res.ok) {
-        alert("Event deleted successfully");
+        alert("イベントが正常に削除されました。");
         router.push("/");
       } else {
-        throw new Error("Failed to delete event");
+        throw new Error("イベントの削除に失敗しました。");
       }
     } catch (error) {
-      console.error("Error deleting event:", error);
+      console.error("イベント削除エラー:", error);
       setError(error.message);
     }
   };
 
   const handleCommentDelete = async (commentId) => {
-    if (!confirm("Are you sure you want to delete this comment?")) return;
+    if (!confirm("本当にこのコメントを削除しますか？")) return;
 
     try {
       const authToken = localStorage.getItem("token");
@@ -118,40 +98,53 @@ export default function EventShow({ params }) {
       });
 
       if (res.ok) {
-        alert("Comment deleted successfully");
+        alert("コメントが削除されました。");
         setComments(comments.filter((comment) => comment.id !== commentId));
       } else {
-        throw new Error("Failed to delete comment");
+        throw new Error("コメントの削除に失敗しました。");
       }
     } catch (error) {
-      console.error("Error deleting comment:", error);
+      console.error("コメント削除エラー:", error);
       setError(error.message);
     }
   };
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
-  if (error) return <div>Error: {error}</div>;
-  if (!data || !user) return <div>Loading...</div>;
+  if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
+  if (!data || !user) return <div className="text-gray-600">読み込み中...</div>;
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-4xl font-bold p-24">Event Details</h1>
+      <h1 className="text-4xl font-bold p-24">イベント詳細</h1>
       <div className="text-2xl">
         <p className="pb-8">タイトル: {data.title}</p>
         <p className="pb-8">日時: {data.date}</p>
         <p className="pb-8">場所: {data.location}</p>
-        <p className="pb-8">画像: {data.image}</p>
+        <div className="pb-8">
+          <p>画像:</p>
+          {data.image_url && (
+            <Image
+              src={data.image_url}
+              alt="image"
+              width={500}
+              height={300}
+              className="mb-6 shadow-md"
+            />
+          )}
+        </div>
         <p className="pb-8">説明: {data.description}</p>
         <p className="pb-8">金額: {data.price}</p>
         <p className="pb-8">投稿者: {user.name}</p>
         <div className="flex flex-col items-center justify-center">
           {isCurrentUser && (
             <div className="flex flex-row w-full my-4">
-              <Link href={`/${eventId}/edit`} className="btn bg-green-500 mr-8">
+              <Link href={`/${eventId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8"
+              >
                 Edit
               </Link>
-              <button onClick={handleDelete} className="btn bg-red-500 mr-8">
+              <button onClick={handleDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8"
+              >
                 Delete
               </button>
             </div>
@@ -160,7 +153,7 @@ export default function EventShow({ params }) {
             <Link href={`/${eventId}/comments`} className="btn bg-orange-400 mb-8">
               コメントを書く
             </Link>
-            <h1 className="text-xl my-4">コメント欄</h1>
+            <h1 className="text-xl my-4">コメント一覧</h1>
             {comments.length > 0 ? (
               comments.map((comment) => (
                 <div key={comment.id} className="comment">
@@ -172,7 +165,7 @@ export default function EventShow({ params }) {
                       onClick={() => handleCommentDelete(comment.id)}
                       className="btn bg-red-500"
                     >
-                      Delete
+                      削除
                     </button>
                   )}
                 </div>
@@ -181,7 +174,8 @@ export default function EventShow({ params }) {
               <p className="text-gray-500">コメントはまだありません。</p>
             )}
           </div>
-          <Link href="/" className="btn bg-gray-400">
+          <Link href="/" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+          >
             Back
           </Link>
         </div>

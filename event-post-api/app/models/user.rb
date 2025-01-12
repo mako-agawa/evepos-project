@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # ActiveStorageの設定 (画像の添付)
+  has_one_attached :thumbnail
   has_secure_password
 
   validates :name, presence: true
@@ -7,7 +9,7 @@ class User < ApplicationRecord
 
   before_create :generate_authentication_token
 
-  has_many :events, dependent: :destroy  # この行を追加
+  has_many :events, dependent: :destroy # ユーザーが削除された場合、イベントも削除
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_events, through: :likes, source: :event
@@ -15,7 +17,9 @@ class User < ApplicationRecord
   private
 
   def generate_authentication_token
-    payload = { user_id: self.id, exp: 1.year.from_now.to_i } # 有効期限を1年後に設定
+    # ユーザーのIDが存在しない場合は仮のUUIDを使用してトークン生成
+    user_id_for_token = id || SecureRandom.uuid
+    payload = { user_id: user_id_for_token, exp: 1.year.from_now.to_i } # 有効期限を1年後に設定
     self.authentication_token = JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
   end
 end

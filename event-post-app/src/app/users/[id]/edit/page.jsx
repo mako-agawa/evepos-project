@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, use } from "react"; // useを追加
+import { useEffect, useState } from "react"; // useを追加
 import { useRouter } from "next/navigation"; // useRouterを使ってidを取得
 
 export default function EditUser({ params }) {
@@ -9,15 +9,16 @@ export default function EditUser({ params }) {
         email: '',
         password: '',
         password_confirmation: '',
-        thumbnail: '',
         description: '',
     });
+    const [thumbnail, setThumbnail] = useState(null); // 画像ファイルの管理用ステート
+    
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
     const [message, setMessage] = useState('');
     const [error, setError] = useState(null); // エラーステートを追加
     const [loading, setLoading] = useState(true); // ローディングステートを追加
     const router = useRouter(); // useRouterを使用してリダイレクトを行うためのルーター
+
 
     // paramsを非同期にアンラップ
     const resolvedParams = use(params);
@@ -37,7 +38,6 @@ export default function EditUser({ params }) {
                 email: data.email,
                 password: '', // パスワードはセキュリティのため空にしておく
                 password_confirmation: '', // パスワードはセキュリティのため空にしておく
-                thumbnail: data.thumbnail,
                 description: data.description,
             });
             setLoading(false); // データが取得できたらローディングをfalseに
@@ -49,6 +49,10 @@ export default function EditUser({ params }) {
     
         fetchUser();
     }, [userId, API_URL]);
+
+    const handleFileChange = (e) => {
+        setImageFile(e.target.files[0]);
+    };
 
     // ユーザー編集時の送信処理
     const handleSubmit = async (e) => {
@@ -149,9 +153,7 @@ export default function EditUser({ params }) {
                         type="text"
                         id="thumbnail"
                         name="thumbnail"
-                        value={formData.thumbnail}
-                        onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
-                        required
+                        onChange={handleFileChange}
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>

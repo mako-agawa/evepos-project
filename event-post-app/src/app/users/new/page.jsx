@@ -11,10 +11,11 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-        thumbnail: '',
         description: '',
     });
+    const [thumbnail, setThumbnail] = useState(null); // 画像ファイルの管理用ステート
     const setAuth = useSetAtom(authAtom); // authAtomを使用して認証状態を設定
+    // console.log(setAtom);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const [message, setMessage] = useState('');
@@ -28,29 +29,38 @@ export default function Register() {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setThumbnail(e.target.files[0]); // ファイルをステートに格納
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const userPayload = {
-            user: {
-                ...formData, // formDataからuserオブジェクトを作成
-            }
-        };
+        // `FormData`オブジェクトを作成し、フィールドを追加
+        const userPayload = new FormData();
+        userPayload.append("user[name]", formData.name);
+        userPayload.append("user[email]", formData.email);
+        userPayload.append("user[password]", formData.password);
+        userPayload.append("user[password_confirmation]", formData.password_confirmation);
+        userPayload.append("user[description]", formData.description);
+
+        if (thumbnail) {
+            userPayload.append("user[thumbnail]", thumbnail); // ファイルを送信データに追加
+        }
 
         const res = await fetch(`${API_URL}/users`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userPayload),
+            body: userPayload, // `FormData`オブジェクトを送信
         });
 
         if (res.ok) {
             const data = await res.json();
             localStorage.setItem('token', data.token); // トークンを保存
+            console.log(data.token);
             setAuth({
                 isLoggedIn: true,
-                currentUser: data.user, // ログインユーザー情報を設定
+                currentUser: data.user,
+                token:  data.token // ログインユーザー情報を設定
             });
             setMessage('Registration successful!');
             setFormData({
@@ -58,13 +68,14 @@ export default function Register() {
                 email: '',
                 password: '',
                 password_confirmation: '',
-                thumbnail: '',
                 description: '',
             });
+            setThumbnail(null);
             router.refresh();
-            router.push('/'); // ホームページにリダイレクト
+            router.push('/users'); // usersページにリダイレクト
         } else {
-            setMessage('Registration failed. Please try again.');
+            const errorResponse = await res.json();
+            setMessage(errorResponse.errors ? errorResponse.errors.join(", ") : 'Registration failed. Please try again.');
         }
     };
 
@@ -121,14 +132,13 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="thumbnail">Thumbnail URL:</label>
+                    <label className="text-xl block mb-2" htmlFor="thumbnail">Thumbnail:</label>
                     <input
-                        type="text"
+                        type="file"
                         id="thumbnail"
                         name="thumbnail"
-                        value={formData.thumbnail}
-                        onChange={handleChange}
-                        required
+                        accept="image/*"
+                        onChange={handleFileChange}
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>

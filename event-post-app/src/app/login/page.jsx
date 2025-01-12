@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -55,6 +56,12 @@ export default function Login() {
           ログインする
         </button>
       </form>
+      <Link
+          href="/users/new"
+          className="mt-8 inline-flex items-center justify-center py-2 px-4 text-center bg-orange-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+        >
+          はじめての方はこちら
+        </Link>
       {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
     </div>
   );

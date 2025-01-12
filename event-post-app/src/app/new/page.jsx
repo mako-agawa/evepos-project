@@ -8,14 +8,12 @@ export default function CreateEvent() {
         title: '',
         date: '',
         location: '',
-        image: '',
         description: '',
         price: '',
     });
+    const [imageFile, setImageFile] = useState(null); // 画像ファイル用の状態
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
     const [message, setMessage] = useState('');
-    const [isSuccess, setIsSuccess] = useState(null); // 成功・失敗を判定するフラグ
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -26,42 +24,35 @@ export default function CreateEvent() {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setImageFile(e.target.files[0]); // 選択されたファイルを設定
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const eventPayload = {
-            event: { 
-                ...formData,
-            }
-        };
+        const eventPayload = new FormData();
+        Object.keys(formData).forEach((key) => {
+            eventPayload.append(`event[${key}]`, formData[key]);
+        });
+        if (imageFile) {
+            eventPayload.append('event[image]', imageFile); // 画像ファイルを追加
+        }
 
-        // 認証トークンを取得
-        const authToken = localStorage.getItem("token"); // 'authToken'から'token'に修正
+        const authToken = localStorage.getItem("token");
 
         const res = await fetch(`${API_URL}/events`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authToken ? `Bearer ${authToken}` : '', // トークンを設定
+                Authorization: authToken ? `Bearer ${authToken}` : '', // トークンを設定
             },
-            body: JSON.stringify(eventPayload),
+            body: eventPayload, // FormDataを送信
         });
 
         if (res.ok) {
-            setIsSuccess(true);
             setMessage('イベントが正常に作成されました！');
-            setFormData({
-                title: '',
-                date: '',
-                location: '',
-                image: '',
-                description: '',
-                price: '',
-            });
             router.push("/"); // 成功時にリダイレクト
         } else {
-            setIsSuccess(false);
-            const data = await res.json();
             setMessage('イベントの作成に失敗しました。もう一度お試しください。');
         }
     };
@@ -107,13 +98,12 @@ export default function CreateEvent() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="image">画像 URL:</label>
+                    <label className="text-xl block mb-2" htmlFor="image">画像:</label>
                     <input
-                        type="text"
+                        type="file"
                         id="image"
                         name="image"
-                        value={formData.image}
-                        onChange={handleChange}
+                        onChange={handleFileChange}
                         className="w-full border rounded p-2"
                     />
                 </div>
@@ -147,11 +137,7 @@ export default function CreateEvent() {
                     投稿する
                 </button>
             </form>
-            {message && (
-                <p className={`mt-4 text-xl ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>
-                    {message}
-                </p>
-            )}
+            {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>
     );
 }

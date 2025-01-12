@@ -11,8 +11,8 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center bg-orange-400 h-20 px-24">
-      <Link 
-        href="/" 
+      <Link
+        href="/"
         className="text-white text-3xl font-bold hover:cursor"
       >
         いべぽす
@@ -20,28 +20,28 @@ const Header = () => {
       <div>
         {auth.isLoggedIn && currentUser ? (
           <>
-            <Link 
-              href={`/users/${currentUser.id}`} 
+            <Link
+              href={`/users/${currentUser.id}`}
               className="text-white text-xl pr-8 font-bold hover:cursor"
             >
               {currentUser.name} さん
             </Link>
-            <Link 
-              href="/users" 
+            <Link
+              href="/users"
               className="text-white text-xl pr-8 font-bold hover:cursor"
             >
               ユーザー管理
             </Link>
-            <Link 
-              href="/logout" 
+            <Link
+              href="/logout"
               className="text-white text-xl pr-8 font-bold hover:cursor"
             >
               ログアウト
             </Link>
           </>
         ) : (
-          <Link 
-            href="/login" 
+          <Link
+            href="/login"
             className="text-white text-xl pr-8 font-bold hover:cursor"
           >
             ログイン

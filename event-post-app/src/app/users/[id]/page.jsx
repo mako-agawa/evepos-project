@@ -16,6 +16,7 @@ export default function UserShow() {
   const params = useParams();
   const router = useRouter();
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const userId = params.id;
 
   useEffect(() => {
@@ -24,7 +25,13 @@ export default function UserShow() {
 
       try {
         setLoading(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`);
+        const res = await fetch(`${API_URL}/users/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -76,17 +83,26 @@ export default function UserShow() {
   if (!data) return null;
 
   // currentUserとdataの両方が存在する場合のみisCurrentUserを計算
-  const isCurrentUser = currentUser && data && currentUser.id === data.id;
-
+  console.log(currentUser);
+  console.log(data); 
+  const isCurrentUser = currentUser && data;
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-4xl font-bold py-24">{isCurrentUser ? "マイページ" : "ユーザーページ"}</h1>
-      <div className="text-2xl">
+      <div className="text-2xl flex flex-col items-center">
+        {data.thumbnail_url && (
+          <img
+            src={data.thumbnail_url}
+            alt="User Thumbnail"
+            className="w-24 h-24 rounded-full mb-6 shadow-md"
+          />
+        )}
         <p>Name: {data.name}</p>
         <p className="pb-12">Email: {data.email}</p>
         <p className="pb-12">Description: {data.description}</p>
         {isCurrentUser && (
           <div className="flex flex-row w-full my-4">
+
             <Link
               href={`/users/${userId}/edit`}
               className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8"
