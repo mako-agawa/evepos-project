@@ -16,9 +16,13 @@ export function useAuth() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
       if (response.ok) {
         const data = await response.json();
+        console.log("Server response:", response);
+
+        // トークンをローカルストレージに保存
+        localStorage.setItem("token", data.token);
+        console.log("Saved token:", data.token);
 
         // 状態を更新
         setAuth({
@@ -29,7 +33,8 @@ export function useAuth() {
 
         router.push('/'); // ログイン成功後のリダイレクト
       } else {
-        throw new Error('ログインに失敗しました');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'ログインに失敗しました');
       }
     } catch (error) {
       console.error('Login error:', error.message);

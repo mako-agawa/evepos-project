@@ -9,21 +9,23 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const {auth, login } = useAuth();  // login を取り出す
+  const { auth, login } = useAuth();  // login を取り出す
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(e);
-    
+    console.log(auth);
+
     try {
-        // console.log(email);
-        // console.log(password);
+      // console.log(email);
+      // console.log(password);
       await login(email, password);  // login 処理
+      if (auth) {
+        setMessage("ログインに成功しました");
+      }
     } catch (error) {
       setMessage(error.message || "Failed to log in");
     }
   };
-  console.log(auth);
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-4xl font-bold p-8">ログイン</h1>
@@ -57,11 +59,11 @@ export default function Login() {
         </button>
       </form>
       <Link
-          href="/users/new"
-          className="mt-8 inline-flex items-center justify-center py-2 px-4 text-center bg-orange-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
-        >
-          はじめての方はこちら
-        </Link>
+        href="/users/new"
+        className="mt-8 inline-flex items-center justify-center py-2 px-4 text-center bg-orange-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+      >
+        はじめての方はこちら
+      </Link>
       {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
     </div>
   );

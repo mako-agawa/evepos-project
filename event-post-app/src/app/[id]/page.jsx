@@ -1,26 +1,26 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { useRouter, useParams } from "next/navigation";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import Image from "next/image";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter, useParams } from 'next/navigation';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import Image from 'next/image';
+import useHandleDelete from '@/hooks/useHandleDelete';
 
 export default function EventShow() {
   const [data, setData] = useState(null);
-  console.log(data);
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const { currentUser, fetchCurrentUser } = useCurrentUser();
+  
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
-  const params = useParams(); // useParams() で取得
-  const eventId = params?.id; // `params`オブジェクトから `id` を安全に取得
+  const params = useParams();
+  const eventId = params?.id;
+  const { handleEventDelete, handleCommentDelete } = useHandleDelete(API_URL, eventId, comments, setComments);
 
   useEffect(() => {
     if (!eventId) {
-      setError("Invalid Event ID");
+      setError('Invalid Event ID');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function EventShow() {
         const userData = await userRes.json();
         setUser(userData);
       } catch (error) {
-        console.error("Error fetching event or user data:", error);
+        console.error('Error fetching event or user data:', error);
         setError(error.message);
       }
     };
@@ -50,7 +50,7 @@ export default function EventShow() {
         const commentsData = await res.json();
         setComments(commentsData);
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.error('Error fetching comments:', error);
         setError(error.message);
       }
     };
@@ -58,56 +58,6 @@ export default function EventShow() {
     fetchEvent();
     fetchComments();
   }, [eventId, API_URL]);
-
-  const handleDelete = async () => {
-    if (!confirm("本当にこのイベントを削除しますか？")) return;
-
-    try {
-      const authToken = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/events/${eventId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (res.ok) {
-        alert("イベントが正常に削除されました。");
-        router.push("/");
-      } else {
-        throw new Error("イベントの削除に失敗しました。");
-      }
-    } catch (error) {
-      console.error("イベント削除エラー:", error);
-      setError(error.message);
-    }
-  };
-
-  const handleCommentDelete = async (commentId) => {
-    if (!confirm("本当にこのコメントを削除しますか？")) return;
-
-    try {
-      const authToken = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/events/${eventId}/comments/${commentId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (res.ok) {
-        alert("コメントが削除されました。");
-        setComments(comments.filter((comment) => comment.id !== commentId));
-      } else {
-        throw new Error("コメントの削除に失敗しました。");
-      }
-    } catch (error) {
-      console.error("コメント削除エラー:", error);
-      setError(error.message);
-    }
-  };
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
@@ -124,13 +74,7 @@ export default function EventShow() {
         <div className="pb-8">
           <p>画像:</p>
           {data.image_url && (
-            <Image
-              src={data.image_url}
-              alt="image"
-              width={500}
-              height={300}
-              className="mb-6 shadow-md"
-            />
+            <Image src={data.image_url} alt="image" width={500} height={300} className="mb-6 shadow-md" />
           )}
         </div>
         <p className="pb-8">説明: {data.description}</p>
@@ -139,12 +83,10 @@ export default function EventShow() {
         <div className="flex flex-col items-center justify-center">
           {isCurrentUser && (
             <div className="flex flex-row w-full my-4">
-              <Link href={`/${eventId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8"
-              >
+              <Link href={`/${eventId}/edit`} className="inline-flex items-center justify-center py-2 px-4 text-center bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-300 mr-8">
                 Edit
               </Link>
-              <button onClick={handleDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8"
-              >
+              <button onClick={handleEventDelete} className="inline-flex items-center justify-center py-2 px-4 text-center bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 mr-8">
                 Delete
               </button>
             </div>
@@ -161,10 +103,7 @@ export default function EventShow() {
                     <span className="font-semibold">{comment.user.name}</span>: {comment.content}
                   </Link>
                   {currentUser && comment.user.id === currentUser.id && (
-                    <button
-                      onClick={() => handleCommentDelete(comment.id)}
-                      className="btn bg-red-500"
-                    >
+                    <button onClick={() => handleCommentDelete(comment.id)} className="btn bg-red-500">
                       削除
                     </button>
                   )}
@@ -174,8 +113,7 @@ export default function EventShow() {
               <p className="text-gray-500">コメントはまだありません。</p>
             )}
           </div>
-          <Link href="/" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
-          >
+          <Link href="/" className="inline-flex items-center justify-center py-2 px-4 text-center bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8">
             Back
           </Link>
         </div>
