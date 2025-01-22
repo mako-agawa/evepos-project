@@ -22,7 +22,6 @@ module Api
 
       # 特定のユーザー情報を取得
       def show
-        puts "current_user: #{@current_user}"
         user = User.find(params[:id])
         render json: user_info_with_thumbnail(user)
       end
