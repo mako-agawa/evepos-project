@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
 
   def encode_token(payload)
     puts '========encode======='
-    puts "payload: #{payload}"
+    puts "payload: #{payload}" 
     expiration_time = 3.months.from_now.to_i # 有効期限は3か月
     payload[:exp] = expiration_time
     secret_key = 'my_fixed_secret_key_for_testing_purposes'
@@ -32,24 +32,11 @@ class ApplicationController < ActionController::API
     # JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
   end
 
-  # def decode_token(token)
-  #   puts "========decode======="
-  #   puts "token: #{token}"
-  #   secret_key = Rails.application.credentials.secret_key_base
-  #   JWT.decode(token, secret_key, true, algorithm: 'HS256')[0] # ペイロード部分を返す
-  # rescue JWT::ExpiredSignature
-  #   nil # 期限切れトークンの場合
-  # rescue JWT::DecodeError
-  #   nil # トークンの形式が正しくない場合
-  # end
-
   def decode_token(token)
     puts '========decode======='
     puts "token: #{token}"
     secret_key = 'my_fixed_secret_key_for_testing_purposes'
     JWT.decode(token, secret_key, true, algorithm: 'HS256')[0]
-    # secret_key = Rails.application.credentials.secret_key_base
-    # JWT.decode(token, secret_key, true, algorithm: 'HS256')[0]
   rescue JWT::ExpiredSignature
     puts 'トークン期限切れ'
     nil # 期限切れトークンの場合

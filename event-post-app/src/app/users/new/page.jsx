@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // useRouterフックをインポート
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { authAtom } from '@/atoms/authAtom';
 
 export default function Register() {
@@ -14,7 +14,7 @@ export default function Register() {
         description: '',
     });
     const [thumbnail, setThumbnail] = useState(null); // 画像ファイルの管理用ステート
-    const setAuth = useSetAtom(authAtom); // authAtomを使用して認証状態を設定
+    const [auth, setAuth] = useAtom(authAtom);
     // console.log(setAtom);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

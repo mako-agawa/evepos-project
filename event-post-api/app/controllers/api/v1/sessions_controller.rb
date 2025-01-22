@@ -1,18 +1,27 @@
 module Api
   module V1
     class SessionsController < ApplicationController
-      before_action :authenticate_user
-      skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
+      before_action :authenticate_user, except: [:create]
+      # skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
 
       def create
-        puts "====== sessions ======="
+        puts '====== sessions ======='
         user = User.find_by(email: params[:email])
-        puts
+        puts "User found: #{user.present? ? user.email : 'Not found'}"
         if user&.authenticate(params[:password])
-          puts "====== success ======="
+          puts '====== success ======='
           token = encode_token({ user_id: user.id }) # トークンを生成
-          puts token
-          render json: { token: token, message: 'Logged in successfully!', user: user }, status: :ok
+
+          data = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            thumbnail: nil, # 修正: null → nil
+            description: user.description
+          }
+          # puts user.as_json(only: [:id, :name, :email, :description, :thumbnail])
+
+          render json: { token: token, message: 'Logged in successfully!', user: data }, status: :ok
         else
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end

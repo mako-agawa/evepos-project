@@ -9,6 +9,7 @@ export default function Users() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const { auth } = useAuth(); // フックを使用
+  console.log(auth);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {

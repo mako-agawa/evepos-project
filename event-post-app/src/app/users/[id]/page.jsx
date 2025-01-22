@@ -48,11 +48,11 @@ export default function UserShow() {
   }, [userId]);
 
   // currentUserが読み込まれるまで待機
-  useEffect(() => {
-    if (auth && !auth.isLoggedIn) {
-      router.push('/login');
-    }
-  }, [auth, router]);
+  // useEffect(() => {
+  //   if (auth && !auth.isLoggedIn) {
+  //     router.push('/login');
+  //   }
+  // }, [auth, router]);
 
   const handleDelete = async () => {
     const confirmed = confirm("Are you sure you want to delete this user?");
@@ -85,6 +85,8 @@ export default function UserShow() {
   // currentUserとdataの両方が存在する場合のみisCurrentUserを計算
   console.log(currentUser);
   console.log(data); 
+  console.log(auth); 
+  
   const isCurrentUser = currentUser && data;
   return (
     <div className="flex flex-col items-center justify-center h-screen">

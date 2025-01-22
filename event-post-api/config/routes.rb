@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
       # セッション管理
       resources :sessions, only: %i[create destroy], defaults: { format: :json }
+
     end
   end
 end
-

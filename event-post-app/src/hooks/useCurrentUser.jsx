@@ -15,7 +15,6 @@ export function useCurrentUser() {
       console.error("トークンが見つかりません");
       return null;
     }
-
     const response = await fetch(`${API_URL}/current_user`, {
       method: "GET",
       headers: {
@@ -39,9 +38,9 @@ export function useCurrentUser() {
   };
 
   // 初期化時に自動で呼び出し
-  useEffect(() => {
-    fetchCurrentUser();
-  }, [setAuth, API_URL]);
+  // useEffect(() => {
+  //   fetchCurrentUser();
+  // }, [setAuth, API_URL]);
 
   return { currentUser: auth.currentUser, isLoggedIn: auth.isLoggedIn, fetchCurrentUser };
 }
