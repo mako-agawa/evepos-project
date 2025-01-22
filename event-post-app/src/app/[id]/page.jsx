@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import Image from 'next/image';
-import useHandleDelete from '@/hooks/useHandleDelete';
+import useHandleDelete from '@/hooks/useHandelDelete';
+
 
 export default function EventShow() {
   const [data, setData] = useState(null);
@@ -58,7 +59,7 @@ export default function EventShow() {
 
     fetchEvent();
     fetchComments();
-  }, [eventId, API_URL]);
+  }, [eventId, API_URL, fetchCurrentUser]);
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
