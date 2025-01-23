@@ -10,10 +10,10 @@ export default function Events() {
   const [error, setError] = useState(null);
   const [auth] = useAtom(authAtom);
   const currentUser = auth.currentUser;
-  
+
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  
+
   useEffect(() => {
     console.log(auth);
     const fetchEvents = async () => {
@@ -21,7 +21,7 @@ export default function Events() {
         const res = await fetch(`${API_URL}/events`, {
           headers: {
             "Content-Type": "application/json",
-            ...(auth.isLoggedIn && auth.token && { Authorization: `Bearer ${auth.token}` }),
+            "Authorization": `Bearer ${auth.token}`,
           },
         });
         if (!res.ok) {
@@ -60,9 +60,8 @@ export default function Events() {
             <Link
               href={`/${event.id}`}
               key={event.id}
-              className={`text-2xl hover:cursor p-3 ${
-                isCreator ? "text-orange-500" : "text-black"
-              }`}
+              className={`text-2xl hover:cursor p-3 ${isCreator ? "text-orange-500" : "text-black"
+                }`}
             >
               ▶︎ {event.title}___{event.date}___{event.location}
               {isCreator && <span className="ml-2 text-sm">(作成者)</span>}

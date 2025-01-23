@@ -19,7 +19,7 @@ module Api
             thumbnail: nil, # 修正: null → nil
             description: user.description
           }
-          # puts user.as_json(only: [:id, :name, :email, :description, :thumbnail])
+          puts data
 
           render json: { token: token, message: 'Logged in successfully!', user: data }, status: :ok
         else

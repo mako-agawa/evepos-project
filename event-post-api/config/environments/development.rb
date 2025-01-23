@@ -80,6 +80,6 @@ Rails.application.configure do
   }
   Rails.application.configure do
     # S3（本番用バケット）を使う
-    config.active_storage.service = :amazon_dev
+    config.active_storage.service = :local
   end
 end

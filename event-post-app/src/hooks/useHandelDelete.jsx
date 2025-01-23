@@ -1,65 +1,31 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { fetchAPI } from "@/utils/api";
 
 const useHandleDelete = (API_URL, eventId, comments, setComments) => {
-  const [error, setError] = useState(null);
-  const router = useRouter();
-
-  // イベント削除関数
   const handleEventDelete = async () => {
-    if (!confirm('本当にこのイベントを削除しますか？')) return;
+    if (!confirm("本当にこのイベントを削除しますか？")) return;
 
     try {
-      const authToken = localStorage.getItem('token');
-      const res = await fetch(`${API_URL}/events/${eventId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (res.ok) {
-        alert('イベントが正常に削除されました。');
-        router.push('/');
-      } else {
-        throw new Error('イベントの削除に失敗しました。');
-      }
+      await fetchAPI(`${API_URL}/events/${eventId}`, { method: "DELETE" });
+      alert("イベントが削除されました。");
+      window.location.href = "/";  // トップページへ遷移
     } catch (error) {
-      console.error('イベント削除エラー:', error);
-      setError(error.message);
+      alert("イベントの削除に失敗しました。");
     }
   };
 
-  // コメント削除関数
   const handleCommentDelete = async (commentId) => {
-    if (!confirm('本当にこのコメントを削除しますか？')) return;
+    if (!confirm("本当にこのコメントを削除しますか？")) return;
 
     try {
-      const authToken = localStorage.getItem('token');
-      const res = await fetch(`${API_URL}/events/${eventId}/comments/${commentId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (res.ok) {
-        alert('コメントが削除されました。');
-        setComments(comments.filter((comment) => comment.id !== commentId));
-      } else {
-        throw new Error('コメントの削除に失敗しました。');
-      }
+      await fetchAPI(`${API_URL}/events/${eventId}/comments/${commentId}`, { method: "DELETE" });
+      setComments(comments.filter((comment) => comment.id !== commentId));
+      alert("コメントが削除されました。");
     } catch (error) {
-      console.error('コメント削除エラー:', error);
-      setError(error.message);
+      alert("コメントの削除に失敗しました。");
     }
   };
 
-  return { handleEventDelete, handleCommentDelete, error };
+  return { handleEventDelete, handleCommentDelete };
 };
 
 export default useHandleDelete;
