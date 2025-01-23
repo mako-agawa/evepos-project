@@ -16,7 +16,7 @@ module EventPost
       allow do
         # フロントエンドのドメインを指定（例: VercelのデプロイURLやカスタムドメイン）
         # origins '*'
-        origins 'https://original-product-seven.vercel.app', 'https://www.evepos.net', 'localhost:3000'
+        origins 'https://original-product-seven.vercel.app', 'https://www.evepos.net', 'http://localhost:3000'
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],

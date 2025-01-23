@@ -24,7 +24,7 @@ gem 'bootsnap', require: false
 gem 'rack-cors', require: 'rack/cors'
 
 
-gem 'aws-sdk-s3', require: false
+# gem 'aws-sdk-s3', require: false
 
 # Environment Variables for All Environments
 gem 'dotenv-rails', require: false
