@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
       # イベントリソース
       resources :events, defaults: { format: :json } do
+        collection do
+          get 'schedule', to: 'events#schedule'  # スケジュール取得エンドポイント
+        end
+
         # コメントリソースをネスト
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
 
@@ -32,7 +36,6 @@ Rails.application.routes.draw do
 
       # セッション管理
       resources :sessions, only: %i[create destroy], defaults: { format: :json }
-
     end
   end
 end

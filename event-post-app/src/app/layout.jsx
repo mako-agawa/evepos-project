@@ -2,8 +2,10 @@
 
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
-import Header from '../components/Header';
-import Footer from "@/components/Footer";
+import Header from '../components/layout/Header';
+import Footer from "@/components/layout/Footer";
+import { Suspense } from "react";
+
 
 
 
@@ -26,9 +28,10 @@ export default function RootLayout({ children }) {
       <body className={`${notoSansJP.variable} antialiased`}>
 
           <Header />
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>
+                {children}
+            </Suspense>
           <Footer />
-
       </body>
     </html>
   );

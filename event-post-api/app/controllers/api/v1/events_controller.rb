@@ -8,24 +8,29 @@ module Api
       before_action :authorize_user!, only: %i[update destroy]
       include Rails.application.routes.url_helpers # 画像URL生成用
 
-      # GET /api/v1/events
+      # GET /api/v1/events 新着順（作成日が新しい順）で全てのイベントを取得
       def index
-        events = Event.all.map do |event|
-          event_info_with_image(event)
-        end
+        events = Event.includes(:user).order(created_at: :desc).map { |event| event_info_with_user(event) }
+        render json: events
+      end
+
+      # GET /api/v1/events/schedule 直近の予定日順でイベントを取得
+      def schedule
+        events = Event.includes(:user).where("date >= ?", Date.today).order(date: :asc)
+                      .map { |event| event_info_with_user(event) }
         render json: events
       end
 
       # GET /api/v1/events/:id
       def show
-        render json: event_info_with_image(@event)
+        render json: event_info_with_user(@event)
       end
 
       # POST /api/v1/events
       def create
         event = current_user.events.build(event_params)
         if event.save
-          render json: { message: 'Event created successfully', event: event_info_with_image(event) }, status: :created
+          render json: { message: 'Event created successfully', event: event_info_with_user(event) }, status: :created
         else
           render json: { errors: event.errors.full_messages }, status: :unprocessable_entity
         end
@@ -34,7 +39,7 @@ module Api
       # PATCH/PUT /api/v1/events/:id
       def update
         if @event.update(event_params)
-          render json: { message: 'Event updated successfully', event: event_info_with_image(@event) }, status: :ok
+          render json: { message: 'Event updated successfully', event: event_info_with_user(@event) }, status: :ok
         else
           render json: { errors: @event.errors.full_messages }, status: :unprocessable_entity
         end
@@ -55,7 +60,7 @@ module Api
       private
 
       # イベント情報と画像URLを含むハッシュを生成
-      def event_info_with_image(event)
+      def event_info_with_user(event)
         {
           id: event.id,
           title: event.title,
@@ -65,7 +70,12 @@ module Api
           price: event.price,
           likes_count: event.likes_count,
           user_id: event.user_id,
-          image_url: event.image.attached? ? url_for(event.image) : nil
+          image_url: event.image.attached? ? url_for(event.image) : nil,
+          user: {
+            id: event.user.id,
+            name: event.user.name,
+            thumbnail: event.user.thumbnail.attached? ? url_for(event.user.thumbnail) : nil
+          }
         }
       end
 

@@ -1,35 +1,40 @@
 'use client';
 
-import React from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
-const Logout = () => {
-  const { auth, logout } = useAuth(); // フックを使用
+const LogoutPage = () => {
+  const { logout } = useAuth();
+  const router = useRouter();
 
-  if (!auth.isLoggedIn) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
-        <p className="text-2xl">Loading...</p>
-      </div>
-    );
-  }
+  const handleLogout = () => {
+    logout();
+  };
+
+  const handleCancel = () => {
+    router.back(); // 前のページに戻る
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold">ログアウト</h1>
-      <div className="py-24">
-        <h1 className="text-2xl pb-8">name: {auth.currentUser.name}</h1>
-        <h1 className="text-2xl pb-10">email: {auth.currentUser.email}</h1>
-        <p className="text-xl pb-12 text-gray-500">※上記のアカウントでログアウトします.</p>
+      <h1 className="text-4xl font-bold mb-4">ログアウトしますか？</h1>
+      <p className="text-lg text-gray-600 mb-6">アカウントからログアウトします。</p>
+      <div className="flex space-x-4">
         <button
-          onClick={logout} // フックからの関数を呼び出し
-          className="w-full text-white bg-gray-400 hover:bg-gray-500 rounded p-3 text-xl"
+          onClick={handleLogout}
+          className="px-6 py-3 text-white bg-red-600 hover:bg-red-700 rounded-lg text-lg"
         >
           ログアウト
+        </button>
+        <button
+          onClick={handleCancel}
+          className="px-6 py-3 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-lg text-lg"
+        >
+          キャンセル
         </button>
       </div>
     </div>
   );
 };
 
-export default Logout;
+export default LogoutPage;
