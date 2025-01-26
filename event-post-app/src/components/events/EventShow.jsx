@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import Image from 'next/image';
-import useHandleDelete from '@/hooks/useHandelDelete'; 
+import useHandleDelete from '@/hooks/useHandelDelete';
 import Link from 'next/link';
 import { fetchAPI } from '@/utils/api';
 
@@ -13,7 +13,7 @@ export default function EventShow() {
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
-  
+
   const { currentUser } = useCurrentUser();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
@@ -59,12 +59,12 @@ export default function EventShow() {
         <p className="pb-8">日時: {event.date}</p>
         <p className="pb-8">場所: {event.location}</p>
         {event.image_url && (
-          <Image src={event.image_url} alt="image" width={500} height={300} className="mb-6 shadow-md" />
+          <Image src={event.image_url} alt="image" width={500} height={300} layout="intrinsic" className="mb-6 shadow-md" />
         )}
         <p className="pb-8">説明: {event.description}</p>
         <p className="pb-8">金額: {event.price}</p>
         <p className="pb-8">投稿者: {user.name}</p>
-        
+
         {isCurrentUser && (
           <div className="flex flex-row w-full my-4">
             <Link href={`/${eventId}/edit`} className="btn bg-green-500">Edit</Link>
