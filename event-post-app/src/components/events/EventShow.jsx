@@ -52,7 +52,7 @@ export default function EventShow() {
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-screen gap-6 w-full max-w-3xl">
       <h1 className="text-4xl font-bold p-24">イベント詳細</h1>
       <div className="text-2xl">
         <p className="pb-8">タイトル: {event.title}</p>

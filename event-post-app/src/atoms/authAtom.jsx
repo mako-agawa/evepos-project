@@ -8,3 +8,6 @@ export const authAtom = atomWithStorage(AUTH_STORAGE_KEY, {
   currentUser: null,
   token: null,
 });
+
+export const pageModeAtom = atomWithStorage("pageMode", "index");
+// pageModeはindex schedule search のいずれかの文字列を持つ

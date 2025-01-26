@@ -2,10 +2,11 @@
 
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { authAtom } from '@/atoms/authAtom';
+import { authAtom, pageModeAtom } from '@/atoms/authAtom';
 
 export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom);
+  const [, setPageMode] = useAtom(pageModeAtom);  // ここで pageModeAtom を取得
   const router = useRouter();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -20,18 +21,16 @@ export function useAuth() {
         const data = await response.json();
         console.log("Server response:", response);
 
-        // トークンをローカルストレージに保存
         localStorage.setItem("token", data.token);
         console.log("Saved token:", data.token);
 
-        // 状態を更新
         setAuth({
           isLoggedIn: true,
           currentUser: data.user,
           token: data.token,
         });
 
-        router.push('/'); // ログイン成功後のリダイレクト
+        router.replace('/'); // ログイン成功後のリダイレクト
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || 'ログインに失敗しました');
@@ -43,12 +42,20 @@ export function useAuth() {
   };
 
   const logout = () => {
-    // 状態をクリア
+    // ローカルストレージのトークン削除
+    localStorage.removeItem("token");
+    console.log("Removed token");
+
+    // Jotaiの認証状態をリセット
     setAuth({
       isLoggedIn: false,
       currentUser: null,
+      token: null,
     });
-    router.push('/login'); // ログアウト後のリダイレクト
+    // ページモードをリセット
+    setPageMode("index");
+    // ページリロードによる再取得を実施
+    router.replace('/');
   };
 
   return { auth, login, logout };

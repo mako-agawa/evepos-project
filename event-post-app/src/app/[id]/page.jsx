@@ -1,4 +1,4 @@
-import EventShow from '@/components/EventShow'
+import EventShow from '@/components/events/EventShow'
 import React from 'react'
 
 const page = () => {
