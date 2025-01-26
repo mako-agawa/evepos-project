@@ -26,12 +26,7 @@ module Api
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
-
-      def destroy
-        # APIの場合、サーバー側でセッションをクリアする処理はないため、
-        # クライアント側でトークンを削除するだけでログアウトとする。
-        render json: { message: 'Logged out!' }, status: :ok
-      end
+      
     end
   end
 end

@@ -1,8 +1,11 @@
 {
   "dependencies": {
     "@babel/preset-react": "^7.26.3",
+    "date-fns": "^4.1.0",
     "eslint-config-next": "^15.0.1",
     "next": "^15.0.1",
+    "react-datepicker": "^7.6.0",
+    "shadcn-ui": "^0.9.4",
     "yarn": "^1.22.22"
   }
 }
