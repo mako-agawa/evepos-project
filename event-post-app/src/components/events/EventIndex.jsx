@@ -53,7 +53,7 @@ const EventIndex = () => {
                         onClick={() => router.push(`/${event.id}`)}
                         className="cursor-pointer flex items-center gap-6 p-5 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all"
                     >
-                        <Image
+                        <img
                             src={event.image_url}
                             alt={event.title}
                             width={96}
@@ -67,7 +67,7 @@ const EventIndex = () => {
                             </h2>
                             <p className="text-gray-600 mt-1">📅 {event.date} | 📍 {event.location}</p>
                             <div className="flex items-center mt-2">
-                                <Image
+                                <img
                                     src={event.user.thumbnail}
                                     alt={event.user.name}
                                     width={32}

@@ -19,6 +19,8 @@ export default function UserShow() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const userId = params.id;
 
+
+
   useEffect(() => {
     const fetchUser = async () => {
       if (!userId) return;
@@ -94,6 +96,7 @@ export default function UserShow() {
       <div className="text-2xl flex flex-col items-center">
         {data.thumbnail_url && (
           <img
+         
             src={data.thumbnail_url}
             alt="User Thumbnail"
             className="w-24 h-24 rounded-full mb-6 shadow-md"
