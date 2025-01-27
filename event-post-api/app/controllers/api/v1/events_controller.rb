@@ -70,11 +70,11 @@ module Api
           price: event.price,
           likes_count: event.likes_count,
           user_id: event.user_id,
-          image_url: event.image.attached? ? url_for(event.image) : nil,
+          image_url: event.image.attached? ? url_for(event.image).gsub(/^http:\/\//, 'https://') : nil,
           user: {
             id: event.user.id,
             name: event.user.name,
-            thumbnail: event.user.thumbnail.attached? ? url_for(event.user.thumbnail) : nil
+            thumbnail: event.user.thumbnail.attached? ? url_for(event.user.thumbnail).gsub(/^http:\/\//, 'https://') : nil
           }
         }
       end

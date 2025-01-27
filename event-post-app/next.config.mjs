@@ -9,6 +9,12 @@ const nextConfig = {
         port: "3001",
         pathname: "/rails/active_storage/**",
       },
+      // {
+      //   protocol: "https",
+      //   hostname: "localhost",
+      //   port: "3001",
+      //   pathname: "/rails/active_storage/**",
+      // },
       {
         protocol: "https",
         hostname: "api.evepos.net",

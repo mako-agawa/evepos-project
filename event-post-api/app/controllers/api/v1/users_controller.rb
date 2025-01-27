@@ -73,7 +73,7 @@ module Api
           name: user.name,
           email: user.email,
           description: user.description,
-          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
+          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail).gsub(/^http:\/\//, 'https://') : nil
         }
       end
 
