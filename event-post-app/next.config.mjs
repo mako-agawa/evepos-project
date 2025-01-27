@@ -16,7 +16,7 @@ const nextConfig = {
         pathname: "/rails/active_storage/**",
       },
       {
-        protocol: "https",
+        protocol: "http",
         hostname: "api.evepos.net",
         pathname: "/rails/active_storage/**",
       },
