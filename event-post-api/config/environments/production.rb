@@ -62,10 +62,10 @@ Rails.application.configure do
   # 非推奨メッセージを表示しない
   config.active_support.report_deprecations = false
   Rails.application.routes.default_url_options = {
-    host: 'api.evepos.net'
+    host: 'api.evepos.net', protocol: 'https'
   }
+  
   Rails.application.configure do
-    # S3（本番用バケット）を使う
     config.active_storage.service = :local
   end
 end
