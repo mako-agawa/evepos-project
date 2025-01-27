@@ -44,8 +44,8 @@ Rails.application.configure do
     }
   }
 
-  # 静的ファイルの配信を無効化 (Nginxなどが管理する場合)
-  config.public_file_server.enabled = false
+
+  config.public_file_server.enabled = true
 
   # メーラー設定
   config.action_mailer.perform_caching = false
@@ -62,9 +62,9 @@ Rails.application.configure do
   # 非推奨メッセージを表示しない
   config.active_support.report_deprecations = false
   Rails.application.routes.default_url_options = {
-    host: 'api.evepos.net', protocol: 'https'
+    host: 'https://api.evepos.net'
   }
-  
+
   Rails.application.configure do
     config.active_storage.service = :local
   end
