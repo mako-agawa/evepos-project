@@ -27,11 +27,11 @@ Rails.application.routes.draw do
         # コメントリソースをネスト
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
 
-        # いいね機能（必要なら有効化）
-        # member do
-        #   post 'like', to: 'likes#create'
-        #   delete 'like', to: 'likes#destroy'
-        # end
+        resource :likes, only: [:create, :destroy]
+        member do
+          post 'like', to: 'likes#create'
+          delete 'like', to: 'likes#destroy'
+        end
       end
 
       # セッション管理
@@ -39,12 +39,10 @@ Rails.application.routes.draw do
     end
   end
   # Active Storageのルーティング
-  # direct :rails_blob do |blob|
-  #   route_for(:rails_blob, blob)
-  # end
-  direct :rails_storage_proxy do |model, options|
-    route_for(:rails_storage_proxy, model, options)
+  direct :rails_blob do |blob|
+    route_for(:rails_blob, blob)
   end
+
 
   direct :rails_representation do |representation|
     route_for(:rails_representation, representation)

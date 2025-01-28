@@ -1,12 +1,13 @@
 class User < ApplicationRecord
   # ActiveStorageの設定 (画像の添付)
+  before_create :generate_authentication_token
   has_secure_password
   has_one_attached :thumbnail, dependent: :destroy
+
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
 
-  before_create :generate_authentication_token
 
   has_many :events, dependent: :destroy # ユーザーが削除された場合、イベントも削除
   has_many :comments, dependent: :destroy
