@@ -6,6 +6,8 @@ import { fetchAPI } from "@/utils/api";
 import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
+import LikeButton from "../ui/LikeButton";
+import { getEventDate, getEventWeekday, getEventTime } from "@/components/datetime/EventDateDisplay"
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -46,6 +48,10 @@ const EventIndex = () => {
             <h1 className="text-4xl font-bold p-8">新着イベント</h1>
             {events.map((event) => {
                 const isCreator = currentUser && event.user_id === currentUser.id;
+                const mmdd = getEventDate(event.date);
+                const weekday = getEventWeekday(event.date);
+                const hhmm = getEventTime(event.date);
+
                 return (
                     <div
                         key={event.id}
@@ -61,10 +67,29 @@ const EventIndex = () => {
                             className="object-cover rounded-md"
                         />
                         <div>
-                            <h2 className={`text-2xl font-semibold ${isCreator ? "text-orange-500" : "text-black"}`}>
+                            <h2
+                                className={`text-2xl font-semibold ${isCreator ? "text-orange-500" : "text-black"
+                                    }`}
+                            >
                                 {event.title}
                             </h2>
-                            <p className="text-gray-600 mt-1">📅 {event.date} | 📍 {event.location}</p>
+                            <p className="text-gray-600 mt-1">
+                                📍 {event.location}
+
+                            </p>
+
+                            <p className="text-gray-600">
+                                開催日時: {mmdd}({weekday}) {hhmm}
+                            </p>
+
+                            {/* いいねボタン */}
+                            <LikeButton
+                                eventId={event.id}
+                                initialLiked={!!event.liked}
+                                initialLikesCount={event.likes_count}
+                                disabled={!currentUser} // currentUserがnull/undefinedならtrue(=無効化)
+                            />
+
                             <div className="flex items-center mt-2">
                                 <Image
                                     src={event.user.thumbnail}

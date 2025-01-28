@@ -28,10 +28,6 @@ Rails.application.routes.draw do
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
 
         resource :likes, only: [:create, :destroy]
-        member do
-          post 'like', to: 'likes#create'
-          delete 'like', to: 'likes#destroy'
-        end
       end
 
       # セッション管理

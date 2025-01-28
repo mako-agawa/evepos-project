@@ -1,32 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import { fetchAPI } from "@/utils/api";
+import { Heart } from "lucide-react";
 
-const LikeButton = ({ eventId, initialLiked, initialLikesCount }) => {
+export default function LikeButton({
+  eventId,
+  initialLiked = false,
+  initialLikesCount = 0,
+  disabled = false, // ★追加: ボタンを無効化するかどうか
+}) {
   const [liked, setLiked] = useState(initialLiked);
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  const handleLike = async () => {
-    try {
-      const authToken = localStorage.getItem('token'); // 認証トークンを取得
-      const response = await fetch(`${API_URL}/events/${eventId}/like`, {
-        method: liked ? 'DELETE' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+  const handleLike = async (e) => {
+    e.stopPropagation(); // 親要素へのイベント伝播を防ぐ
 
-      if (response.ok) {
-        const data = await response.json();
-        setLiked(!liked);
-        setLikesCount(data.likes_count); // サーバーから最新の「いいね」数を取得
-      } else {
-        console.error('Failed to update like status');
-      }
+    // ログインしていない場合はアクションしない（またはアラートなど）
+    if (disabled) {
+      console.warn("ログインしていないため、いいねできません。");
+      return;
+    }
+
+    const method = liked ? "DELETE" : "POST";
+
+    try {
+      const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, { method });
+      setLiked(!liked);
+      setLikesCount(data.likes_count);
     } catch (error) {
-      console.error('Error while liking/unliking:', error);
+      console.error("Error while liking/unliking:", error);
     }
   };
 
@@ -34,15 +38,17 @@ const LikeButton = ({ eventId, initialLiked, initialLikesCount }) => {
     <div className="flex items-center space-x-2">
       <button
         onClick={handleLike}
-        className={`px-4 py-2 rounded ${
-          liked ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'
-        }`}
+        disabled={disabled} // ★追加: ボタンを無効化
+        className={`p-2 rounded-full transition-colors ${
+          liked
+            ? "bg-red-500 text-white hover:bg-red-600"
+            : "bg-gray-300 text-black hover:bg-gray-400"
+        } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+        aria-label="Like Button"
       >
-        {liked ? 'いいね解除' : 'いいね'}
+        <Heart className="w-5 h-5" />
       </button>
-      <span>{likesCount} いいね</span>
+      <span className="text-sm">{likesCount} いいね</span>
     </div>
   );
-};
-
-export default LikeButton;
+}
