@@ -39,8 +39,11 @@ Rails.application.routes.draw do
     end
   end
   # Active Storageのルーティング
-  direct :rails_blob do |blob|
-    route_for(:rails_blob, blob)
+  # direct :rails_blob do |blob|
+  #   route_for(:rails_blob, blob)
+  # end
+  direct :rails_storage_proxy do |model, options|
+    route_for(:rails_storage_proxy, model, options)
   end
 
   direct :rails_representation do |representation|

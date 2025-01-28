@@ -79,7 +79,7 @@ Rails.application.configure do
     port: 3000
   }
   Rails.application.configure do
-    # S3（本番用バケット）を使う
     config.active_storage.service = :local
+    config.active_storage.resolve_model_to_route = :rails_storage_proxy
   end
 end

@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   # ActiveStorageの設定 (画像の添付)
-  has_one_attached :thumbnail
   has_secure_password
-
+  has_one_attached :thumbnail, dependent: :destroy
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }

@@ -70,5 +70,8 @@ Rails.application.configure do
   }
 
   # ActiveStorageの設定 (ローカルストレージを利用)
-  config.active_storage.service = :local
+  Rails.application.configure do
+    config.active_storage.service = :local
+    config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  end
 end

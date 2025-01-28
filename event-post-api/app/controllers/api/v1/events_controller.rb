@@ -47,8 +47,12 @@ module Api
 
       # DELETE /api/v1/events/:id
       def destroy
-        @event.destroy
-        head :no_content
+        if @event.destroy
+          render json: { message: 'Event successfully deleted' }, status: :ok
+        else
+          Rails.logger.error "Event deletion failed: #{@event.errors.full_messages}"
+          render json: { error: 'Failed to delete event', details: @event.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
       # POST /api/v1/events/:id/like
