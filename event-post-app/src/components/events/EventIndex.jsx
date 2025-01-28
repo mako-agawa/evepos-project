@@ -57,7 +57,7 @@ const EventIndex = () => {
                             alt={event.title}
                             width={96}
                             height={96}
-                            layout="intrinsic" 
+                            priority
                             className="object-cover rounded-md"
                         />
                         <div>
@@ -71,7 +71,7 @@ const EventIndex = () => {
                                     alt={event.user.name}
                                     width={32}
                                     height={32}
-                                    layout="intrinsic" 
+                                    priority
                                     className="rounded-full border border-gray-300 mr-2"
                                 />
                                 <span className="text-gray-700">{event.user.name}</span>

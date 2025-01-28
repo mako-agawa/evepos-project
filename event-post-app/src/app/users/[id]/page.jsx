@@ -97,9 +97,10 @@ export default function UserShow() {
       <div className="text-2xl flex flex-col items-center">
         {data.thumbnail_url && (
           <Image
-         
             src={data.thumbnail_url}
             alt="User Thumbnail"
+            width={96}
+            height={96}
             className="w-24 h-24 rounded-full mb-6 shadow-md"
           />
         )}
