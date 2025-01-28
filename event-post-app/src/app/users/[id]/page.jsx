@@ -6,6 +6,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function UserShow() {
   const [data, setData] = useState(null);
@@ -95,7 +96,7 @@ export default function UserShow() {
       <h1 className="text-4xl font-bold py-24">{isCurrentUser ? "マイページ" : "ユーザーページ"}</h1>
       <div className="text-2xl flex flex-col items-center">
         {data.thumbnail_url && (
-          <img
+          <Image
          
             src={data.thumbnail_url}
             alt="User Thumbnail"

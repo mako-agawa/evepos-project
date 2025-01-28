@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import { useEffect, useState } from "react";
 
@@ -61,8 +60,6 @@ const EventSchedule = () => {
                 {event.title}
               </h2>
               <p className="text-gray-600 mt-1">📅 {event.date} | 📍 {event.location}</p>
-
-              <Link href={`/users/${event.user.id}`} className="flex items-center mt-2">
                 <Image
                   src={event.user.thumbnail}
                   alt={event.user.name}
@@ -72,7 +69,6 @@ const EventSchedule = () => {
                   className="rounded-full border border-gray-300 mr-2"
                 />
                 <span className="text-gray-700">{event.user.name}</span>
-              </Link>
             </div>
           </div>
         );

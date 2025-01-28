@@ -7,7 +7,7 @@ import EventIndex from "@/components/events/EventIndex";
 import EventSchedule from "@/components/events/EventSchedule";
 import EventSearch from "@/components/events/EventSearch";
 import EventCreate from "@/components/events/EventCreate";
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/layout/Navbar";
 
 export default function Events() {
   const [pageMode] = useAtom(pageModeAtom);

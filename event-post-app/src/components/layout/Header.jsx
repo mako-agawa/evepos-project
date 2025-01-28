@@ -16,10 +16,7 @@ const Header = () => {
   const [auth] = useAtom(authAtom);
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleNavigation } = usePageNavigation();
-  const customLoader = ({ src }) => {
-    return src.replace(/^http:\/\//, 'https://');
-  };
-  console.log(customLoader);
+ 
   return (
     <header className="bg-orange-400 h-20 px-4 sm:px-24 flex justify-between items-center relative">
       <Link href="/" onClick={() => handleNavigation("index")} className="text-white text-3xl font-bold hover:cursor">
@@ -47,7 +44,6 @@ const Header = () => {
                     onClick={() => setMenuOpen(false)}
                   >
                     <Image
-                      loader={customLoader}
                       src={currentUser.thumbnail_url || "/default-avatar.png"}
                       alt={currentUser.name}
                       width={32}
