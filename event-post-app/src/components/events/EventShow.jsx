@@ -1,12 +1,14 @@
+// components/EventShow.jsx
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
 import Image from 'next/image';
+import CommentForm from '@/components/comments/CommentForm';
+import { useEffect, useState } from 'react';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useParams, useRouter } from 'next/navigation';
 import useHandleDelete from '@/hooks/useHandelDelete';
-import Link from 'next/link';
 import { fetchAPI } from '@/utils/api';
+import RenderDescription from '../general/RenderDescription';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);
@@ -52,44 +54,59 @@ export default function EventShow() {
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
   return (
-    <div className="flex flex-col items-center h-screen gap-6 w-full max-w-3xl">
-      <h1 className="text-4xl font-bold p-24">イベント詳細</h1>
-      <div className="text-2xl">
-        <p className="pb-8">タイトル: {event.title}</p>
-        <p className="pb-8">日時: {event.date}</p>
-        <p className="pb-8">場所: {event.location}</p>
+    <div className="flex flex-col items-center bg-gray-100 px-4 max-w-screen-lg mx-auto">
+      <div className="p-8 my-4 rounded shadow-md bg-white w-full">
+      <h1 className="text-3xl font-bold text-gray-800 pb-2">{event.title}</h1>
+        <p className="text-gray-700">post by : {user.name}</p>
         {event.image_url && (
-          <Image src={event.image_url} alt="image" width={500} height={300} layout="intrinsic" className="mb-6 shadow-md" />
+          <Image
+            src={event.image_url}
+            alt="image"
+            width={500}
+            height={300}
+            className="rounded-md"
+          />
         )}
-        <p className="pb-8">説明: {event.description}</p>
-        <p className="pb-8">金額: {event.price}</p>
-        <p className="pb-8">投稿者: {user.name}</p>
+        <p className="text-gray-700">日時: {event.date}</p>
+        <p className="text-gray-700">場所: {event.location}</p>
+        <p className="text-gray-700">概要:</p>
+        <RenderDescription className="" text={event.description} />
+        <p className="text-gray-700">費用: {event.price}</p>
 
-        {isCurrentUser && (
-          <div className="flex flex-row w-full my-4">
-            <Link href={`/${eventId}/edit`} className="btn bg-green-500">Edit</Link>
-            <button onClick={handleEventDelete} className="btn bg-red-500">Delete</button>
+        { currentUser && (
+          <div className="flex gap-4">
+            <button onClick={() => router.push(`/${event.id}/edit`)} className="bg-green-500 text-white px-4 py-2 rounded">
+              編集
+            </button>
+            <button onClick={handleEventDelete} className="bg-red-500 text-white px-4 py-2 rounded">
+              削除
+            </button>
           </div>
         )}
-
-        <div className="bg-gray-200 w-full my-12 p-4">
-          <h1 className="text-xl my-4">コメント一覧</h1>
-          {comments.length > 0 ? (
-            comments.map((comment) => (
-              <div key={comment.id} className="comment">
-                <Link href={`/users/${comment.user.id}`}>
-                  <span className="font-semibold">{comment.user.name}</span>: {comment.content}
-                </Link>
-                {currentUser && comment.user.id === currentUser.id && (
-                  <button onClick={() => handleCommentDelete(comment.id)} className="btn bg-red-500">削除</button>
-                )}
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500">コメントはまだありません。</p>
-          )}
+      </div>
+      <div className="px-8 py-4 rounded shadow-md bg-white w-full space-y-2">
+        <h2 className="text-x font-bold">コメント一覧</h2>
+        <div className="space-y-4">
+          {comments.map((comment) => (
+            <div key={comment.id} className="border p-4 rounded shadow">
+              <p className="font-semibold">{comment.user.name}</p>
+              <p>{comment.content}</p>
+              {currentUser && (
+                <button
+                  onClick={() => handleCommentDelete(comment.id)}
+                  className="text-red-500 underline"
+                >
+                  削除
+                </button>
+              )}
+            </div>
+          ))}
         </div>
+
+        {/* コメント投稿フォーム */}
+        <CommentForm eventId={event.id} />
       </div>
     </div>
+
   );
 }

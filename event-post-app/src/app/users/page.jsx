@@ -45,7 +45,7 @@ export default function Users() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       <h1 className="text-4xl font-bold p-24">ユーザー管理</h1>
       <ul className="flex flex-col">
         {data.map((user) => {
