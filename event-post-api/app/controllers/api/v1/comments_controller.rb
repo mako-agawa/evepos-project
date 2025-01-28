@@ -9,24 +9,25 @@ module Api
 
       # イベントに紐づくコメント一覧を取得
       def index
-        comments = @event.comments
-        render json: comments, include: :user # ユーザー情報も含めて返す場合
+        comments = @event.comments.includes(:user) # ユーザーを事前ロード
+        render json: comments.map { |comment| format_comment(comment) }, status: :ok
       end
 
+      # コメントを作成
       def create
-        comment = @event.comments.build(comment_params)
-        comment.user = current_user
+        comment = @event.comments.build(comment_params.merge(user: current_user))
         if comment.save
-          render json: { message: 'Comment created successfully', comment: comment }, status: :created
+          render json: { message: 'Comment created successfully', comment: format_comment(comment) }, status: :created
         else
           render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
+      # コメントを削除
       def destroy
         if @comment.user == current_user
           @comment.destroy
-          head :no_content
+          render json: { message: 'Comment deleted successfully' }, status: :ok
         else
           render json: { error: 'Unauthorized' }, status: :forbidden
         end
@@ -34,16 +35,34 @@ module Api
 
       private
 
+      # イベントをセット
       def set_event
-        @event = Event.find(params[:event_id])
+        @event = Event.find_by(id: params[:event_id])
+        render json: { error: 'Event not found' }, status: :not_found unless @event
       end
 
+      # コメントをセット
       def set_comment
-        @comment = @event.comments.find(params[:id])
+        @comment = @event.comments.find_by(id: params[:id])
+        render json: { error: 'Comment not found' }, status: :not_found unless @comment
       end
 
+      # コメントのパラメータを許可
       def comment_params
         params.require(:comment).permit(:content)
+      end
+
+      # コメントデータを整形
+      def format_comment(comment)
+        {
+          id: comment.id,
+          content: comment.content,
+          user: {
+            id: comment.user.id,
+            name: comment.user.name,
+            thumbnail: comment.user.thumbnail.attached? ? Rails.application.routes.url_helpers.url_for(comment.user.thumbnail) : nil
+          }
+        }
       end
     end
   end

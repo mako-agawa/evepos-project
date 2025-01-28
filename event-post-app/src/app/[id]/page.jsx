@@ -3,7 +3,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center bg-gray-100 py-8">
       <EventShow />
     </div>
   )

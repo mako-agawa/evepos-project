@@ -27,7 +27,7 @@ export default function Login() {
     }
   };
   return (
-    <div className="flex flex-col items-center bg-gray-100   h-screen py-8  px-4">
+    <div className="flex flex-col items-center bg-gray-100 h-screen py-8  px-4">
       <h1 className="text-4xl font-bold text-gray-800 p-8">ログイン</h1>
       <form onSubmit={handleLogin} className="p-8 rounded shadow-md bg-white w-full max-w-lg space-y-6 mt-6">
         <div>

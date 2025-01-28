@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
-import { getEventDate, getEventWeekday, getEventTime } from "@/components/datetime/EventDateDisplay"
+import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -73,14 +73,13 @@ const EventIndex = () => {
                             >
                                 {event.title}
                             </h2>
-                            <p className="text-gray-600 mt-1">
-                                📍 {event.location}
-
-                            </p>
-
                             <p className="text-gray-600">
                                 開催日時: {mmdd}({weekday}) {hhmm}
                             </p>
+                            <p className="text-gray-600 mt-1">
+                                📍 {event.location}
+                            </p>
+
 
                             {/* いいねボタン */}
                             <LikeButton

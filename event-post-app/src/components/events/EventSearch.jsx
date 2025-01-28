@@ -28,7 +28,7 @@ const EventSearch = () => {
       </div>
 
       {/* フッター */}
-      <div className="flex flex-col items-center absolute bottom-10 text-gray-600 text-sm">
+      <div className="flex flex-col items-center absolute bottom-48 text-gray-600 text-sm">
         <p className="text-gray-400 text-2xl">現在開発中</p>
       </div>
     </div>
