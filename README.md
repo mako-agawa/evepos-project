@@ -5,7 +5,7 @@
 <br>  
 
 #### トップページ
-![トップページ](https://konbist-image.s3-ap-northeast-1.amazonaws.com/images/top.png "トップ画像")  
+
 <br>
 
 ## 特に見ていただきたいポイント
