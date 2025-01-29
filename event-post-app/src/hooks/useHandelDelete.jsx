@@ -2,9 +2,12 @@
 
 import { fetchAPI } from "@/utils/api";
 
-const useHandleDelete = (API_URL) => {
+const useHandleDelete = (API_URL, eventId, comments, setComments) => {
+
   // イベント削除
+
   const handleEventDelete = async () => {
+    console.log("eventId:", eventId);
     if (!confirm("本当にこのイベントを削除しますか？")) return;
 
     try {
@@ -22,12 +25,16 @@ const useHandleDelete = (API_URL) => {
 
     try {
       await fetchAPI(`${API_URL}/events/${eventId}/comments/${commentId}`, { method: "DELETE" });
-      setComments(comments.filter((comment) => comment.id !== commentId));
+
+      // 削除後にコメント一覧を更新
+      setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
       alert("コメントが削除されました。");
     } catch (error) {
       alert("コメントの削除に失敗しました。");
+      console.error(error);
     }
   };
+
 
   // ユーザー削除
   const handleUserDelete = async (userId) => {

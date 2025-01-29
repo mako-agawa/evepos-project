@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 import { Button } from '../ui/button';
-import { fetchAPI } from '@/utils/api';
+import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 
 export default function UserShow() {
@@ -16,6 +16,7 @@ export default function UserShow() {
     const params = useParams();
     const userId = params.id;
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const { logout } = useAuth();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,33 +24,46 @@ export default function UserShow() {
 
             try {
                 const res = await fetch(`${API_URL}/users/${userId}`, { method: 'GET' });
-              
+
                 if (!res.ok) {
-                  const errorData = await res.json().catch(() => null);
-                  throw new Error(errorData?.message || `HTTP Error: ${res.status}`);
+                    const errorData = await res.json().catch(() => null);
+                    throw new Error(errorData?.message || `HTTP Error: ${res.status}`);
                 }
-              
+
                 const userData = await res.json();
                 setUser(userData);
             } catch (error) {
                 console.error("Fetch error:", error.message);
             }
-            
+
         };
-        
+
         fetchUser();
     }, [userId]);
     console.log(user);
 
     const handleUserDelete = async () => {
-        if (!confirm("本当にこのユーザーを削除しますか？")) return;
+        // 確認ダイアログの戻り値を変数に格納
+        const isConfirmed = confirm("本当にこのユーザーを削除しますか？");
+
+        // キャンセルされた場合は処理を中断
+        if (!isConfirmed) return;
 
         try {
-            await fetchAPI(`${API_URL}/users/${userId}`, { method: "DELETE" });
-            alert("ユーザーが削除されました。");
-            router.push('/'); // リダイレクト
+            const response = await fetch(`${API_URL}/api/v1/users/${userId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response) {
+                alert("ユーザーが削除されました。");
+                logout();
+                router.push('/');
+            }
         } catch (error) {
-            console.error(error.message);
+            console.error("Delete error:", error);
             alert("ユーザーの削除に失敗しました。");
         }
     };
@@ -65,7 +79,7 @@ export default function UserShow() {
                 {isCurrentUser ? 'マイページ' : 'ユーザーページ'}
             </h1>
             <div >
-                <div className="p-8 my-4 rounded shadow-md bg-white w-full">
+                <div className="flex  p-8 my-4 rounded shadow-md bg-white w-full">
                     {user.thumbnail_url && (
                         <Image
                             src={user.thumbnail_url}
@@ -76,19 +90,19 @@ export default function UserShow() {
                         />
                     )}
                     <p className="text-gray-700 text-xl">名前: {user.name}</p>
-                    <p className="text-gray-700 text-xl">メール: {user.email}</p>
+
                     <p className="text-gray-700">概要:</p>
                     <p className="text-gray-700">{user.description}</p>
                 </div>
-                {isCurrentUser && (
-                    <Button
-                        onClick={() => handleUserDelete(userId)}
-                        className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"
-                    >
-                        削除
-                    </Button>
-                )}
             </div>
+            {isCurrentUser && (
+                <Button
+                    onClick={() => handleUserDelete(userId)}
+                    className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"
+                >
+                    削除
+                </Button>
+            )}
         </div>
     );
 }

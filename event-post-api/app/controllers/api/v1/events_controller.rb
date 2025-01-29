@@ -74,12 +74,17 @@ module Api
           price: event.price,
           likes_count: event.likes_count,
           user_id: event.user_id,
-          image_url: event.image.attached? ? url_for(event.image): nil,
-          user: {
-            id: event.user.id,
-            name: event.user.name,
-            thumbnail: event.user.thumbnail.attached? ? url_for(event.user.thumbnail): nil
-          }
+          image_url: event.image.attached? ? url_for(event.image) : nil,
+          user: format_user(event.user) # ユーザー情報を別メソッドで整形
+        }
+      end
+
+      # ユーザー情報を整形するヘルパーメソッド
+      def format_user(user)
+        {
+          id: user.id,
+          name: user.name,
+          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         }
       end
 

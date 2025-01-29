@@ -23,7 +23,7 @@ const RenderDescription = ({ text }) => {
 
   return (
     <div
-      className="prose" // Tailwind CSSの`prose`で見た目を整える
+      className="prose text-sm" // Tailwind CSSの`prose`で見た目を整える
       dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
     />
   );

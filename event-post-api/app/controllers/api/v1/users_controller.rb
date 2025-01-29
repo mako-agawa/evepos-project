@@ -58,8 +58,13 @@ module Api
       # ユーザー削除
       def destroy
         if current_user&.id == params[:id].to_i
-          current_user.destroy
-          render json: { message: 'User deleted successfully' }
+          if current_user.destroy
+            render json: { message: 'User deleted successfully' }, status: :ok
+          else
+            Rails.logger.error "User deletion failed: #{current_user.errors.full_messages}"
+            render json: { error: 'Failed to delete user', details: current_user.errors.full_messages },
+                   status: :unprocessable_entity
+          end
         else
           render json: { error: 'Unauthorized action' }, status: :unauthorized
         end
@@ -73,7 +78,7 @@ module Api
           name: user.name,
           email: user.email,
           description: user.description,
-          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail): nil
+          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         }
       end
 

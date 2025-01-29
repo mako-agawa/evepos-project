@@ -1,16 +1,13 @@
 'use client';
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { fetchAPI } from "@/utils/api"; // 共通のAPIユーティリティをインポート
 
-export default function CommentForm({ eventId }) {
+export default function CommentForm({ API_URL, eventId, onCommentAdded }) {
     const [formData, setFormData] = useState({ comment: "" });
     const [message, setMessage] = useState("");
-    const [isSuccess, setIsSuccess] = useState(null);
-
-    const router = useRouter();
+    const [isSuccess, setIsSuccess] = useState(null); // 成功時は true, 失敗時は false
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,16 +27,20 @@ export default function CommentForm({ eventId }) {
         };
 
         try {
-            const res = await fetchAPI(`/events/${eventId}/comments`, {
+            const res = await fetchAPI(`${API_URL}/events/${eventId}/comments`, {
                 method: "POST",
                 body: JSON.stringify(commentPayload),
             });
 
+            const newComment = await res;
+            setFormData({ comment: "" }); // フォームをリセット
             setIsSuccess(true);
             setMessage("コメントを作成しました！");
-            setFormData({ comment: "" });
-            router.refresh(); // ページをリフレッシュしてコメント一覧を更新
+
+            // 親コンポーネントに新しいコメントを通知
+            onCommentAdded(newComment);
         } catch (error) {
+            console.error("コメント作成エラー:", error.message);
             setIsSuccess(false);
             setMessage(error.message || "コメント作成に失敗しました。再試行してください。");
         }

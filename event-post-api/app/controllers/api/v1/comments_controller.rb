@@ -6,16 +6,18 @@ module Api
       before_action :authenticate_user, only: %i[create destroy]
       before_action :set_event, only: %i[index create destroy]
       before_action :set_comment, only: :destroy
+      include Rails.application.routes.url_helpers
 
       # イベントに紐づくコメント一覧を取得
       def index
-        comments = @event.comments.includes(:user) # ユーザーを事前ロード
+        comments = @event.comments.includes(:user).order(created_at: :desc) # ユーザーを事前ロード
         render json: comments.map { |comment| format_comment(comment) }, status: :ok
       end
 
-      # コメントを作成
       def create
-        comment = @event.comments.build(comment_params.merge(user: current_user))
+        Rails.logger.debug "Received Params: #{params.inspect}" # ログを出力
+        comment = current_user.comments.build(comment_params.merge(event_id: params[:event_id]))
+
         if comment.save
           render json: { message: 'Comment created successfully', comment: format_comment(comment) }, status: :created
         else
@@ -37,14 +39,12 @@ module Api
 
       # イベントをセット
       def set_event
-        @event = Event.find_by(id: params[:event_id])
-        render json: { error: 'Event not found' }, status: :not_found unless @event
+        @event = Event.find(params[:event_id])
       end
 
       # コメントをセット
       def set_comment
-        @comment = @event.comments.find_by(id: params[:id])
-        render json: { error: 'Comment not found' }, status: :not_found unless @comment
+        @comment = @event.comments.find(params[:id])
       end
 
       # コメントのパラメータを許可
@@ -53,15 +53,22 @@ module Api
       end
 
       # コメントデータを整形
+      # コメントデータを整形
       def format_comment(comment)
         {
           id: comment.id,
           content: comment.content,
-          user: {
-            id: comment.user.id,
-            name: comment.user.name,
-            thumbnail: comment.user.thumbnail.attached? ? Rails.application.routes.url_helpers.url_for(comment.user.thumbnail) : nil
-          }
+          created_at: comment.created_at, # コメントの投稿時間を追加
+          user: format_user(comment.user)  # ユーザー情報を共通メソッドで整形
+        }
+      end
+
+      # ユーザー情報を整形するヘルパーメソッド
+      def format_user(user)
+        {
+          id: user.id,
+          name: user.name,
+          thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         }
       end
     end
