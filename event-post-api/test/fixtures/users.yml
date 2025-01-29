@@ -1,19 +1,29 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+user1:
+  id: 1
+  name: "Alice"
+  email: "alice@example.com"
+  password_digest: <%= BCrypt::Password.create("password") %>
+  thumbnail: "user1_thumbnail.png"
+  description: "Alice is a developer"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
-one:
-  name: MyString
-  email: MyString
-  password_digest: MyString
-  thumbnail: MyString
-  description: MyText
-  created_at: 2024-10-23 13:41:57
-  updated_at: 2024-10-23 13:41:57
+user2:
+  id: 2
+  name: "Bob"
+  email: "bob@example.com"
+  password_digest: <%= BCrypt::Password.create("password") %>
+  thumbnail: "user2_thumbnail.png"
+  description: "Bob is a designer"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
-two:
-  name: MyString
-  email: MyString
-  password_digest: MyString
-  thumbnail: MyString
-  description: MyText
-  created_at: 2024-10-23 13:41:57
-  updated_at: 2024-10-23 13:41:57
+user3:
+  id: 3
+  name: "Charlie"
+  email: "charlie@example.com"
+  password_digest: <%= BCrypt::Password.create("password") %>
+  thumbnail: "user3_thumbnail.png"
+  description: "Charlie is a project manager"
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

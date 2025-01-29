@@ -1,17 +1,29 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  date: 2024-10-30 08:16:14
-  location: MyString
-  description: MyText
-  price: MyString
+event1:
+  title: "Tech Meetup"
+  date: <%= 2.days.from_now %>
+  location: "Tokyo"
+  description: "A meetup for tech enthusiasts"
+  price: "1000"
   user_id: 1
+  created_at: <%= 3.days.ago %>
+  updated_at: <%= 3.days.ago %>
 
-two:
-  title: MyString
-  date: 2024-10-30 08:16:14
-  location: MyString
-  description: MyText
-  price: MyString
-  user_id: 1
+event2:
+  title: "Startup Pitch"
+  date: <%= 5.days.from_now %>
+  location: "Osaka"
+  description: "Startup founders pitch their ideas"
+  price: "2000"
+  user_id: 2
+  created_at: <%= 2.days.ago %>
+  updated_at: <%= 2.days.ago %>
+
+event3:  # ← これが必要！
+  title: "Design Workshop"
+  date: <%= 1.day.from_now %>
+  location: "Kyoto"
+  description: "Learn UX and UI design"
+  price: "1500"
+  user_id: 3
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
