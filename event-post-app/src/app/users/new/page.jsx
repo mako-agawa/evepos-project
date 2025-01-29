@@ -80,9 +80,9 @@ export default function Register() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center h-screenp px-4 py-8  pb-16  bg-gray-100">
             <h1 className="text-4xl font-bold p-8">新規登録</h1>
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-lg space-y-6">
+            <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg space-y-6">
                 <div>
                     <label className="text-xl block mb-2" htmlFor="name">Name:</label>
                     <input

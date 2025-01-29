@@ -91,7 +91,7 @@ const EventIndex = () => {
 
                             <div className="flex items-center mt-2">
                                 <Image
-                                    src={event.user.thumbnail}
+                                    src={event.user.thumbnail_url}
                                     alt={event.user.name}
                                     width={32}
                                     height={32}

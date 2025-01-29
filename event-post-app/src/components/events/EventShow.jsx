@@ -107,7 +107,9 @@ export default function EventShow() {
         )}
       </div>
       <div className="px-8 py-4 pb-16 rounded shadow-md bg-white w-full">
-        <h2 className="text-lg text-gray-500 font-bold">コメント一覧</h2>
+        <Button onClick={() => router.push(`/${event.id}/comment`)} className="text-lg text-gray-500 font-bold">
+          コメントを書
+          く</Button>
         <div className="">
           {comments.map((comment) => (
             console.log(comment), // ここで `thumbnail_url` があるか確認

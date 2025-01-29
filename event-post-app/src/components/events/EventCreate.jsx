@@ -41,7 +41,7 @@ export default function EventCreate() {
     };
 
     return (
-        <div className="flex flex-col items-center h-screen px-4">
+        <div className="flex flex-col items-center h-screen px-4 pb-12">
             <h1 className="text-4xl font-bold text-gray-800 p-8">イベント投稿</h1>
             <EventForm
                 initialData={{

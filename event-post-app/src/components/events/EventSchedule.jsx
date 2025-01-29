@@ -61,7 +61,7 @@ const EventSchedule = () => {
               </h2>
               <p className="text-gray-600 mt-1">📅 {event.date} | 📍 {event.location}</p>
               <Image
-                src={event.user.thumbnail}
+                src={event.user.thumbnail_url}
                 alt={event.user.name}
                 width={32}
                 height={32}

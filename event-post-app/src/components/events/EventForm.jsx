@@ -24,9 +24,9 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-8 rounded shadow-md bg-white w-full max-w-lg space-y-6 mt-6">
+        <form onSubmit={handleSubmit} className="p-6  rounded shadow-md bg-white w-full h-screen max-w-lg pb-12">
             <div>
-                <label className="text-xl block mb-2" htmlFor="title">タイトル:</label>
+                <label className="text-md block mb-2" htmlFor="title">タイトル:</label>
                 <input
                     type="text"
                     id="title"
@@ -38,7 +38,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <div>
-                <label className="text-xl block mb-2" htmlFor="date">日時:</label>
+                <label className="text-md block my-2" htmlFor="date">日時:</label>
                 <input
                     type="text"
                     id="date"
@@ -50,7 +50,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <div>
-                <label className="text-xl block mb-2" htmlFor="location">場所:</label>
+                <label className="text-md block my-2" htmlFor="location">場所:</label>
                 <input
                     type="text"
                     id="location"
@@ -62,7 +62,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <div>
-                <label className="text-xl block mb-2" htmlFor="image">画像:</label>
+                <label className="text-md block my-2" htmlFor="image">画像:</label>
                 <input
                     type="file"
                     id="image"
@@ -72,7 +72,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <div>
-                <label className="text-xl block mb-2" htmlFor="description">概要:</label>
+                <label className="text-md block my-2" htmlFor="description">概要:</label>
                 <textarea
                     id="description"
                     name="description"
@@ -84,7 +84,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <div>
-                <label className="text-xl block mb-2" htmlFor="price">金額:</label>
+                <label className="text-md block my-2" htmlFor="price">金額:</label>
                 <input
                     id="price"
                     name="price"
@@ -95,7 +95,7 @@ export default function EventForm({ initialData, onSubmit, buttonText }) {
                 />
             </div>
             <button
-                className="w-full inline-flex items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
+                className="w-full inline-flex mt-8 items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
                 type="submit"
             >
                 {buttonText}
