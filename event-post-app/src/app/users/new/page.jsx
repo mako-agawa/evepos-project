@@ -60,7 +60,7 @@ export default function Register() {
             setAuth({
                 isLoggedIn: true,
                 currentUser: data.user,
-                token:  data.token // ログインユーザー情報を設定
+                token: data.token // ログインユーザー情報を設定
             });
             setMessage('Registration successful!');
             setFormData({
@@ -84,7 +84,7 @@ export default function Register() {
             <h1 className="text-4xl font-bold p-8">新規登録</h1>
             <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg space-y-6">
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="name">Name:</label>
+                    <label className="text-mb block mb-2" htmlFor="name">Name:</label>
                     <input
                         type="text"
                         id="name"
@@ -96,7 +96,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="email">Email:</label>
+                    <label className="text-mb block mb-2" htmlFor="email">Email:</label>
                     <input
                         type="email"
                         id="email"
@@ -108,7 +108,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="password">Password:</label>
+                    <label className="text-mb block mb-2" htmlFor="password">Password:</label>
                     <input
                         type="password"
                         id="password"
@@ -120,7 +120,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="password_confirmation">Password Confirmation:</label>
+                    <label className="text-mb block mb-2" htmlFor="password_confirmation">Password Confirmation:</label>
                     <input
                         type="password"
                         id="password_confirmation"
@@ -132,7 +132,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="thumbnail">Thumbnail:</label>
+                    <label className="text-mb block mb-2" htmlFor="thumbnail">Thumbnail:</label>
                     <input
                         type="file"
                         id="thumbnail"
@@ -143,7 +143,7 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label className="text-xl block mb-2" htmlFor="description">Description:</label>
+                    <label className="text-mb block mb-2" htmlFor="description">Description:</label>
                     <textarea
                         id="description"
                         name="description"

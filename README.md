@@ -45,18 +45,25 @@
 
 <br>
 
+## 画面遷移図
+
+<br>
+
+![UI_map]()  
+<br>
+
 ## ER図
 
 <br>
 
-![ER]( "ER図")  
+![ER_map](/documents/ER.png)  
 <br>
 
 ## AWS構成図
 
 <br>
 
-![AWS]( "インフラ構成図")  
+![AWS_map](/documents/architecture.png)  
 <br>
 
 <br>
