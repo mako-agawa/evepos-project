@@ -4,7 +4,7 @@ module Api
   module V1
     class EventsController < ApplicationController
       before_action :authenticate_user, only: %i[create update destroy like]
-      before_action :set_event, only: %i[show update destroy like]
+      before_action :set_event, only: %i[update destroy]
       before_action :authorize_user!, only: %i[update destroy]
       include Rails.application.routes.url_helpers # 画像URL生成用
 
@@ -16,13 +16,14 @@ module Api
 
       # GET /api/v1/events/schedule 直近の予定日順でイベントを取得
       def schedule
-        events = Event.includes(:user).where("date >= ?", Date.today).order(date: :asc)
+        events = Event.includes(:user).where('date >= ?', Date.today).order(date: :asc)
                       .map { |event| event_info_with_user(event) }
         render json: events
       end
 
       # GET /api/v1/events/:id
       def show
+        @event = Event.find(params[:id])
         render json: event_info_with_user(@event)
       end
 
@@ -50,8 +51,8 @@ module Api
         if @event.destroy
           render json: { message: 'Event successfully deleted' }, status: :ok
         else
-          Rails.logger.error "Event deletion failed: #{@event.errors.full_messages}"
-          render json: { error: 'Failed to delete event', details: @event.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: 'Failed to delete event', details: @event.errors.full_messages },
+                 status: :unprocessable_entity
         end
       end
 
@@ -62,6 +63,16 @@ module Api
       end
 
       private
+
+      # Strong Parameters
+      def event_params
+        params.require(:event).permit(:title, :date, :location, :description, :price, :image)
+      end
+
+      def set_event
+        @event = Event.find_by(id: params[:id])
+        render json: { error: 'Event not found' }, status: :not_found unless @event
+      end
 
       # イベント情報と画像URLを含むハッシュを生成
       def event_info_with_user(event)
@@ -87,20 +98,9 @@ module Api
           thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         }
       end
-
-      # コールバックで共通の処理をまとめる
-      def set_event
-        @event = Event.find(params[:id])
-      end
-
       # イベント作成者であるか確認する
       def authorize_user!
         render json: { error: 'Unauthorized' }, status: :forbidden unless @event.user_id == current_user.id
-      end
-
-      # Strong Parameters
-      def event_params
-        params.require(:event).permit(:title, :date, :location, :description, :price, :image)
       end
     end
   end

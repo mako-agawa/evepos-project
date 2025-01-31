@@ -1,5 +1,6 @@
 export const fetchAPI = async (url, options = {}) => {
   const token = localStorage.getItem("token");
+  console.log(token);
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,

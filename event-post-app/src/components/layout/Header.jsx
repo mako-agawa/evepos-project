@@ -18,7 +18,7 @@ const Header = () => {
   const { handleNavigation } = usePageNavigation();
  
   return (
-    <header className="bg-orange-400 h-20 px-4 sm:px-24 flex justify-between items-center relative">
+    <header className="bg-orange-400 py-4 pl-6 pr-4 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center relative">
       <Link href="/" onClick={() => handleNavigation("index")} className="text-white text-3xl font-bold hover:cursor">
         いべぽす
       </Link>

@@ -1,70 +1,95 @@
 @startuml
-entity "Users" {
-  *id : int <<PK>>
+hide circle
+hide methods
+skinparam linetype ortho
+
+' entity active_storage_attachments {
+'   *id : bigint
+'   --
+'   name : string
+'   record_type : string
+'   record_id : bigint
+'   blob_id : bigint
+'   created_at : datetime
+' }
+
+' entity active_storage_blobs {
+'   *id : bigint
+'   --
+'   key : string
+'   filename : string
+'   content_type : string
+'   metadata : text
+'   service_name : string
+'   byte_size : bigint
+'   checksum : string
+'   created_at : datetime
+' }
+
+' entity active_storage_variant_records {
+'   *id : bigint
+'   --
+'   blob_id : bigint
+'   variation_digest : string
+' }
+
+entity comments {
+  *id : bigint
   --
-  name : string
-  email : string <<unique>>
-  password_digest : string
-  thumbnail : string
-  description : text
-  authentication_token : string
+  content : text
+  event_id : bigint
+  user_id : bigint
   created_at : datetime
   updated_at : datetime
 }
 
-entity "Events" {
-  *id : int <<PK>>
+entity events {
+  *id : bigint
   --
   title : string
   date : datetime
   location : string
   description : text
-  price : decimal
-  user_id : int <<FK>>
+  price : string
+  user_id : bigint
+  created_at : datetime
+  updated_at : datetime
   image : string
+  likes_count : bigint
+}
+
+entity likes {
+  *id : bigint
+  --
+  user_id : bigint
+  event_id : bigint
   created_at : datetime
   updated_at : datetime
 }
 
-entity "Tags" {
-  *id : int <<PK>>
+entity users {
+  *id : bigint
   --
   name : string
+  email : string
+  password_digest : string
+  thumbnail : string
+  description : text
   created_at : datetime
   updated_at : datetime
+  authentication_token : string
 }
 
-entity "Event_Tags" {
-  *event_id : int <<FK>>
-  *tag_id : int <<FK>>
-  --
-  created_at : datetime
-}
+' ' 外部キーの関係を定義
+' active_storage_attachments }|--|| active_storage_blobs : "blob_id"
+' active_storage_variant_records }|--|| active_storage_blobs : "blob_id"
 
-entity "Likes" {
-  *id : int <<PK>>
-  --
-  user_id : int <<FK>>
-  event_id : int <<FK>>
-  created_at : datetime
-}
+comments }|--|| events : "event_id"
+comments }|--|| users : "user_id"
 
-entity "Comments" {
-  *id : int <<PK>>
-  --
-  user_id : int <<FK>>
-  event_id : int <<FK>>
-  content : text
-  created_at : datetime
-  updated_at : datetime
-}
+likes }|--|| events : "event_id"
+likes }|--|| users : "user_id"
 
-' Relationships
-Users ||--o{ Events : "posts"
-Events ||--o{ Event_Tags : ""
-Tags ||--o{ Event_Tags : ""
-Users ||--o{ Likes : ""
-Events ||--o{ Likes : ""
-Users ||--o{ Comments : ""
-Events ||--o{ Comments : ""
+events }|--|| users : "user_id"
+
 @enduml

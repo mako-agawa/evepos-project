@@ -74,34 +74,38 @@ export default function UserShow() {
     const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
     return (
-        <div className="flex flex-col items-center bg-gray-100 px-4 max-w-screen-lg mx-auto  h-screen">
-            <h1 className="text-3xl font-bold text-gray-800">
-                {isCurrentUser ? 'マイページ' : 'ユーザーページ'}
-            </h1>
-            <div >
-                <div className="flex  p-8 my-4 rounded shadow-md bg-white w-full">
+        <div className="flex flex-col bg-gray-100 px-4 max-w-screen-lg mx-auto  h-screen">
+            <p className="text-gray-600 text-2xl">{isCurrentUser ? "Myページ" : "ユーザーページ"}</p>
+            <div className="flex flex-col p-8 my-4 rounded shadow-md bg-white w-full">
+                <div className="flex  items-center">
                     {user.thumbnail_url && (
                         <Image
                             src={user.thumbnail_url}
                             alt="User Thumbnail"
-                            width={96}
-                            height={96}
+                            width={72}
+                            height={72}
                             className="w-24 h-24 rounded-full mb-6 shadow-md"
                         />
                     )}
-                    <p className="text-gray-700 text-xl">名前: {user.name}</p>
-
-                    <p className="text-gray-700">概要:</p>
-                    <p className="text-gray-700">{user.description}</p>
+                    <p className="text-gray-700 pl-6 font-bold text-2xl">{user.name}</p>
                 </div>
+                <p className="text-gray-700 font-semibold">メッセージ:</p>
+                <p className="text-gray-700 bg-gray-100 text-sm border border-orange-400 rounded-md">{user.description}</p>
             </div>
+
             {isCurrentUser && (
-                <Button
-                    onClick={() => handleUserDelete(userId)}
-                    className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"
-                >
-                    削除
-                </Button>
+                <div className="flex justify-end gap-4">
+                    <Button onClick={() => router.push(`/users/${userId}/edit`)} className="bg-green-500 text-white px-4 py-2 rounded">
+                        編集
+                    </Button>
+
+                    <Button
+                        onClick={() => handleUserDelete(userId)}
+                        className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"
+                    >
+                        退会
+                    </Button>
+                </div>
             )}
         </div>
     );

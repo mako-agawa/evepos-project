@@ -5,7 +5,6 @@ module Api
       # skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
 
       def create
-        puts '====== sessions ======='
         user = User.find_by(email: params[:email])
         puts "User found: #{user.present? ? user.email : 'Not found'}"
         if user&.authenticate(params[:password])
@@ -26,7 +25,7 @@ module Api
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
-      
+
     end
   end
 end

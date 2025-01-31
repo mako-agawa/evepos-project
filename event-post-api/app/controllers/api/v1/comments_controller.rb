@@ -15,16 +15,13 @@ module Api
       end
 
       def create
-        Rails.logger.debug "Received Params: #{params.inspect}" # ログを出力
         comment = current_user.comments.build(comment_params.merge(event_id: params[:event_id]))
-
         if comment.save
           render json: { message: 'Comment created successfully', comment: format_comment(comment) }, status: :created
         else
           render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
         end
       end
-
       # コメントを削除
       def destroy
         if @comment.user == current_user
@@ -36,17 +33,14 @@ module Api
       end
 
       private
-
       # イベントをセット
       def set_event
         @event = Event.find(params[:event_id])
       end
-
       # コメントをセット
       def set_comment
         @comment = @event.comments.find(params[:id])
       end
-
       # コメントのパラメータを許可
       def comment_params
         params.require(:comment).permit(:content)

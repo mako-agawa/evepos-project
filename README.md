@@ -1,11 +1,11 @@
 # いべぽす
-『いべぽす』ライブや活動発信をしたいバンドマン、パフォーマーをはじめ、同じ趣味やイベントを共有したい人たち向けて作ったイベント投稿掲示板サービスです。 
+『いべぽす』はライブや活動発信をしたいバンドマン、パフォーマーをはじめ、同じ趣味やイベントを共有したい人たち向けて作ったイベント投稿掲示板サービスです。 
    
-### https://evepsos.net
+### https://www.evepos.net
 <br>  
 
 #### トップページ
-![トップページ](https://konbist-image.s3-ap-northeast-1.amazonaws.com/images/top.png "トップ画像")  
+![トップページ](トップ画像")  
 <br>
 
 ## 特に見ていただきたいポイント
@@ -31,13 +31,13 @@
 * フロントエンド  
   * HTML/CSS
   * Javascript
-  * Nuxt.js（SPAモード）
+  * Nuxt.js
   * jotai
-  * ESLint/Prettier（コード解析ツール）
+  * ESLint/Prettier
 * バックエンド  
-  * Ruby 2.7.2
-  * Ruby on Rails 6.0.3 （APIモード）
-  * Rubocop（コード解析ツール）
+  * Ruby
+  * Ruby on Rails
+  * Rubocop
   * Active Storage
 * インフラ・開発環境  
   * AWS（VPC,EC2,Route53,ALB,RDS,ACM,SSM）
@@ -45,18 +45,25 @@
 
 <br>
 
+## 画面遷移図
+
+<br>
+
+![UI_map]()  
+<br>
+
 ## ER図
 
 <br>
 
-![ER]( "ER図")  
+![ER_map](/documents/ER.png)  
 <br>
 
 ## AWS構成図
 
 <br>
 
-![AWS]( "インフラ構成図")  
+![AWS_map](/documents/architecture.png)  
 <br>
 
 <br>
@@ -72,7 +79,7 @@
 * イベント詳細ページ
     * いいねボタン ※ログイン必須
     * コメント投稿 ※ログイン必須
-    
+
 * ユーザーマイページ表示（サムネイル画像・名前・プロフィール）
 * フードいいね機能（いいね後はフード横アイコンが🍴に変わる）
 * 口コミ投稿・編集・削除

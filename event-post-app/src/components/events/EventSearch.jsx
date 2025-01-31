@@ -2,6 +2,13 @@ import React from "react";
 import { Search } from "lucide-react";
 
 const EventSearch = () => {
+
+  /////////////////////////////
+  
+  //////// 現在開発中 //////////
+  
+  ////////////////////////////
+
   return (
     <div className="flex flex-col items-center h-screen px-4 py-8">
       {/* ロゴ */}

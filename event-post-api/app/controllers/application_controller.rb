@@ -6,7 +6,9 @@ class ApplicationController < ActionController::API
   def authenticate_user
     token = request.headers['Authorization']&.split(' ')&.last
     puts '=======authenticate_user========'
-    puts "token: #{token}"
+    puts "Raw Authorization Header: #{request.headers['Authorization']}" # 生のヘッダーをログに出す
+    puts "Extracted Token: #{token}"
+
     if token.present?
       payload = decode_token(token)
       if payload
@@ -24,12 +26,11 @@ class ApplicationController < ActionController::API
 
   def encode_token(payload)
     puts '========encode======='
-    puts "payload: #{payload}" 
+    puts "payload: #{payload}"
     expiration_time = 3.months.from_now.to_i # 有効期限は3か月
     payload[:exp] = expiration_time
     secret_key = 'my_fixed_secret_key_for_testing_purposes'
     JWT.encode(payload, secret_key, 'HS256')
-    # JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
   end
 
   def decode_token(token)

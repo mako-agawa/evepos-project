@@ -7,7 +7,6 @@ module Api
       # 現在のユーザー情報を返す
       def current_user
         if @current_user
-          puts "current_user: #{@current_user}"
           render json: user_info_with_thumbnail(@current_user), status: :ok
         else
           render json: { error: 'Not authenticated' }, status: :unauthorized
@@ -31,7 +30,6 @@ module Api
         user = User.new(user_params)
         if user.save
           token = encode_token({ user_id: user.id }) # トークンを生成
-          puts token
           render json: {
             message: 'User created successfully',
             user: user_info_with_thumbnail(user),
@@ -61,7 +59,6 @@ module Api
           if current_user.destroy
             render json: { message: 'User deleted successfully' }, status: :ok
           else
-            Rails.logger.error "User deletion failed: #{current_user.errors.full_messages}"
             render json: { error: 'Failed to delete user', details: current_user.errors.full_messages },
                    status: :unprocessable_entity
           end

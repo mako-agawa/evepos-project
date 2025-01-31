@@ -6,12 +6,12 @@ import { authAtom } from "@/atoms/authAtom";
 export function useCurrentUser() {
   const [currentUser, setCurrentUser] = useState(null);
   const [auth, setAuth] = useAtom(authAtom);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const fetchUser = async () => {
       if (!auth.token) return;  // トークンがない場合は何もしない
       try {
-        const data = await fetchAPI(`${process.env.NEXT_PUBLIC_API_URL}/current_user`, {
+        const data = await fetchAPI(`${API_URL}/current_user`, {
           headers: {
             Authorization: `Bearer ${auth.token}`, // トークンをヘッダーに追加
           },
@@ -28,5 +28,14 @@ export function useCurrentUser() {
     fetchUser();
   }, [auth.token]);  // トークンの変更時のみ実行
 
-  return { currentUser };
+  const refetchUser = async () => {
+    try {
+        const user = await fetchAPI(`${API_URL}/current_user`);
+        setCurrentUser(user);
+    } catch (error) {
+        console.error("ユーザー情報の再取得に失敗:", error);
+    }
+};
+
+  return { currentUser, refetchUser };
 }

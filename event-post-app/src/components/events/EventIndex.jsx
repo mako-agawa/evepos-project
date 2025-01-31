@@ -55,7 +55,7 @@ const EventIndex = () => {
                 return (
                     <div
                         key={event.id}
-                        onClick={() => router.push(`/${event.id}`)}
+                        onClick={() => router.push(`/events/${event.id}`)}
                         className="cursor-pointer flex items-center gap-6 p-5 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all"
                     >
                         <Image
