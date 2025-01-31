@@ -12,7 +12,7 @@ export default function Events() {
   const [pageMode] = useAtom(pageModeAtom);
 
   return (
-    <div className="flex flex-col items-center bg-gray-100 py-8">
+    <div className="flex flex-col items-center py-8">
       {pageMode === "index" && <EventIndex />}
       {pageMode === "schedule" && <EventSchedule />}
       {pageMode === "search" && <EventSearch />}

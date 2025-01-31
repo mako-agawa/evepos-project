@@ -44,67 +44,77 @@ const EventIndex = () => {
     }
 
     return (
-        <div className="flex flex-col items-center h-screen gap-6 w-full max-w-3xl px-4">
-            <h1 className="text-4xl font-bold p-8">新着イベント</h1>
-            {events.map((event) => {
-                const isCreator = currentUser && event.user_id === currentUser.id;
-                const mmdd = getEventDate(event.date);
-                const weekday = getEventWeekday(event.date);
-                const hhmm = getEventTime(event.date);
+        <div className="flex flex-col items-center max-w-3xl h-screen px-4 py-8">
+            <h1 className="text-gray-500 b border-b-2  border-orange-300 px-6 text-2xl mb-8">新着イベント</h1>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                {events.map((event) => {
+                    const isCreator = currentUser && event.user_id === currentUser.id;
+                    const mmdd = getEventDate(event.date);
+                    const weekday = getEventWeekday(event.date);
+                    const hhmm = getEventTime(event.date)
 
-                return (
-                    <div
-                        key={event.id}
-                        onClick={() => router.push(`/events/${event.id}`)}
-                        className="cursor-pointer flex items-center gap-6 p-5 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all"
-                    >
-                        <Image
-                            src={event.image_url}
-                            alt={event.title}
-                            width={96}
-                            height={96}
-                            priority
-                            className="object-cover rounded-md"
-                        />
-                        <div>
-                            <h2
-                                className={`text-2xl font-semibold ${isCreator ? "text-orange-500" : "text-black"
-                                    }`}
-                            >
-                                {event.title}
-                            </h2>
-                            <p className="text-gray-600">
-                                開催日時: {mmdd}({weekday}) {hhmm}
-                            </p>
-                            <p className="text-gray-600 mt-1">
-                                📍 {event.location}
-                            </p>
-
-
-                            {/* いいねボタン */}
-                            <LikeButton
-                                eventId={event.id}
-                                initialLiked={!!event.liked}
-                                initialLikesCount={event.likes_count}
-                                disabled={!currentUser} // currentUserがnull/undefinedならtrue(=無効化)
+                    return (
+                        <div
+                            key={event.id}
+                            onClick={() => router.push(`/events/${event.id}`)}
+                            className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all p-2"
+                        >
+                            {/* イベント画像 */}
+                            <Image
+                                src={event.image_url || "/placeholder.png"}
+                                alt={event.title}
+                                width={200}
+                                height={120}
+                                priority
+                                className="object-cover rounded-md w-full h-[120px]"
                             />
 
-                            <div className="flex items-center mt-2">
-                                <Image
-                                    src={event.user.thumbnail_url}
-                                    alt={event.user.name}
-                                    width={32}
-                                    height={32}
-                                    priority
-                                    className="rounded-full border border-gray-300 mr-2"
-                                />
-                                <span className="text-gray-700">{event.user.name}</span>
+                            {/* イベント詳細 */}
+                            <div className="w-full px-2">
+                                <div className="flex items-center gap-2 mt-2 text-gray-600 text-sm">
+                                    <p>{mmdd}</p>
+                                    <p>({weekday})</p>
+                                    <p>📍 {event.location}</p>
+                                </div>
+
+                                {/* タイトル & いいねボタン */}
+                                <div className="flex items-center justify-between mt-2">
+                                    <h2
+                                        className={`text-lg font-semibold ${isCreator ? "text-orange-500" : "text-gray-700"
+                                            }`}
+                                    >
+                                        {event.title}
+                                    </h2>
+                                </div>
+
+
+                                {/* 投稿者情報 */}
+                                <div className="flex justify-between mt-2 text-xs text-gray-500">
+                                    <div className="flex items-center">
+                                        <Image
+                                            src={event.user.thumbnail_url || "/default-avatar.png"}
+                                            alt={event.user.name}
+                                            width={24}
+                                            height={24}
+                                            priority
+                                            className="rounded-full border border-gray-300 ml-2 mr-1"
+                                        />
+                                        <span>{event.user.name}</span>
+                                    </div>
+                                    <LikeButton
+                                        eventId={event.id}
+                                        initialLiked={!!event.liked}
+                                        initialLikesCount={event.likes_count}
+                                        disabled={!currentUser} // ログインしていない場合は無効化
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
+
     );
 };
 

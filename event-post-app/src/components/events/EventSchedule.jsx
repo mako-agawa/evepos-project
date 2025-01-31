@@ -44,8 +44,8 @@ const EventIndex = () => {
     }
 
     return (
-        <div className="flex flex-col items-center h-screen gap-6 w-full max-w-3xl px-4">
-            <h1 className="text-4xl font-bold p-8">スケジュール</h1>
+        <div className="flex flex-col items-center max-w-2xl h-screen px-4 py-8">
+            <h1 className="text-gray-500 b border-b-2 border-orange-400 px-6 text-2xl mb-8">スケジュール</h1>
             {events.map((event) => {
                 const isCreator = currentUser && event.user_id === currentUser.id;
                 const mmdd = getEventDate(event.date);

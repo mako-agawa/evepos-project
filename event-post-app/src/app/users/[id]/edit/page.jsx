@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { fetchAPI } from "@/utils/api";
 import { Button } from "@/components/ui/button"; 
+import Image from "next/image";
 
 export default function UserEdit() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -57,52 +58,60 @@ export default function UserEdit() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-
+    
         if (!token) {
             setMessage("認証エラー: ログインしてください");
             return;
         }
-
-        const userPayload = new FormData();
-        userPayload.append("user[name]", formData.name);
-        userPayload.append("user[email]", formData.email);
-        userPayload.append("user[description]", formData.description);
-
-        if (formData.password.trim() !== '') {
-            userPayload.append("user[password]", formData.password);
-            userPayload.append("user[password_confirmation]", formData.password_confirmation);
-        }
-
+    
+        const updatedData = new FormData();
+    
+        updatedData.append("user[name]", formData.name);
+        updatedData.append("user[email]", formData.email);
+        updatedData.append("user[password]", formData.password);
+        updatedData.append("user[password_confirmation]", formData.password_confirmation);
+        updatedData.append("user[description]", formData.description);
+    
         if (thumbnail) {
-            userPayload.append("user[thumbnail]", thumbnail);
+            updatedData.append("user[thumbnail]", thumbnail); // 画像を追加
         }
-
+    
+        // デバッグ用
+        console.log("===== SENT FORM DATA =====");
+        for (let [key, value] of updatedData.entries()) {
+            console.log(`${key}:`, value);
+        }
+    
         try {
-            const res = await fetchAPI(`${API_URL}/users/${userId}`, {
-                method: 'PATCH',
+            const response = await fetch(`${API_URL}/users/${userId}`, {
+                method: "PATCH",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}` // ✅ `Content-Type` は設定しない
                 },
-                body: userPayload, // JSONではなくFormDataを使用
+                body: updatedData, // ✅ JSON ではなく FormData を送る
             });
-            console.log(userPayload);
-
-            if (!res.ok) throw new Error("更新に失敗しました");
-
-            setMessage("更新しました！");
+    
+            if (!response.ok) throw new Error("ユーザー更新に失敗しました");
+    
+            const result = await response.json();
+            console.log("Success:", result);
             router.push(`/users/${userId}`);
         } catch (error) {
-            console.error("Update failed:", error.message);
+            console.error("Error:", error);
             setMessage("更新に失敗しました。");
         }
     };
 
+    useEffect(() => {
+        console.log("Updated formData:", formData);
+    }, [formData]);
+
     if (loading) return <p>読み込み中...</p>;
 
     return (
-        <div className="flex flex-col items-center h-screen px-4 py-8  bg-gray-100">
+        <div className="flex flex-col items-center h-screen px-4 py-8 bg-gray-100">
             <h1 className="text-4xl font-bold p-8">ユーザー編集</h1>
-            <form onSubmit={handleSubmit} className="bg-white p-8  mx-auto rounded shadow-md w-full max-w-lg">
+            <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg">
                 <div>
                     <label className="text-mb block mb-2" htmlFor="name">Name:</label>
                     <input
@@ -159,8 +168,8 @@ export default function UserEdit() {
                         onChange={handleFileChange}
                         className="w-full border border-gray-300 rounded p-2"
                     />
-                    {formData.thumbnail && (
-                        <img
+                    {formData.thumbnail_url && (
+                        <Image
                             src={formData.thumbnail}
                             alt="Current Thumbnail"
                             className="mt-4 w-32 h-32 object-cover rounded-md"

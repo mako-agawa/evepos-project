@@ -12,7 +12,7 @@ const EventSearch = () => {
   return (
     <div className="flex flex-col items-center h-screen px-4 py-8">
       {/* ロゴ */}
-      <h1 className="text-4xl font-bold text-gray-800 mb-14">Event Search</h1>
+      <h1 className="text-gray-500 b border-b-2 border-orange-400 px-6 text-2xl mb-8">Event Search</h1>
 
       {/* 検索バー */}
       <div className="relative w-full max-w-2xl">

@@ -46,9 +46,9 @@ export default function LikeButton({
         } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
         aria-label="Like Button"
       >
-        <Heart className="w-5 h-5" />
+        <Heart className="w-3 h-3" />
+      {/* <span className="text-sm">{likesCount}</span> */}
       </button>
-      <span className="text-sm">{likesCount} いいね</span>
     </div>
   );
 }

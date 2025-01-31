@@ -42,17 +42,15 @@ module Api
 
       # ユーザー情報の更新
       def update
-        if current_user&.id == params[:id].to_i
-          if current_user.update(user_params)
-            render json: { message: 'User updated successfully', user: user_info_with_thumbnail(current_user) }
-          else
-            render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
-          end
+        @user = User.find_by(id: params[:id]) # ✅ ここで @user を定義
+        if @user.update(user_params)
+          render json: { message: 'User updated successfully', user: user_info_with_thumbnail(@user) }, status: :ok
         else
-          render json: { error: 'Unauthorized action' }, status: :unauthorized
+          render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
+      
       # ユーザー削除
       def destroy
         if current_user&.id == params[:id].to_i
@@ -70,6 +68,7 @@ module Api
       private
 
       def user_info_with_thumbnail(user)
+          Rails.logger.info "Received Params: #{params.inspect}"
         {
           id: user.id,
           name: user.name,

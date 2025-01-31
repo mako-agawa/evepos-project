@@ -74,8 +74,8 @@ export default function UserShow() {
     const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
     return (
-        <div className="flex flex-col bg-gray-100 px-4 max-w-screen-lg mx-auto  h-screen">
-            <p className="text-gray-600 text-2xl">{isCurrentUser ? "Myページ" : "ユーザーページ"}</p>
+        <div className="flex flex-col bg-gray-100 px-4 max-w-screen-lg mx-auto h-screen">
+            <p className="text-gray-500 border-b text-2xl">{isCurrentUser ? "Myページ" : "ユーザーページ"}</p>
             <div className="flex flex-col p-8 my-4 rounded shadow-md bg-white w-full">
                 <div className="flex  items-center">
                     {user.thumbnail_url && (
@@ -90,7 +90,7 @@ export default function UserShow() {
                     <p className="text-gray-700 pl-6 font-bold text-2xl">{user.name}</p>
                 </div>
                 <p className="text-gray-700 font-semibold">メッセージ:</p>
-                <p className="text-gray-700 bg-gray-100 text-sm border border-orange-400 rounded-md">{user.description}</p>
+                <p className="text-gray-700 p-2 text-sm border border-orange-400 rounded-md">{user.description}</p>
             </div>
 
             {isCurrentUser && (
