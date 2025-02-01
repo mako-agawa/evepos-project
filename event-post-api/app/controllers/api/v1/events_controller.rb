@@ -23,7 +23,7 @@ module Api
 
       # GET /api/v1/events/:id
       def show
-        @event = Event.find(params[:id])
+        set_event
         render json: event_info_with_user(@event)
       end
 
@@ -39,6 +39,7 @@ module Api
 
       # PATCH/PUT /api/v1/events/:id
       def update
+        set_event
         if @event.update(event_params)
           render json: { message: 'Event updated successfully', event: event_info_with_user(@event) }, status: :ok
         else
@@ -64,9 +65,9 @@ module Api
 
       private
 
-      # Strong Parameters
       def event_params
-        params.require(:event).permit(:title, :date, :location, :description, :price, :image)
+        puts params.inspect
+        params.permit(:title, :date, :location, :description, :price, :image)
       end
 
       def set_event

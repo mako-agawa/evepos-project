@@ -8,24 +8,20 @@ module Api
 
       # POST /api/v1/events/:event_id/likes
       def create
-        like = @event.likes.build(user: current_user)
+        like = @event.likes.find_or_create_by(user: current_user)
 
-        if like.save
-          render json: { message: 'Like added successfully', likes_count: @event.likes.count }, status: :created
-        else
-          render json: { error: 'Unable to like the event', details: like.errors.full_messages }, status: :unprocessable_entity
-        end
+        status = like.persisted? ? :ok : :created
+        render json: { message: 'Like added successfully', likes_count: @event.likes.count }, status: status
       end
 
       # DELETE /api/v1/events/:event_id/likes
       def destroy
         like = @event.likes.find_by(user: current_user)
 
-        if like
-          like.destroy
+        if like&.destroy
           render json: { message: 'Like removed successfully', likes_count: @event.likes.count }, status: :ok
         else
-          render json: { error: 'Like not found' }, status: :not_found
+          render json: { error: 'Failed to remove like' }, status: :unprocessable_entity
         end
       end
 
