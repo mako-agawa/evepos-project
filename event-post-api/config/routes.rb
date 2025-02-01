@@ -32,5 +32,7 @@ Rails.application.routes.draw do
   end
 
   # Active Storageのルーティング
-  mount Rails::ActiveStorage::Engine => '/rails/active_storage'
+
+    # 他のルート設定
+    mount ActiveStorage::Engine => '/rails/active_storage'
 end

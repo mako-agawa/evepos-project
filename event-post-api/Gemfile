@@ -23,7 +23,7 @@ gem 'bootsnap', require: false
 # Cross-Origin Resource Sharing (CORS)
 gem 'rack-cors', require: 'rack/cors'
 
-
+gem 'activestorage', require: 'active_storage/engine'
 # gem 'aws-sdk-s3', require: false
 
 # Environment Variables for All Environments
