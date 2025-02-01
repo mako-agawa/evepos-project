@@ -67,7 +67,7 @@ const EventIndex = () => {
                             {/* 画像のコンテナ（relative を適用） */}
                             <div className="mt-2">
                                 <Image
-                                    src={event.image_url || "/placeholder.png"}
+                                    src={event.image_url ? event.image_url.replace('http://', 'https://') : "/placeholder.png"}
                                     alt={event.title}
                                     width={210}
                                     height={150}
@@ -98,12 +98,12 @@ const EventIndex = () => {
                                     <div className="flex mt-1 text-xs text-gray-500">
                                         <div className="flex items-center">
                                             <Image
-                                                src={event.user.thumbnail_url || "/default-avatar.png"}
+                                                src={event.user.thumbnail_url ? event.user.thumbnail_url.replace('http://', 'https://') : "/default-avatar.png"}
                                                 alt={event.user.name}
                                                 width={24}
                                                 height={24}
                                                 priority
-                                                className="rounded-full border border-gray-300 m mr-1"
+                                                className="rounded-full border border-gray-300 mr-1"
                                             />
                                             <span>{event.user.name}</span>
                                         </div>
