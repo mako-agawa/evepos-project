@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     route_for(:rails_blob, blob)
   end
 
+  mount Rails::ActiveStorage::Engine => '/rails/active_storage'
 
   direct :rails_representation do |representation|
     route_for(:rails_representation, representation)
