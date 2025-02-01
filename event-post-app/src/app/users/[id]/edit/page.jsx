@@ -137,7 +137,7 @@ export default function UserEdit() {
                     />
                 </div>
                 <div>
-                    <label className="text-mb block mb-2" htmlFor="password">Password (変更時のみ入力):</label>
+                    <label className="text-mb block mb-2" htmlFor="password">Password:</label>
                     <input
                         type="password"
                         id="password"

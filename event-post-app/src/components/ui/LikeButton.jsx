@@ -40,7 +40,7 @@ export default function LikeButton({
       <button
         onClick={handleLike}
         disabled={disabled}
-        className={`relative p-2 transition-colors ${
+        className={`rounded-full ${
           liked
             ? "bg-orange-400 text-white hover:bg-orange-400"
             : "bg-gray-100 text-black hover:bg-gray-200"
@@ -48,15 +48,15 @@ export default function LikeButton({
         aria-label="Like Button"
       >
         {/* ハートアイコン */}
-        <Image src="/heart.svg" alt="Like" width={25} height={25} />
+        <Image src="/heart.svg" alt="Like"  width={25} height={25} />
 
-        {/* いいね数 (ハートの右上に重ねる) */}
-        {likesCount > 0 && (
-          <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white text-black text-xs px-1 rounded-full shadow-md">
-            {likesCount}
-          </span>
-        )}
       </button>
+        {/* いいね数 (ハートの右上に重ねる) */}
+        {/* {likesCount > 0 && ( */}
+          <span className="ml-1 text-xs">
+            {likesCount}いいね
+          </span>
+        {/* )} */}
     </div>
   );
 }
