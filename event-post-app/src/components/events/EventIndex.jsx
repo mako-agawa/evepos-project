@@ -57,18 +57,28 @@ const EventIndex = () => {
                         <div
                             key={event.id}
                             onClick={() => router.push(`/events/${event.id}`)}
-                            className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all p-2"
+                            className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all p-4"
                         >
-                            {/* イベント画像 */}
-                            <Image
-                                src={event.image_url || "/placeholder.png"}
-                                alt={event.title}
-                                width={200}
-                                height={120}
-                                priority
-                                className="object-cover rounded-md w-full h-[120px]"
-                            />
-
+                            {/* 画像のコンテナ（relative を適用） */}
+                            <div className="relative w-full">
+                                <Image
+                                    src={event.image_url || "/placeholder.png"}
+                                    alt={event.title}
+                                    width={200}
+                                    height={120}
+                                    priority
+                                    className="object-cover rounded-md w-full h-[120px]"
+                                />
+                                {/* いいねボタンをオーバーレイ（absolute で右上） */}
+                                <div className="absolute bottom-0 right-0 p-1 rounded-full shadow-sm">
+                                    <LikeButton
+                                        eventId={event.id}
+                                        initialLiked={!!event.liked}
+                                        initialLikesCount={event.likes_count}
+                                        disabled={!currentUser}
+                                    />
+                                </div>
+                            </div>
                             {/* イベント詳細 */}
                             <div className="w-full px-2">
                                 <div className="flex items-center gap-2 mt-2 text-gray-600 text-sm">
@@ -101,12 +111,6 @@ const EventIndex = () => {
                                         />
                                         <span>{event.user.name}</span>
                                     </div>
-                                    <LikeButton
-                                        eventId={event.id}
-                                        initialLiked={!!event.liked}
-                                        initialLikesCount={event.likes_count}
-                                        disabled={!currentUser} // ログインしていない場合は無効化
-                                    />
                                 </div>
                             </div>
                         </div>

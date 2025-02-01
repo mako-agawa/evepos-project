@@ -52,10 +52,10 @@ export default function EventShow() {
     fetchData();
   }, [eventId]);
 
-  useEffect(() => {
-    console.log("コメント投稿後、ユーザー情報を更新");
-    refetchUser(); // 🔹 `currentUser` を最新に更新
-  }, [comments]);
+  // useEffect(() => {
+  //   console.log("コメント投稿後、ユーザー情報を更新");
+  //   refetchUser(); // 🔹 `currentUser` を最新に更新
+  // }, [comments]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;

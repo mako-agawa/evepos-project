@@ -1,166 +1,215 @@
-'use client';
+"use client";
 
+import { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { format } from "date-fns";
 import { useRouter, useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { fetchAPI } from "@/utils/api";
-import { Button } from '../ui/button';
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import InputDateTime from "../general/InputDateTime";
+import Image from "next/image";
+import "react-clock/dist/Clock.css";
 
 export default function EventEdit() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const router = useRouter();
     const params = useParams();
     const eventId = params?.id;
-    const [eventData, setEventData] = useState(null);
-    const [imageFile, setImageFile] = useState('');
-    const [message, setMessage] = useState('');
 
+    const [message, setMessage] = useState("");
+    const [imageFile, setImageFile] = useState(null);
+    console.log("imageFile:", imageFile);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(new Date());
+
+    // `react-hook-form` のセットアップ
+    const { control, setValue, handleSubmit, register, reset } = useForm({
+        defaultValues: {
+            title: "",
+            date: "",
+            location: "",
+            description: "",
+            price: "",
+        },
+    });
+
+    // イベントデータを取得
     useEffect(() => {
         const fetchEvent = async () => {
-            const data = await fetchAPI(`${API_URL}/events/${eventId}`);
-            setEventData(data);
+            try {
+                const data = await fetchAPI(`${API_URL}/events/${eventId}`);
+                if (data) {
+                    reset({
+                        title: data.title || "",
+                        date: data.date || "",
+                        location: data.location || "",
+                        description: data.description || "",
+                        price: data.price || "",
+                    });
+                    setDate(data.date ? new Date(data.date) : null);
+                    setImagePreview(data.image_url || null);
+                }
+            } catch (error) {
+                console.error("イベントの取得に失敗しました:", error);
+                setMessage("イベントの取得に失敗しました");
+            }
         };
         fetchEvent();
-    }, [API_URL, eventId]);
+    }, [API_URL, eventId, reset]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEventData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    // `date` と `time` を結合して `formData.date` に保存
+    useEffect(() => {
+        if (date && time) {
+            const formattedTime = format(time, "HH:mm");
+            const combinedDateTime = `${format(date, "yyyy-MM-dd")}T${formattedTime}:00`;
+            setValue("date", combinedDateTime);
+        }
+    }, [date, time, setValue]);
+
+    // 画像が変更されたときの処理
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
     };
 
-    const handleFileChange = (e) => {
-        setImageFile(e.target.files[0]);
-    };
-  
+    // フォーム送信処理
+    const onSubmit = async (data) => {
+        console.log("===== ON SUBMIT =====");
+        console.log("送信データ:", data);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
         const token = localStorage.getItem("token");
-
         if (!token) {
             setMessage("認証エラー: ログインしてください");
             return;
         }
 
         const formData = new FormData();
-        formData.append("event[title]", eventData.title);
-        formData.append("event[date]", eventData.date);
-        formData.append("event[location]", eventData.location);
-        formData.append("event[description]", eventData.description);
-        formData.append("event[price]", eventData.price);
+        // Object.keys(data).forEach((key) => {
+        //     formData.append(`event[${key}]`, data[key]);
+        // });
+        formData.append("title", data.title);
+        formData.append("date", data.date);
+        formData.append("location", data.location);
+        formData.append("description", data.description);
+        formData.append("price", data.price);
 
         if (imageFile) {
-            formData.append("event[image]", imageFile);
+            formData.append("image", imageFile);
         }
 
         console.log("===== SENT FORM DATA =====");
-        for (let [key, value] of formData.entries()) {
+        formData.forEach((value, key) => {
             console.log(`${key}:`, value);
-        }
+        });
 
         try {
             const response = await fetch(`${API_URL}/events/${eventId}`, {
-                method: "PATCH", 
+                method: "PATCH",
                 headers: {
-                    "Authorization": `Bearer ${token}` // 🔹 Content-Type は設定しない
+                    Authorization: `Bearer ${token}`,
                 },
-                body: formData, // 🔹 JSON ではなく FormData を送信
+                body: formData,
             });
+            console.log("Response:", response);
 
             if (!response.ok) throw new Error("イベントの更新に失敗しました");
 
-            const result = await response.json();
-            console.log("Success:", result);
+            setMessage("イベントが正常に更新されました！");
             router.push(`/events/${eventId}`);
         } catch (error) {
             console.error("Error:", error);
-            setMessage("更新に失敗しました。");
+            setMessage("イベントの更新に失敗しました。もう一度お試しください。");
         }
     };
-    if (!eventData) return <p>読み込み中...</p>;
 
     return (
-        <div className="flex flex-col items-center h-screen px-4">
-            <h1 className="text-4xl font-bold text-gray-800 p-8">イベント編集</h1>
-            <form onSubmit={handleSubmit} className="p-6  rounded shadow-md bg-white w-full h-screen max-w-lg pb-12">
-            <div>
-                <label className="text-md block mb-2" htmlFor="title">タイトル:</label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={eventData.title}
-                    onChange={handleChange}
-                    required
-                    className="w-full border rounded p-2"
-                />
-            </div>
-            <div>
-                <label className="text-md block my-2" htmlFor="date">日時:</label>
-                <input
-                    type="text"
-                    id="date"
-                    name="date"
-                    value={eventData.date}
-                    onChange={handleChange}
-                    required
-                    className="w-full border rounded p-2"
-                />
-            </div>
-            <div>
-                <label className="text-md block my-2" htmlFor="location">場所:</label>
-                <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    value={eventData.location}
-                    onChange={handleChange}
-                    required
-                    className="w-full border rounded p-2"
-                />
-            </div>
-            <div>
-                <label className="text-md block my-2" htmlFor="image">画像:</label>
-                <input
-                    type="file"
-                    id="image"
-                    name="image"
-                    onChange={handleFileChange}
-                    className="w-full border rounded p-2"
-                />
-            </div>
-            <div>
-                <label className="text-md block my-2" htmlFor="description">概要:</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    value={eventData.description}
-                    onChange={handleChange}
-                    required
-                    className="w-full border rounded p-2"
-                    rows="4"
-                />
-            </div>
-            <div>
-                <label className="text-md block my-2" htmlFor="price">金額:</label>
-                <input
-                    id="price"
-                    name="price"
-                    value={eventData.price}
-                    onChange={handleChange}
-                    required
-                    className="w-full border rounded p-2"
-                />
-            </div>
-            <Button
-                className="w-full inline-flex mt-8 items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
-                type="submit"
-            >
-                更新する
-            </Button>
-        </form>
+        <div className="flex flex-col h-screen px-4 py-8">
+            <h1 className="text-gray-500 border-b-2 border-orange-400 px-6 text-2xl mb-8">イベント編集</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
+                <div>
+                    <Label htmlFor="title">タイトル:</Label>
+                    <input
+                        type="text"
+                        id="title"
+                        {...register("title")}
+                        className="w-full border rounded p-2"
+                        required
+                    />
+                </div>
+
+                {/* 日付・時間入力 */}
+                <div className="flex gap-2">
+                    {/* 日付ピッカー */}
+                    <div className="my-4 w-1/2">
+                        <Label htmlFor="date">日付:</Label>
+                        <Controller
+                            name="date"
+                            control={control}
+                            render={() => (
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <Button variant="outline" className="w-full justify-start text-left">
+                                            {date ? format(new Date(date), "yyyy/MM/dd") : "日付を選択"}
+                                            <CalendarIcon className="ml-auto h-4 w-4" />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0">
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            onSelect={(selectedDate) => setDate(selectedDate)}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            )}
+                        />
+                    </div>
+
+                    {/* 開始時間ピッカー */}
+                    <div className="my-4 w-1/2">
+                        <Label htmlFor="time">開始時間:</Label>
+                        <InputDateTime selectedTime={time} onChange={setTime} />
+                    </div>
+                </div>
+
+                {/* 画像アップロード */}
+                <div className="my-4">
+                    <Label htmlFor="image">イベント画像:</Label>
+                    <input type="file" id="image" accept="image/*" onChange={handleImageChange} className="w-full border p-2 rounded" />
+                    {imagePreview && (
+                        <div className="mt-2 flex justify-center">
+                            <Image src={imagePreview} alt="選択した画像" width={300} height={200} className="rounded-lg object-cover" />
+                        </div>
+                    )}
+                </div>
+
+                <div>
+                    <Label htmlFor="location">場所:</Label>
+                    <input type="text" id="location" {...register("location")} className="w-full border rounded p-2" required />
+                </div>
+
+                <div>
+                    <Label htmlFor="description">概要:</Label>
+                    <textarea id="description" {...register("description")} className="w-full border rounded p-2" rows="4" required />
+                </div>
+
+                <div>
+                    <Label htmlFor="price">金額:</Label>
+                    <input id="price" {...register("price")} className="w-full border rounded p-2" required />
+                </div>
+
+                <Button type="submit" className="w-full mt-8 bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-md">
+                    更新する
+                </Button>
+            </form>
             {message && <p className="mt-4 text-xl text-red-500">{message}</p>}
         </div>
     );
