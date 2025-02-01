@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   # APIエンドポイント
   namespace :api do
     namespace :v1 do
-      # デフォルトのルート (必要に応じて変更可能)
       root 'events#index'
 
       # ユーザーリソース
@@ -21,12 +20,9 @@ Rails.application.routes.draw do
       # イベントリソース
       resources :events, defaults: { format: :json } do
         collection do
-          get 'schedule', to: 'events#schedule'  # スケジュール取得エンドポイント
+          get 'schedule', to: 'events#schedule'
         end
-
-        # コメントリソースをネスト
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
-
         resource :likes, only: [:create, :destroy]
       end
 
@@ -34,14 +30,7 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[create destroy], defaults: { format: :json }
     end
   end
+
   # Active Storageのルーティング
-  direct :rails_blob do |blob|
-    route_for(:rails_blob, blob)
-  end
-
   mount Rails::ActiveStorage::Engine => '/rails/active_storage'
-
-  direct :rails_representation do |representation|
-    route_for(:rails_representation, representation)
-  end
 end
