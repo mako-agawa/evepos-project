@@ -15,8 +15,16 @@ module Api
       end
 
       # GET /api/v1/events/schedule 直近の予定日順でイベントを取得
+      # GET /api/v1/events/schedule 直近の予定日順でイベントを取得
       def schedule
         events = Event.includes(:user).where('date >= ?', Date.today).order(date: :asc)
+                      .map { |event| event_info_with_user(event) }
+        render json: events
+      end
+
+      # GET /api/v1/events/archive 過去のイベントを取得
+      def archive
+        events = Event.includes(:user).where('date < ?', Date.today).order(date: :asc)
                       .map { |event| event_info_with_user(event) }
         render json: events
       end
