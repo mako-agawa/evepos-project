@@ -6,22 +6,48 @@ module Api
       before_action :authenticate_user # ユーザー認証
       before_action :set_event # 対象イベントの取得
 
-      # POST /api/v1/events/:event_id/likes
-      def create
-        like = @event.likes.find_or_create_by(user: current_user)
-
-        status = like.persisted? ? :ok : :created
-        render json: { message: 'Like added successfully', likes_count: @event.likes.count }, status: status
+      def index
+        likes = @event.likes.includes(:user).map do |like|
+          {
+            id: like.id,
+            user_id: like.user_id,
+            event_id: like.event_id,
+            created_at: like.created_at,
+            user: {
+              id: like.user.id,
+              name: like.user.name,
+              email: like.user.email
+            }
+          }
+        end
+        render json: likes
       end
 
-      # DELETE /api/v1/events/:event_id/likes
-      def destroy
-        like = @event.likes.find_by(user: current_user)
+      # POST /api/v1/events/:event_id/likes
 
-        if like&.destroy
-          render json: { message: 'Like removed successfully', likes_count: @event.likes.count }, status: :ok
+      def create
+        puts "================="
+        puts params[:event_id]
+        puts "================="
+        event = Event.find(params[:event_id])
+        if current_user.liked_events.exists?(event.id)
+          render json: { message: 'Already liked', likes_count: event.likes_count }, status: :ok
         else
-          render json: { error: 'Failed to remove like' }, status: :unprocessable_entity
+          current_user.liked_events << event
+          event.increment!(:likes_count)
+          render json: { message: 'Liked successfully', likes_count: event.likes_count }, status: :ok
+        end
+      end
+
+      # DELETE /api/v1/events/:id/likes
+      def destroy
+        event = Event.find(params[:event_id])
+        if current_user.liked_events.exists?(event.id)
+          current_user.liked_events.destroy(event)
+          event.decrement!(:likes_count)
+          render json: { message: 'Unliked successfully', likes_count: event.likes_count }, status: :ok
+        else
+          render json: { message: 'Not liked yet', likes_count: event.likes_count }, status: :ok
         end
       end
 

@@ -67,8 +67,16 @@ module Api
 
       # POST /api/v1/events/:id/like
       def like
-        @event.increment!(:likes_count)
-        render json: { message: 'Liked successfully', likes_count: @event.likes_count }, status: :ok
+        event = Event.find(params[:id])
+        if current_user.liked_events.exists?(event.id)
+          current_user.liked_events.destroy(event)
+          event.decrement!(:likes_count)
+          render json: { message: 'いいねを解除しました', likes_count: event.likes_count }, status: :ok
+        else
+          current_user.liked_events << event
+          event.increment!(:likes_count)
+          render json: { message: 'いいねしました', likes_count: event.likes_count }, status: :ok
+        end
       end
 
       private
@@ -94,6 +102,7 @@ module Api
           price: event.price,
           likes_count: event.likes_count,
           user_id: event.user_id,
+          liked: current_user ? current_user.liked_events.exists?(event.id) : false,  # いいね済みかどうか
           image_url: event.image.attached? ? url_for(event.image) : nil,
           user: format_user(event.user) # ユーザー情報を別メソッドで整形
         }

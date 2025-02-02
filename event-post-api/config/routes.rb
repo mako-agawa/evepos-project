@@ -24,7 +24,7 @@ Rails.application.routes.draw do
           get 'archive', to: 'events#archive'
         end
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
-        resource :likes, only: [:create, :destroy]
+        resources :likes, only: %i[index create destroy], defaults: { format: :json }
       end
 
       # セッション管理
@@ -33,7 +33,5 @@ Rails.application.routes.draw do
   end
 
   # Active Storageのルーティング
-
-    # 他のルート設定
-    mount ActiveStorage::Engine => '/rails/active_storage'
+  mount ActiveStorage::Engine => '/rails/active_storage'
 end
