@@ -16,7 +16,7 @@ export default function EventShow() {
   const [event, setEvent] = useState(null);
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
-  console.log(comments);
+
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
 
@@ -67,27 +67,25 @@ export default function EventShow() {
       <div className="px-8 py-4 my-4 mb-8 rounded shadow-md bg-white w-full">
         <div className="flex justify-end items-center gap-2">
           <p className="font-semibold text-sm text-gray-500">post by</p>
-          {user.thumbnail_url && (
-            <Image
-              src={user.thumbnail_url}
-              alt="image"
-              width={30}
-              height={30}
-              className="rounded-md"
-            />
-          )}
+          <Image
+            src={user.thumbnail_url || "/default-userImage.svg"}
+            alt="image"
+            width={30}
+            height={30}
+            className="rounded-md"
+          />
+
           <p className="font-semibold text-xl text-gray-500">{user.name}</p>
         </div>
         <h1 className="text-3xl font-bold text-gray-700 pb-1">{event.title}</h1>
-        {event.image_url && (
-          <Image
-            src={event.image_url}
-            alt="image"
-            width={500}
-            height={300}
-            className="rounded-md"
-          />
-        )}
+        <Image
+          src={event.image_url || "/default-eventImage.svg"}
+          alt="image"
+          width={500}
+          height={300}
+          className="rounded-md"
+        />
+
         <p className="text-gray-700">日時: {event.date}</p>
         <p className="text-gray-700">場所: {event.location}</p>
         <p className="text-gray-700">概要:</p>
@@ -143,37 +141,30 @@ export default function EventShow() {
 
         {comments.length > 0 ? (
           comments.map((comment, index) => (
-            <div key={comment?.id || `comment-${index}`} className="border p-2 mb-2 rounded shadow">
-              <div className="flex justify-start items-center gap-2">
-                {/* 🔹 `comment.user` が `undefined` でないか確認 */}
-                {comment.user?.thumbnail_url ? (
+            <div key={comment?.id || `comment-${index}`} className="border border-orange-200 py-1 px-2 pb-2 mb-2 rounded shadow">
+              <div className="flex justify-between items-top gap-2">
+                <div className='flex items-end'>
+                <p>{comment.user.id}</p>
+                {/* <p>{comment}</p> */}
+                  {/* 🔹 `comment.user` が `undefined` でないか確認 */}
                   <Image
-                    src={comment.user.thumbnail_url}
+                    src={comment.user?.thumbnail_url || "/default-userImage.svg"}
                     alt="User thumbnail"
                     width={25}
                     height={25}
                     className="rounded-md"
                   />
-                ) : (
-                  <Image
-                    src="/default-userImage.svg" // 🔹 デフォルト画像を設定
-                    alt="Default user thumbnail"
-                    width={25}
-                    height={25}
-                    className="rounded-md"
-                  />
-                )}
-                <p className="font-semibold text-gray-500">{comment.user?.name || "匿名"}</p>
+
+                  <p className="font-semibold border-b border-gray-300 text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
+                </div>
+
+                  {currentUser && comment.user && currentUser.id === comment.user.id && (
+                    <button onClick={() => handleCommentDelete(comment.id)} className="bg-gray-400 text-white text-xs py-1 px-1 rounded">
+                      削除
+                    </button>
+                  )}
               </div>
-              <p className="font-semibold pl-12">{comment.content}</p>
-              {isCurrentUser && (
-                <button
-                  onClick={() => handleCommentDelete(comment.id)}
-                  className="text-red-500 underline"
-                >
-                  削除
-                </button>
-              )}
+              <p className=" pl-7">{comment.content}</p>
             </div>
           ))
         ) : (

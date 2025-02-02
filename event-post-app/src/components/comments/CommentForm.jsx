@@ -31,17 +31,15 @@ export default function CommentForm({ API_URL, eventId, setComments, closeModal 
             }
         };
 
-        console.log("====================================");
-        console.log("subimit");
-        console.log(commentPayload);
-        console.log("user_id: currentUser.id", currentUser.id);
-        console.log("====================================");
+       
         try {
             const res = await fetchAPI(`${API_URL}/events/${eventId}/comments`, {
                 method: "POST",
                 body: JSON.stringify(commentPayload),
             });
-            setComments((prev) => [res, ...prev]); // 🔹 新しいコメントを一覧に追加
+
+       
+            setComments((prev) => [res.comment, ...prev]); // 🔹 新しいコメントを一覧に追加
             
 
             

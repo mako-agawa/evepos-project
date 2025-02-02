@@ -1,0 +1,24 @@
+namespace :active_storage do
+  desc "Migrate existing local files to S3"
+  task migrate_to_s3: :environment do
+    ActiveStorage::Blob.find_each do |blob|
+      next if blob.service_name == "amazon"  # 既にS3にある場合はスキップ
+
+      # ファイルをS3にアップロード
+      blob.open do |file|
+        new_blob = ActiveStorage::Blob.create_and_upload!(
+          io: file,
+          filename: blob.filename,
+          content_type: blob.content_type,
+          service_name: :amazon  # S3を指定
+        )
+
+        # 古いローカルファイルを削除
+        blob.purge
+
+        # 新しいBlobのIDを関連付け（必要ならモデルも更新）
+        puts "Migrated #{blob.filename} to S3"
+      end
+    end
+  end
+end

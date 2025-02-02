@@ -71,7 +71,7 @@ Rails.application.configure do
 
   # ActiveStorageの設定 (ローカルストレージを利用)
   Rails.application.configure do
-    config.active_storage.service = :local
+    config.active_storage.service = :amazon
     config.active_storage.resolve_model_to_route = :rails_storage_redirect
     config.active_storage.routes_prefix = '/rails/active_storage'
     config.active_storage.default_url_options = { host: 'https://api.evepos.net' }
