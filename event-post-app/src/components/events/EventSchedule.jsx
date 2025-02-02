@@ -20,7 +20,7 @@ const EventIndex = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const eventData = await fetchAPI(`${API_URL}/events`);
+                const eventData = await fetchAPI(`${API_URL}/events/schedule`);
                 setEvents(eventData);
             } catch (error) {
                 setError(error.message);
@@ -44,7 +44,7 @@ const EventIndex = () => {
     }
 
     return (
-        <div className="flex flex-col h-screen items-center px-4 py-8">
+        <div className="flex flex-col items-center px-4 py-8">
             <h1 className="text-gray-500 b border-b-2 border-orange-300 text-2xl mb-8">イベントスケジュール</h1>
             <div className="w-full">
                 {events.map((event) => {
