@@ -63,17 +63,17 @@ Rails.application.configure do
   # 非推奨メッセージを表示しない
   config.active_support.report_deprecations = false
 
-  # デフォルトURLの設定
-  Rails.application.routes.default_url_options = {
-    host: 'api.evepos.net',
-    protocol: 'https' # HTTPSでアクセスする場合
-  }
+  # # デフォルトURLの設定
+  # Rails.application.routes.default_url_options = {
+  #   host: 'api.evepos.net',
+  #   protocol: 'https' # HTTPSでアクセスする場合
+  # }
 
   # ActiveStorageの設定 (ローカルストレージを利用)
   Rails.application.configure do
     config.active_storage.service = :amazon
     config.active_storage.resolve_model_to_route = :rails_storage_redirect
-    config.active_storage.routes_prefix = '/rails/active_storage'
-    config.active_storage.default_url_options = { host: 'https://api.evepos.net' }
+    # config.active_storage.routes_prefix = '/rails/active_storage'
+    # config.active_storage.default_url_options = { host: 'https://api.evepos.net' }
   end
 end

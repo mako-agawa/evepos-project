@@ -21,6 +21,7 @@ module EventPost
         resource '*',
                  headers: :any,
                  methods: %i[get post put patch delete options head],
+                 expose: ['Authorization'],  
                  credentials: true # 認証情報を含むリクエストを許可
       end
     end
