@@ -31,22 +31,23 @@ const EventIndex = () => {
         fetchEvents();
     }, [API_URL]);
 
+    if (!events.length && !error) {
+        return (
+          <div className="flex items-center justify-center h-screen">
+            <p className="text-2xl">該当のイベントはありません。</p>
+          </div>
+        );
+      }
+
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
 
-    if (!events.length) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-2xl">読み込み中...</p>
-            </div>
-        );
-    }
 
     return (
         <div className="flex flex-col items-center px-4 py-8">
             <h1 className="text-gray-500 b border-b-2 border-orange-300 text-2xl mb-8">イベントスケジュール</h1>
-            <div className="w-full">
+            <div className="min-w-lg max-w-3xl w-full">
                 {events.map((event) => {
                     const isCreator = currentUser && event.user_id === currentUser.id;
                     const mmdd = getEventDate(event.date);
@@ -59,7 +60,7 @@ const EventIndex = () => {
                             onClick={() => router.push(`/events/${event.id}`)}
                             className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-4 px-2"
                         >
-                            <div className="relative flex xjustify-center ml-6">
+                            <div className="relative flex justify-center ml-6">
                                 {/* 画像のコンテナ（relative を適用） */}
                                 <div className="w-[200px] h-[100px]">
                                 <Image
@@ -120,7 +121,7 @@ const EventIndex = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="absolute top-1 left-0 flex flex-col items-center bg-orange-400 text-white p-2 rounded-full">
+                            <div className="absolute top-1 left-1 flex flex-col items-center bg-orange-400 text-white p-2 rounded-full">
                                 <p className="text-s font-bold">{mmdd}</p>
                                 <p className="text-xs">({weekday})</p>
                             </div>
