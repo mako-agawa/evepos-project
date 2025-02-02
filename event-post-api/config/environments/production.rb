@@ -9,7 +9,6 @@ Rails.application.configure do
   # 起動時にすべてのアプリケーションコードをロード
   config.eager_load = true
 
-  # SSL の設定 (ALB で SSL を管理する場合はコメントアウト)
   # ALBがSSLを管理する場合はコメントアウト
   # config.force_ssl = true
 
@@ -45,9 +44,6 @@ Rails.application.configure do
     }
   }
 
-  # 静的ファイルの配信を有効化 (ActiveStorageローカルモード用)
-  config.public_file_server.enabled = true
-
   # メーラー設定
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = false
@@ -70,10 +66,9 @@ Rails.application.configure do
   # }
 
   # ActiveStorageの設定 (ローカルストレージを利用)
-  Rails.application.configure do
-    config.active_storage.service = :amazon
-    config.active_storage.resolve_model_to_route = :rails_storage_redirect
-    # config.active_storage.routes_prefix = '/rails/active_storage'
-    # config.active_storage.default_url_options = { host: 'https://api.evepos.net' }
-  end
+  # 静的ファイルの配信を有効化 (ActiveStorageローカルモード用)
+  config.public_file_server.enabled = false
+  config.active_storage.service = :amazon
+  config.active_storage.resolve_model_to_route = :rails_storage_redirect
+
 end
