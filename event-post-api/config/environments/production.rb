@@ -67,8 +67,8 @@ Rails.application.configure do
 
   # ActiveStorageの設定 (ローカルストレージを利用)
   # 静的ファイルの配信を有効化 (ActiveStorageローカルモード用)
-  config.public_file_server.enabled = false
-  config.active_storage.service = :amazon
+  config.public_file_server.enabled = true
+  config.active_storage.service = :local
   config.active_storage.resolve_model_to_route = :rails_storage_redirect
 
 end
