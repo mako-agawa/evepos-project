@@ -101,8 +101,8 @@ export default function EventCreate() {
     };
 
     return (
-        <div className="flex flex-col h-screen px-4 py-8">
-            <h1 className="text-gray-500 border-b-2 border-orange-400 px-6 text-2xl mb-8">イベント投稿</h1>
+        <div className="flex flex-col  h-screen px-4 py-8">
+            <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Create Event</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
                 <div>
                     <Label htmlFor="title">タイトル:</Label>

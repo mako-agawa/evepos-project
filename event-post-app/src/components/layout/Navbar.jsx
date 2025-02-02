@@ -56,14 +56,14 @@ const Navbar = () => {
 
         {/* 新規作成 or ログイン */}
         {auth.isLoggedIn && currentUser ? (
-          <button>
+          <button onClick={() => handleNavigation("create")}>
             <Link href="/events/new" className="flex flex-col items-center text-gray-600 hover:text-orange-400">
               <PlusCircleIcon className="w-6 h-6" />
               <span className="text-xs mt-1">新規作成</span>
             </Link>
           </button>
         ) : (
-          <button>
+          <button onClick={() => handleNavigation("index")}>
             <Link href="/login" className="flex flex-col items-center text-gray-600 hover:text-orange-400">
               <LogInIcon className="w-6 h-6" />
               <span className="text-xs mt-1">ログイン</span>

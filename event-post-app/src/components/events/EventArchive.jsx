@@ -33,20 +33,20 @@ const EventIndex = () => {
 
     if (!events.length && !error) {
         return (
-          <div className="flex items-center justify-center h-screen">
-            <p className="text-2xl">該当のイベントはありません。</p>
-          </div>
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-2xl">該当のイベントはありません。</p>
+            </div>
         );
-      }
+    }
 
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
-    
+
 
     return (
-        <div className="flex flex-col mb-24 items-center px-4 py-8">
-            <h1 className="text-gray-500 b border-b-2 border-orange-300 text-2xl mb-8">アーカイブス</h1>
+        <div className="flex flex-col max-w-3xl px-4 py-8">
+            <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Archive</h1>
             <div className="min-w-lg max-w-3xl w-full">
                 {events.map((event) => {
                     const isCreator = currentUser && event.user_id === currentUser.id;
@@ -63,14 +63,14 @@ const EventIndex = () => {
                             <div className="relative flex justify-center ml-6">
                                 {/* 画像のコンテナ（relative を適用） */}
                                 <div className="w-[200px] h-[100px]">
-                                <Image
-                                    src={event.image_url || "/placeholder.png"}
-                                    alt={event.title}
-                                    width={200}
-                                    height={150}
-                                    priority
-                                    className="object-cover shadow-sm  rounded-md w-[160px] h-[110px]"
-                                />
+                                    <Image
+                                        src={event.image_url || "/placeholder.png"}
+                                        alt={event.title}
+                                        width={200}
+                                        height={150}
+                                        priority
+                                        className="object-cover shadow-sm  rounded-md w-[160px] h-[110px]"
+                                    />
                                 </div>
                                 <div className="flex w-1/2">
 

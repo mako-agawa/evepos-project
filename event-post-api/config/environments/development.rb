@@ -76,10 +76,10 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
   Rails.application.routes.default_url_options = {
     host: 'localhost',
-    port: 3000
+    port: 3001
   }
   Rails.application.configure do
-    config.active_storage.service = :local
+    config.active_storage.service = :amazon
     config.active_storage.resolve_model_to_route = :rails_storage_redirect
   end
 end

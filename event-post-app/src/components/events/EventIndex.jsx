@@ -22,12 +22,12 @@ const EventIndex = () => {
             try {
                 const eventData = await fetchAPI(`${API_URL}/events`);
                 setEvents(eventData);
+                console.log("eventData", eventData);
             } catch (error) {
                 setError(error.message);
                 console.error("Failed to fetch events:", error);
             }
         };
-
         fetchEvents();
     }, [API_URL]);
 
@@ -44,8 +44,8 @@ const EventIndex = () => {
     }
 
     return (
-        <div className="flex flex-col items-center max-w-3xl h-screen px-4 py-8">
-            <h1 className="text-gray-500 b border-b-2  border-orange-300 px-6 text-2xl mb-8">新着イベント</h1>
+        <div className="flex flex-col max-w-3xl h-screen px-4 py-8">
+            <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">New Events</h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 {events.map((event) => {
                     const isCreator = currentUser && event.user_id === currentUser.id;
@@ -60,7 +60,7 @@ const EventIndex = () => {
                             className="cursor-pointer flex relative flex-col bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all p-2"
                         >
                             <div className="flex  absolute top-1 left-1 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-full">
-                                <p className="text-s font-bold">{mmdd}</p>
+                                <p className="text-sm font-bold">{mmdd}</p>
                                 {/* <p className="text-xs">({weekday})</p> */}
                             </div>
 
@@ -78,18 +78,16 @@ const EventIndex = () => {
                                 {/* イベント詳細 */}
                                 <div className="flex flex-col items-start w-full mt-2">
                                     {/* タイトル & いいねボタン */}
-                                    <div className="w-full mt-1">
+                                    <div className="w-full my-1">
                                         <h2
-                                            className={`text-lg font-semibold border-b ${isCreator ? "text-orange-500" : "text-gray-700"
-                                                }`}
-                                        >
+                                            className="font-semibold border-b text-sm text-orange-400">
                                             {event.title}
                                         </h2>
                                     </div>
 
-                                    <div className="flex  flex-col items-start mt-1 text-gray-500 text-sm">
+                                    <div className="flex  flex-col items-start">
 
-                                        <p>📍 {event.location}</p>
+                                        <p className="text-gray-500 text-xs">📍 {event.location}</p>
                                     </div>
 
 
@@ -100,8 +98,8 @@ const EventIndex = () => {
                                             <Image
                                                 src={event.user.thumbnail_url || "/default-avatar.png"}
                                                 alt={event.user.name}
-                                                width={24}
-                                                height={24}
+                                                width={20}
+                                                height={20}
                                                 priority
                                                 className="rounded-full border border-gray-300 m mr-1"
                                             />
