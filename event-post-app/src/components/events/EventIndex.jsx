@@ -8,6 +8,7 @@ import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
+import { MapPin } from "lucide-react";
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -85,9 +86,9 @@ const EventIndex = () => {
                                         </h2>
                                     </div>
 
-                                    <div className="flex  flex-col items-start">
-
-                                        <p className="text-gray-500 text-xs">📍 {event.location}</p>
+                                    <div className="flex text-xs text-gray-500">
+                                        <MapPin  className="w-4 h-4 text-gray-400"/>
+                                        <p className="text-gray-500 text-xs">{event.location}</p>
                                     </div>
 
 
@@ -111,9 +112,10 @@ const EventIndex = () => {
                                 <div className="flex justify-end">
                                     <LikeButton
                                         eventId={event.id}
-                                        initialLiked={!!event.liked}
+                                        initialLiked={event.liked || false}  // APIから `liked` を直接取得する場合
                                         initialLikesCount={event.likes_count}
-                                        disabled={!currentUser}
+                                        currentUserId={currentUser?.id}  // currentUser の ID を渡す
+                                        disabled={!currentUser}          // 未ログインの場合は無効
                                     />
                                 </div>
                             </div>

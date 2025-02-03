@@ -9,6 +9,7 @@ import { fetchAPI } from '@/utils/api';
 import RenderDescription from '../general/RenderDescription';
 import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
+import { LocationMarkerIcon } from '@heroicons/react/outline';
 
 
 
@@ -87,7 +88,10 @@ export default function EventShow() {
         />
 
         <p className="text-gray-700">日時: {event.date}</p>
-        <p className="text-gray-700">場所: {event.location}</p>
+        <div className="flex items-start mt-1 text-gray-500  text-sm">
+                                            <LocationMarkerIcon className="w-5 h-5 mr-1" />
+                                                <p>{event.location}</p>
+                                            </div>
         <p className="text-gray-700">概要:</p>
         <RenderDescription text={event.description} />
         <p className="text-gray-700">費用: {event.price}</p>

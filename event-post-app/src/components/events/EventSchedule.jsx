@@ -8,6 +8,7 @@ import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
+import { LocationMarkerIcon, MapIcon } from "@heroicons/react/outline";
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -60,16 +61,16 @@ const EventIndex = () => {
                             onClick={() => router.push(`/events/${event.id}`)}
                             className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-4 px-2"
                         >
-                            <div className="relative flex justify-center ml-6">
+                            <div className="relative flex justify-center ml-2">
                                 {/* 画像のコンテナ（relative を適用） */}
                                 <div className="w-[200px] h-[100px]">
                                     <Image
                                         src={event.image_url || "/placeholder.png"}
                                         alt={event.title}
                                         width={200}
-                                        height={150}
+                                        height={120}
                                         priority
-                                        className="object-cover shadow-sm  rounded-md w-[160px] h-[110px]"
+                                        className="object-cover shadow-sm rounded-md w-[170px] h-[110px]"
                                     />
                                 </div>
                                 <div className="flex w-1/2">
@@ -77,9 +78,9 @@ const EventIndex = () => {
                                     {/* イベント詳細 */}
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-col items-center w-full">
-                                            <div className="flex  flex-col items-start mt-1 text-gray-500 text-sm">
-
-                                                <p>📍 {event.location}</p>
+                                            <div className="flex items-start mt-1 text-gray-500  text-sm">
+                                            <LocationMarkerIcon className="w-5 h-5 mr-1" />
+                                                <p>{event.location}</p>
                                             </div>
                                             {/* タイトル & いいねボタン */}
                                             <div className="flex items-center justify-between mt-1">

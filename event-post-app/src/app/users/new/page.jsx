@@ -72,7 +72,7 @@ export default function Register() {
             });
             setThumbnail(null);
             router.refresh();
-            router.push('/users'); // usersページにリダイレクト
+            router.push('/'); // usersページにリダイレクト
         } else {
             const errorResponse = await res.json();
             setMessage(errorResponse.errors ? errorResponse.errors.join(", ") : 'Registration failed. Please try again.');

@@ -8,6 +8,7 @@ import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
+import { LocationMarkerIcon } from "@heroicons/react/outline";
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -77,9 +78,9 @@ const EventIndex = () => {
                                     {/* イベント詳細 */}
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-col items-center w-full">
-                                            <div className="flex  flex-col items-start mt-1 text-gray-500 text-sm">
-
-                                                <p>📍 {event.location}</p>
+                                        <div className="flex items-start mt-1 text-gray-500  text-sm">
+                                            <LocationMarkerIcon className="w-5 h-5 mr-1" />
+                                                <p>{event.location}</p>
                                             </div>
                                             {/* タイトル & いいねボタン */}
                                             <div className="flex items-center justify-between mt-1">

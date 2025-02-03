@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="ja">
-      <body className={`${notoSansJP.variable} antialiased bg-gray-100 text-gray-700`}>
+      <body className={`${notoSansJP.variable} antialiased bg-gray-100 text-gray-700 mb-24`}>
 
           <Header />
           <Suspense fallback={<div>Loading...</div>}>
