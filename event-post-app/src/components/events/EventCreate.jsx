@@ -14,6 +14,7 @@ import { useAtom } from "jotai";
 import { pageModeAtom } from "@/atoms/authAtom";
 
 import InputDateTime from "../general/InputDateTime";
+import { compressAndConvertToPNG } from "@/utils/ImageProcessor"; // 画像圧縮ユーティリティをインポート
 import "react-clock/dist/Clock.css";
 
 export default function EventCreate() {
@@ -21,8 +22,8 @@ export default function EventCreate() {
     const [, setPageMode] = useAtom(pageModeAtom);
     const router = useRouter();
     const [message, setMessage] = useState("");
-    const [imageFile, setImageFile] = useState(null); // 画像の状態管理
-    const [imagePreview, setImagePreview] = useState(null); // 画像プレビュー
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const { control, setValue, handleSubmit, register } = useForm({
         defaultValues: {
@@ -34,11 +35,9 @@ export default function EventCreate() {
         },
     });
 
-    // 日付・時間の状態管理
     const [date, setDate] = useState(null);
-    const [time, setTime] = useState(new Date()); // `Date` オブジェクトを初期値に
+    const [time, setTime] = useState(new Date());
 
-    // `date` と `time` を結合して `formData.date` に保存
     useEffect(() => {
         if (date && time) {
             const formattedTime = format(time, "HH:mm");
@@ -47,16 +46,21 @@ export default function EventCreate() {
         }
     }, [date, time, setValue]);
 
-    // 画像が変更された時の処理
-    const handleImageChange = (e) => {
+    // 画像選択時に圧縮・変換を実行
+    const handleImageChange = async (e) => {
         const file = e.target.files[0];
-        if (file) {
-            setImageFile(file);
-            setImagePreview(URL.createObjectURL(file)); // 画像プレビュー表示
+        if (!file) return;
+
+        try {
+            const processedFile = await compressAndConvertToPNG(file);
+            setImageFile(processedFile);
+            setImagePreview(URL.createObjectURL(processedFile));
+            console.log("Processed file (PNG):", processedFile);
+        } catch (error) {
+            setMessage("画像の圧縮または変換に失敗しました。");
         }
     };
 
-    // **フォーム送信処理**
     const onSubmit = async (data) => {
         const formData = new FormData();
         formData.append("title", data.title);
@@ -86,7 +90,7 @@ export default function EventCreate() {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-                body: formData, // FormData をそのまま送信
+                body: formData,
             });
 
             if (!response.ok) throw new Error("イベントの作成に失敗しました");
@@ -101,7 +105,7 @@ export default function EventCreate() {
     };
 
     return (
-        <div className="flex flex-col  h-screen px-4 py-8">
+        <div className="flex flex-col h-screen px-4 py-8">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Create Event</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
                 <div>
@@ -115,9 +119,7 @@ export default function EventCreate() {
                     />
                 </div>
 
-                {/* 日付・時間入力 */}
                 <div className="flex gap-2">
-                    {/* 日付ピッカー */}
                     <div className="my-4 w-1/2">
                         <Label htmlFor="date">日付:</Label>
                         <Controller
@@ -143,17 +145,15 @@ export default function EventCreate() {
                         />
                     </div>
 
-                    {/* 開始時間ピッカー */}
                     <div className="my-4 w-1/2">
                         <Label htmlFor="time">開始時間:</Label>
                         <InputDateTime
-                            selectedTime={time} // `Date` オブジェクトを渡す
-                            onChange={setTime} // `Date` オブジェクトを受け取る
+                            selectedTime={time}
+                            onChange={setTime}
                         />
                     </div>
                 </div>
 
-                {/* 画像アップロード */}
                 <div className="my-4">
                     <Label htmlFor="image">イベント画像:</Label>
                     <input
@@ -209,7 +209,7 @@ export default function EventCreate() {
                 </div>
 
                 <Button
-                    className="w-full inline-flex mt-8 items-center justify-center text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-md px-6 py-3 text-lg shadow-md hover:shadow-lg transition-all duration-300"
+                    className="w-full mt-8 text-white bg-orange-400 hover:bg-orange-500 rounded-md px-6 py-3 text-lg shadow-md transition-all duration-300"
                     type="submit"
                 >
                     投稿する

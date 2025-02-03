@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { authAtom } from '@/atoms/authAtom';
-import imageCompression from "browser-image-compression";
+import { compressAndConvertToPNG } from "@/utils/ImageProcessor";  // 追加
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -30,8 +30,17 @@ export default function Register() {
     };
 
     // 画像選択時のハンドラー
-    const handleImageChange = (e) => {
-        setThumbnail(e.target.files[0]);
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const processedFile = await compressAndConvertToPNG(file);  // ユーティリティ関数を呼び出す
+            setThumbnail(processedFile);
+            console.log("Processed file (PNG):", processedFile);
+        } catch (error) {
+            setMessage('画像の圧縮または変換に失敗しました。');
+        }
     };
 
     // ユーザー登録時のハンドラー
@@ -46,27 +55,7 @@ export default function Register() {
         userPayload.append("user[description]", formData.description);
 
         if (thumbnail) {
-            // 画像圧縮のオプション
-            const options = {
-                maxSizeMB: 1,
-                maxWidthOrHeight: 800,
-                useWebWorker: true,
-            };
-
-            try {
-                const compressedFile = await imageCompression(thumbnail, options);
-                
-                // 圧縮後のファイル情報を表示
-                console.log(`Original size: ${(thumbnail.size / 1024 / 1024).toFixed(2)} MB`);
-                console.log(`Compressed size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
-
-                // 圧縮後の画像をFormDataに追加
-                userPayload.append("user[thumbnail]", compressedFile);
-            } catch (error) {
-                console.error("画像圧縮エラー:", error);
-                setMessage('画像圧縮に失敗しました。');
-                return;
-            }
+            userPayload.append("user[thumbnail]", thumbnail);
         }
 
         try {
