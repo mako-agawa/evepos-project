@@ -187,7 +187,7 @@ export default function UserEdit() {
                                                     src={thumbnailPreview}
                                                     alt="選択した画像"
                                                     width={300}
-                                                    height={200}
+                                                    height={300}
                                                     className="rounded-lg object-cover"
                                                 />
                                             </div>
