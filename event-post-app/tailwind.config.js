@@ -6,7 +6,6 @@ module.exports = {
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	darkMode: false, // ダークモードを無効にする
-	plugins: [require("tailwindcss-animate")],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -67,5 +66,8 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [],
+	plugins: [
+		require("tailwindcss-animate"),
+		require("@tailwindcss/typography")
+	],
 };

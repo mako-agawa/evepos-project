@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { fetchAPI } from "@/utils/api";
 import { Button } from "@/components/ui/button"; 
 import Image from "next/image";
+import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
 
 export default function UserEdit() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -20,6 +21,8 @@ export default function UserEdit() {
         description: '',
     });
     const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState(null);
+
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -51,9 +54,19 @@ export default function UserEdit() {
         }));
     };
 
-    const handleFileChange = (e) => {
-        setThumbnail(e.target.files[0]); 
-    };
+    const handleImageChange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+    
+            try {
+                const processedFile = await compressAndConvertToPNG(file);  // ユーティリティ関数を呼び出す
+                setThumbnail(processedFile);
+                setThumbnailPreview(URL.createObjectURL(processedFile));
+                console.log("Processed file (PNG):", processedFile);
+            } catch (error) {
+                setMessage('画像の圧縮または変換に失敗しました。');
+            }
+        };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -109,8 +122,8 @@ export default function UserEdit() {
     if (loading) return <p>読み込み中...</p>;
 
     return (
-        <div className="flex flex-col items-center h-screen px-4 py-8 bg-gray-100">
-            <h1 className="text-4xl font-bold p-8">ユーザー編集</h1>
+        <div className="flex flex-col items-center h-full px-4 py-16">
+            <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Edit Profile</h1>
             <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg">
                 <div>
                     <label className="text-mb block mb-2" htmlFor="name">Name:</label>
@@ -165,16 +178,20 @@ export default function UserEdit() {
                         id="thumbnail"
                         name="thumbnail"
                         accept="image/*"
-                        onChange={handleFileChange}
+                        onChange={handleImageChange}
                         className="w-full border border-gray-300 rounded p-2"
                     />
-                    {formData.thumbnail_url && (
-                        <Image
-                            src={formData.thumbnail}
-                            alt="Current Thumbnail"
-                            className="mt-4 w-32 h-32 object-cover rounded-md"
-                        />
-                    )}
+                    {thumbnailPreview && (
+                                            <div className="mt-2 flex justify-center">
+                                                <Image
+                                                    src={thumbnailPreview}
+                                                    alt="選択した画像"
+                                                    width={300}
+                                                    height={200}
+                                                    className="rounded-lg object-cover"
+                                                />
+                                            </div>
+                                        )}
                 </div>
                 <div>
                     <label className="text-mb block mb-2" htmlFor="description">Description:</label>

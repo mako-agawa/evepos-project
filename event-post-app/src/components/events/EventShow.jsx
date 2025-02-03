@@ -10,6 +10,7 @@ import RenderDescription from '../general/RenderDescription';
 import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
+import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
 
 
 
@@ -26,6 +27,10 @@ export default function EventShow() {
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
+
+  // const mmdd = getEventDate(event.date);
+  // const weekday = getEventWeekday(event.date);
+  // const hhmm = getEventTime(event.date)
 
   const { handleEventDelete, handleCommentDelete } = useHandleDelete(API_URL, eventId, comments, setComments);
 
@@ -87,11 +92,12 @@ export default function EventShow() {
           className="rounded-md"
         />
 
-        <p className="text-gray-700">日時: {event.date}</p>
+        <p className="text-gray-700">
+        日時:{`${getEventDate(event.date)} ${getEventWeekday(event.date)} ${getEventTime(event.date)}`}</p>
         <div className="flex items-start mt-1 text-gray-500  text-sm">
-                                            <LocationMarkerIcon className="w-5 h-5 mr-1" />
-                                                <p>{event.location}</p>
-                                            </div>
+          <LocationMarkerIcon className="w-5 h-5 mr-1" />
+          <p>{event.location}</p>
+        </div>
         <p className="text-gray-700">概要:</p>
         <RenderDescription text={event.description} />
         <p className="text-gray-700">費用: {event.price}</p>
@@ -148,8 +154,8 @@ export default function EventShow() {
             <div key={comment?.id || `comment-${index}`} className="border border-orange-200 py-1 px-2 pb-2 mb-2 rounded shadow">
               <div className="flex justify-between items-top gap-2">
                 <div className='flex items-end'>
-                <p>{comment.user.id}</p>
-                {/* <p>{comment}</p> */}
+                  <p>{comment.user.id}</p>
+                  {/* <p>{comment}</p> */}
                   {/* 🔹 `comment.user` が `undefined` でないか確認 */}
                   <Image
                     src={comment.user?.thumbnail_url || "/default-userImage.svg"}
@@ -162,11 +168,11 @@ export default function EventShow() {
                   <p className="font-semibold border-b border-gray-300 text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
                 </div>
 
-                  {currentUser && comment.user && currentUser.id === comment.user.id && (
-                    <button onClick={() => handleCommentDelete(comment.id)} className="bg-gray-400 text-white text-xs py-1 px-1 rounded">
-                      削除
-                    </button>
-                  )}
+                {currentUser && comment.user && currentUser.id === comment.user.id && (
+                  <button onClick={() => handleCommentDelete(comment.id)} className="bg-gray-400 text-white text-xs py-1 px-1 rounded">
+                    削除
+                  </button>
+                )}
               </div>
               <p className=" pl-7">{comment.content}</p>
             </div>

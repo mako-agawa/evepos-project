@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { authAtom } from '@/atoms/authAtom';
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";  // 追加
+import Image from "next/image";
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function Register() {
         description: '',
     });
     const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState(null);
     const [auth, setAuth] = useAtom(authAtom);
     const [message, setMessage] = useState('');
     const router = useRouter();
@@ -37,6 +39,7 @@ export default function Register() {
         try {
             const processedFile = await compressAndConvertToPNG(file);  // ユーティリティ関数を呼び出す
             setThumbnail(processedFile);
+            setThumbnailPreview(URL.createObjectURL(processedFile));
             console.log("Processed file (PNG):", processedFile);
         } catch (error) {
             setMessage('画像の圧縮または変換に失敗しました。');
@@ -85,8 +88,8 @@ export default function Register() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen px-4 py-8 bg-gray-100">
-            <h1 className="text-4xl font-bold p-8">新規登録</h1>
+        <div className="flex flex-col items-center justify-center  h-full mx-auto px-4 py-16">
+            <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Register</h1>
             <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg space-y-6">
                 {/* 各入力フィールド */}
                 <div>
@@ -108,6 +111,17 @@ export default function Register() {
                 <div>
                     <label htmlFor="thumbnail">Thumbnail:</label>
                     <input type="file" name="thumbnail" accept="image/*" onChange={handleImageChange} className="w-full border rounded p-2" />
+                    {thumbnailPreview && (
+                        <div className="mt-2 flex justify-center">
+                            <Image
+                                src={thumbnailPreview}
+                                alt="選択した画像"
+                                width={300}
+                                height={200}
+                                className="rounded-lg object-cover"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div>
                     <label htmlFor="description">Description:</label>

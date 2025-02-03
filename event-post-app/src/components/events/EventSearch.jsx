@@ -11,7 +11,7 @@ const EventSearch = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen px-4 py-8">
+      <div className="flex flex-col h-screen">
         {/* ロゴ */}
         <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Search</h1>
 
@@ -37,7 +37,7 @@ const EventSearch = () => {
 
         {/* フッター */}
       </div>
-      <div className="flex flex-col items-center absolute bottom-48 text-gray-600 text-sm">
+      <div className="flex flex-col items-center absolute top-96 text-gray-600 text-sm">
         <p className="text-gray-400 text-2xl">現在開発中</p>
       </div>
     </>

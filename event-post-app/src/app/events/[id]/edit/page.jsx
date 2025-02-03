@@ -3,7 +3,7 @@ import React from 'react';
 
 const Page = () => {
     return (
-        <div className="flex flex-col items-center bg-gray-100 py-8">
+        <div className="flex flex-col items-center   px-4 py-16">
             <EventEdit />
         </div>
     );

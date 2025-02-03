@@ -1,20 +1,18 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { CalendarIcon } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useAtom } from "jotai";
 import { pageModeAtom } from "@/atoms/authAtom";
-
 import InputDateTime from "../general/InputDateTime";
-import { compressAndConvertToPNG } from "@/utils/ImageProcessor"; // 画像圧縮ユーティリティをインポート
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from 'date-fns';  // ここでformatをインポート
+import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
 import "react-clock/dist/Clock.css";
 
 export default function EventCreate() {
@@ -46,7 +44,6 @@ export default function EventCreate() {
         }
     }, [date, time, setValue]);
 
-    // 画像選択時に圧縮・変換を実行
     const handleImageChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -71,11 +68,6 @@ export default function EventCreate() {
 
         if (imageFile) {
             formData.append("image", imageFile);
-        }
-
-        console.log("===== SENT FORM DATA =====");
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
         }
 
         try {
@@ -105,7 +97,7 @@ export default function EventCreate() {
     };
 
     return (
-        <div className="flex flex-col h-screen px-4 py-8">
+        <div className="flex flex-col h-screen">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Create Event</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
                 <div>

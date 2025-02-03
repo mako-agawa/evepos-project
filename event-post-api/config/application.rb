@@ -10,16 +10,9 @@ module EventPost
   class Application < Rails::Application
     config.api_only = true # API モードを有効化
     config.load_defaults 7.2
-    # リクエストの最大サイズを設定 (10MBに設定)
-    # config.middleware.insert_before Rack::Runtime, Rack::TempfileReaper
-    # config.middleware.insert_before ActionDispatch::Executor, Rack::ContentLength
-    # config.middleware.insert_before ActionDispatch::Static, Rack::Deflater
 
-    # config.middleware.use Rack::Parser, parsers: {
-    #   'multipart/form-data' => lambda do |body|
-    #     Rack::Multipart.parse_multipart(env)
-    #   end
-    # }, limit: 10 * 1024 * 1024 # 10MB
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
 
     # CORS 設定
     config.middleware.insert_before 0, Rack::Cors do

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
 import { MapPin } from "lucide-react";
+import { LocationMarkerIcon } from "@heroicons/react/outline";
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -45,7 +46,7 @@ const EventIndex = () => {
     }
 
     return (
-        <div className="flex flex-col max-w-3xl h-screen px-4 py-8">
+        <div className="flex flex-col max-w-3xl h-full mx-auto">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">New Events</h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 {events.map((event) => {
@@ -60,36 +61,38 @@ const EventIndex = () => {
                             onClick={() => router.push(`/events/${event.id}`)}
                             className="cursor-pointer flex relative flex-col bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all p-2"
                         >
-                            <div className="flex  absolute top-1 left-1 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-full">
+
+                            {/* 画像のコンテナ（relative を適用） */}
+                            <div className="">
+                                <div className="relative w-full h-[110px]">
+                            <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-full">
                                 <p className="text-sm font-bold">{mmdd}</p>
                                 {/* <p className="text-xs">({weekday})</p> */}
                             </div>
+                                    <Image
+                                        src={event.image_url || "/placeholder.png"}
+                                        alt={event.title}
+                                        width={210}
+                                        height={150}
+                                        priority
+                                        className="object-cover shadow-sm rounded-md w-full h-[110px]"
+                                    />
 
-                            {/* 画像のコンテナ（relative を適用） */}
-                            <div className="mt-2">
-                                <Image
-                                    src={event.image_url || "/placeholder.png"}
-                                    alt={event.title}
-                                    width={210}
-                                    height={150}
-                                    priority
-                                    className="object-cover shadow-sm rounded-md w-full h-[110px]"
-                                />
-
+                                    <div className="flex absolute bottom-0 right-0 text-xs bg-gray-200 opacity-90 p-1 rounded-md">
+                                        <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
+                                        <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+                                    </div>
+                                </div>
                                 {/* イベント詳細 */}
                                 <div className="flex flex-col items-start w-full mt-2">
                                     {/* タイトル & いいねボタン */}
                                     <div className="w-full my-1">
                                         <h2
-                                            className="font-semibold border-b text-sm text-orange-400">
+                                            className="font-semibold border-b text-sm text-gray-700">
                                             {event.title}
                                         </h2>
                                     </div>
 
-                                    <div className="flex text-xs text-gray-500">
-                                        <MapPin  className="w-4 h-4 text-gray-400"/>
-                                        <p className="text-gray-500 text-xs">{event.location}</p>
-                                    </div>
 
 
 
@@ -102,7 +105,7 @@ const EventIndex = () => {
                                                 width={20}
                                                 height={20}
                                                 priority
-                                                className="rounded-full border border-gray-300 m mr-1"
+                                                className="rounded-full border border-orange-400 m mr-1"
                                             />
                                             <span>{event.user.name}</span>
                                         </div>

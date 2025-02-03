@@ -1,9 +1,8 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { format } from "date-fns";
 import { useRouter, useParams } from "next/navigation";
+import { format } from "date-fns";
 import { fetchAPI } from "@/utils/api";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,7 +11,11 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { CalendarIcon } from "lucide-react";
 import InputDateTime from "../general/InputDateTime";
 import Image from "next/image";
+import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
+
+
 import "react-clock/dist/Clock.css";
+
 
 export default function EventEdit() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -72,11 +75,17 @@ export default function EventEdit() {
     }, [date, time, setValue]);
 
     // 画像が変更されたときの処理
-    const handleImageChange = (e) => {
+    const handleImageChange = async (e) => {
         const file = e.target.files[0];
-        if (file) {
-            setImageFile(file);
-            setImagePreview(URL.createObjectURL(file));
+        if (!file) return;
+
+        try {
+            const processedFile = await compressAndConvertToPNG(file);
+            setImageFile(processedFile);
+            setImagePreview(URL.createObjectURL(processedFile));
+            console.log("Processed file (PNG):", processedFile);
+        } catch (error) {
+            setMessage("画像の圧縮または変換に失敗しました。");
         }
     };
 
@@ -131,7 +140,7 @@ export default function EventEdit() {
     };
 
     return (
-        <div className="flex flex-col h-screen px-4 py-8">
+        <div className="flex flex-col h-full">
             <h1 className="text-gray-500 border-b-2 border-orange-400 px-6 text-2xl mb-8">イベント編集</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
                 <div>
@@ -182,14 +191,26 @@ export default function EventEdit() {
 
                 {/* 画像アップロード */}
                 <div className="my-4">
-                    <Label htmlFor="image">イベント画像:</Label>
-                    <input type="file" id="image" accept="image/*" onChange={handleImageChange} className="w-full border p-2 rounded" />
-                    {imagePreview && (
-                        <div className="mt-2 flex justify-center">
-                            <Image src={imagePreview} alt="選択した画像" width={300} height={200} className="rounded-lg object-cover" />
-                        </div>
-                    )}
-                </div>
+                                    <Label htmlFor="image">イベント画像:</Label>
+                                    <input
+                                        type="file"
+                                        id="image"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className="w-full border p-2 rounded"
+                                    />
+                                    {imagePreview && (
+                                        <div className="mt-2 flex justify-center">
+                                            <Image
+                                                src={imagePreview}
+                                                alt="選択した画像"
+                                                width={300}
+                                                height={200}
+                                                className="rounded-lg object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
 
                 <div>
                     <Label htmlFor="location">場所:</Label>

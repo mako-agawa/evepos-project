@@ -27,8 +27,8 @@ export default function Login() {
     }
   };
   return (
-    <div className="flex flex-col items-center bg-gray-100 h-screen py-8  px-4">
-      <h1 className="text-4xl font-bold text-gray-800 p-8">ログイン</h1>
+    <div className="flex flex-col items-center h-screen py-16 px-4">
+      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">ログイン</h1>
       <form onSubmit={handleLogin} className="p-8 rounded shadow-md bg-white w-full max-w-lg space-y-6 mt-6">
         <div>
           <label className="text-xl block mb-2" htmlFor="email">Email:</label>
@@ -60,7 +60,7 @@ export default function Login() {
       </form>
       <Link
         href="/users/new"
-        className="mt-8 inline-flex items-center justify-center py-2 px-4 text-center bg-orange-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300 mr-8"
+        className="mt-8 inline-flex items-center justify-center py-2 px-4 text-center bg-orange-400 text-white rounded-md shadow-md hover:bg-gray-500 hover:shadow-lg transition-all duration-300"
       >
         はじめての方はこちら
       </Link>
