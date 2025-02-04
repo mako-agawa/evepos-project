@@ -12,7 +12,7 @@ module.exports = {
 				sans: ['Arial', 'Helvetica', 'sans-serif'], // デフォルトフォントを指定
 			},
 			textColor: {
-				DEFAULT: '#4a5568', // Tailwindのtext-gray-700
+				DEFAULT: '#4a5568', // Tailwindの
 			},
 			backgroundColor: {
 				DEFAULT: '#f7fafc', // Tailwindのbg-gray-100

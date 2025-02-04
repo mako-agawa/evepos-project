@@ -8,6 +8,7 @@ import { authAtom } from "@/atoms/authAtom";
 import { useEffect, useState } from "react";
 import { DebugAuthState } from "@/hooks/DebugAuthState";
 
+
 const Navbar = () => {
   const { handleNavigation, getActiveClass } = usePageNavigation();
   const [auth] = useAtom(authAtom);

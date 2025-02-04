@@ -59,6 +59,11 @@ export default function Register() {
 
         if (thumbnail) {
             userPayload.append("user[thumbnail]", thumbnail);
+        // } else {
+        //     // デフォルト画像をBlobとして読み込み、FormDataに追加
+        //     const response = await fetch('/default-userImage.svg');
+        //     const blob = await response.blob();
+        //     userPayload.append("user[thumbnail]", blob, "default-userImage.svg");
         }
 
         try {
@@ -111,15 +116,13 @@ export default function Register() {
                 <div>
                     <label htmlFor="thumbnail">Thumbnail:</label>
                     <input type="file" name="thumbnail" accept="image/*" onChange={handleImageChange} className="w-full border rounded p-2" />
-                    {thumbnailPreview && (
+                    {thumbnailPreview ? (
                         <div className="mt-2 flex justify-center">
-                            <Image
-                                src={thumbnailPreview}
-                                alt="選択した画像"
-                                width={300}
-                                height={300}
-                                className="rounded-lg object-cover"
-                            />
+                            <Image src={thumbnailPreview} alt="選択した画像" width={300} height={300} className="rounded-lg object-cover" />
+                        </div>
+                    ) : (
+                        <div className="mt-2 flex justify-center">
+                            <Image src="/default-userImage.svg" alt="デフォルト画像" width={300} height={300} className="rounded-lg object-cover" />
                         </div>
                     )}
                 </div>

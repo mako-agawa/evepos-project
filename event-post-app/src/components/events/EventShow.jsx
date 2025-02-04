@@ -11,6 +11,9 @@ import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
+import defaultEventImage from '/public/default-image.jpg';
+import defaultUserImage from '/public/default-user.svg';
+import LikeButton from '../ui/LikeButton';
 
 
 
@@ -26,11 +29,13 @@ export default function EventShow() {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const params = useParams();
-  const eventId = params?.id;
+  const eventId = params?.id; 33
 
-  // const mmdd = getEventDate(event.date);
-  // const weekday = getEventWeekday(event.date);
-  // const hhmm = getEventTime(event.date)
+  // 修正: オプショナルチェイニングを使用
+  const mmdd = getEventDate(event?.date);
+
+  const weekday = getEventWeekday(event?.date);
+  const hhmm = getEventTime(event?.date)
 
   const { handleEventDelete, handleCommentDelete } = useHandleDelete(API_URL, eventId, comments, setComments);
 
@@ -44,7 +49,7 @@ export default function EventShow() {
       try {
         const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
         setEvent(eventData);
-
+        console.log("eventData", eventData.date);
         const userData = await fetchAPI(`${API_URL}/users/${eventData.user_id}`);
         setUser(userData);
 
@@ -69,39 +74,63 @@ export default function EventShow() {
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
   return (
-    <div className="flex flex-col items-center bg-gray-100 px-4 max-w-screen-lg mx-auto">
-      <div className="px-8 py-4 my-4 mb-8 rounded shadow-md bg-white w-full">
+    <div className="flex flex-col max-w-screen-lg">
+      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">Event info</h1>
+      <div className="pt-2 pb-6 px-4 my-4 mb-8 relative rounded shadow-md bg-white">
         <div className="flex justify-end items-center gap-2">
-          <p className="font-semibold text-sm text-gray-500">post by</p>
+          <p className="font-semibold text-xs text-gray-500">post by</p>
           <Image
-            src={user.thumbnail_url || "/default-userImage.svg"}
+            src={user.thumbnail_url || defaultUserImage}
             alt="image"
             width={30}
             height={30}
-            className="rounded-md"
+            className="rounded-full border border-orange-400"
           />
 
-          <p className="font-semibold text-xl text-gray-500">{user.name}</p>
+          <p className="font-semibold text-gray-500">{user.name}</p>
         </div>
-        <h1 className="text-3xl font-bold text-gray-700 pb-1">{event.title}</h1>
-        <Image
-          src={event.image_url || "/default-eventImage.svg"}
-          alt="image"
-          width={500}
-          height={300}
-          className="rounded-md"
-        />
-
-        <p className="text-gray-700">
-        日時:{`${getEventDate(event.date)} ${getEventWeekday(event.date)} ${getEventTime(event.date)}`}</p>
-        <div className="flex items-start mt-1 text-gray-500  text-sm">
-          <LocationMarkerIcon className="w-5 h-5 mr-1" />
-          <p>{event.location}</p>
+        {/* 日時 */}
+        <div className="flex absolute top-2 left-4  items-center gap-1 bg-orange-400 text-white py-1 px-2 rounded-full">
+          <p className="font-bold">{mmdd}</p>
+          <p className="text-sm">({weekday})</p>
+          <p className="font-bold">{hhmm}</p>
         </div>
-        <p className="text-gray-700">概要:</p>
-        <RenderDescription text={event.description} />
-        <p className="text-gray-700">費用: {event.price}</p>
+        {/* 画像 */}
+        <div>
+          <Image
+            src={event.image_url || defaultEventImage}
+            alt="image"
+            width={500}
+            height={300}
+            className="rounded-md my-2"
+          />
+        </div>
+        <div className="flex justify-between gap-1">
+          <div className="flex bg-gray-200 p-1 rounded-md">
+            <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
+            <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+          </div>
+          <div className="flex justify-end">
+            <LikeButton
+              eventId={event.id}
+              initialLiked={event.liked || false}  // APIから `liked` を直接取得する場合
+              initialLikesCount={event.likes_count}
+              currentUserId={currentUser?.id}  // currentUser の ID を渡す
+              disabled={!currentUser}          // 未ログインの場合は無効
+            />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold py-1">{event.title}</h1>
 
+
+        <div className='flex gap-2 justify-start'>
+
+          <div className='my-2 border border-orange-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
+            {<RenderDescription text={event.description} /> || "No description"}
+          </div>
+        </div>
+
+        <p className=" font-semibold text-sm">費用: {event.price}</p>
       </div>
       <div className="flex justify-end items-center gap-4">
         {/* 🔹 モーダルを開くボタン */}
@@ -134,7 +163,7 @@ export default function EventShow() {
             className="bg-gray-100 flex flex-col pb-10 justify-center rounded shadow-md w-full max-w-lg"
             onClick={(e) => e.stopPropagation()} // 🔹 モーダル内クリックで閉じない
           >
-            <h2 className="text-lg font-bold text-gray-700 ml-5 my-2">コメントを投稿</h2>
+            <h2 className="text-lg font-bold  ml-5 my-2">コメントを投稿</h2>
             <CommentForm
               API_URL={API_URL}
               eventId={eventId}
@@ -147,25 +176,22 @@ export default function EventShow() {
 
 
       <div className="px-8 py-4 pb-8 mt-8 mb-16 rounded shadow-md bg-white w-full">
-        <h2 className="text-md text-gray-500 font-bold">コメント一覧</h2>
+        <h2 className="text-md text-gray-500 font-bold mb-2">コメント一覧</h2>
 
         {comments.length > 0 ? (
           comments.map((comment, index) => (
-            <div key={comment?.id || `comment-${index}`} className="border border-orange-200 py-1 px-2 pb-2 mb-2 rounded shadow">
+            <div key={comment?.id || `comment-${index}`} className="border border-orange-100 py-1 px-2 pb-2 mb-2 rounded shadow">
               <div className="flex justify-between items-top gap-2">
-                <div className='flex items-end'>
-                  <p>{comment.user.id}</p>
-                  {/* <p>{comment}</p> */}
-                  {/* 🔹 `comment.user` が `undefined` でないか確認 */}
+                <div className='flex items-center'>
                   <Image
-                    src={comment.user?.thumbnail_url || "/default-userImage.svg"}
+                    src={comment.user?.thumbnail_url || defaultUserImage}
                     alt="User thumbnail"
                     width={25}
                     height={25}
-                    className="rounded-md"
+                    className="rounded-full mr-1  border border-orange-400"
                   />
 
-                  <p className="font-semibold border-b border-gray-300 text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
+                  <p className="font-semibold text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
                 </div>
 
                 {currentUser && comment.user && currentUser.id === comment.user.id && (

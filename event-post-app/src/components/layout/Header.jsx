@@ -9,6 +9,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import usePageNavigation from "@/hooks/usePageNavigation";
 import Image from "next/image";
+import defaultUserImage from '/public/default-user.svg';
 
 const Header = () => {
   const { currentUser } = useCurrentUser();
@@ -16,7 +17,7 @@ const Header = () => {
   const [auth] = useAtom(authAtom);
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleNavigation } = usePageNavigation();
- 
+
   return (
     <header className="bg-orange-400 py-4 pl-6 pr-4 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center relative">
       <Link href="/" onClick={() => handleNavigation("index")} className="text-white text-3xl font-bold hover:cursor">
@@ -41,22 +42,22 @@ const Header = () => {
                 <div className="flex flex-col items-center w-full">
                   <Link
                     href={`/users/${currentUser.id}`}
-                    className="flex flex-row items-center justify-center text-gray-700 text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
+                    className="flex flex-row items-center justify-center  text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                     onClick={() => setMenuOpen(false)}
                   >
                     <Image
-                      src={currentUser.thumbnail_url || "/default-avatar.png"}
+                      src={currentUser.thumbnail_url || defaultUserImage}
                       alt={currentUser.name}
                       width={32}
                       height={32}
-                      className="rounded-full border border-gray-300 mr-2"
+                      className="rounded-full border border-orange-400 mr-2"
                     />
                     {currentUser.name} さん
                   </Link>
 
                   <Link
                     href="/logout"
-                    className="text-gray-700 text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
+                    className=" text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                     onClick={() => setMenuOpen(false)}
                   >
                     ログアウト
@@ -65,7 +66,7 @@ const Header = () => {
               ) : (
                 <Link
                   href="/login"
-                  className="text-gray-700 text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
+                  className=" text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                   onClick={() => setMenuOpen(false)}
                 >
                   ログイン
@@ -74,7 +75,7 @@ const Header = () => {
             </nav>
             <Button
               variant="ghost"
-              className="text-gray-700 w-8 h-8 py-2 mb-2"
+              className=" w-8 h-8 py-2 mb-2"
               onClick={() => setMenuOpen(!menuOpen)}
             >
               <X className="w-8 h-8" />close

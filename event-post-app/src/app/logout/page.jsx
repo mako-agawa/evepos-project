@@ -27,7 +27,7 @@ const LogoutPage = () => {
         </button>
         <button
           onClick={handleCancel}
-          className="px-6 py-3 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-lg text-lg"
+          className="px-6 py-3  bg-gray-300 hover:bg-gray-400 rounded-lg text-lg"
         >
           キャンセル
         </button>

@@ -9,6 +9,8 @@ import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import RenderDescription from '../general/RenderDescription';
 
+import defaultUserImage from '/public/default-user.svg';
+
 export default function UserShow() {
     const [user, setUser] = useState();
 
@@ -79,19 +81,18 @@ export default function UserShow() {
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">{isCurrentUser ? "Myページ" : "ユーザーページ"}</h1>
             <div className="flex flex-col p-8 my-4 rounded shadow-md bg-white w-full">
                 <div className="flex  items-center">
-                    {user.thumbnail_url && (
-                        <Image
-                            src={user.thumbnail_url}
-                            alt="User Thumbnail"
-                            width={72}
-                            height={72}
-                            className="w-24 h-24 rounded-full mb-6 shadow-md"
-                        />
-                    )}
-                    <p className="text-gray-700 pl-6 font-bold text-2xl">{user.name}</p>
+
+                    <Image
+                        src={user.thumbnail_url || defaultUserImage}
+                        alt="User Thumbnail"
+                        width={72}
+                        height={72}
+                        className="w-24 h-24 rounded-full border-2 border-orange-400 mb-4 shadow-md"
+                    />
+                    <p className=" pl-6 font-bold text-2xl">{user.name}</p>
                 </div>
-                <p className="text-gray-700 font-semibold">メッセージ:</p>
-                <p className="text-gray-700 p-2 text-sm border border-orange-400 rounded-md"><RenderDescription text={user.description} /></p>
+                <p className=" font-semibold">メッセージ:</p>
+                <p className=" p-2 text-sm border border-orange-400 rounded-md"><RenderDescription text={user.description} /></p>
             </div>
 
             {isCurrentUser && (
