@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import usePageNavigation from "@/hooks/usePageNavigation";
 import Image from "next/image";
-import defaultUserImage from '/public/default-user.svg';
+import defaultUserImage from '/public/user.svg';
 
 const Header = () => {
   const { currentUser } = useCurrentUser();

@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import RenderDescription from '../general/RenderDescription';
 
-import defaultUserImage from '/public/default-user.svg';
+import defaultUserImage from '/public/user.svg';
 
 export default function UserShow() {
     const [user, setUser] = useState();
