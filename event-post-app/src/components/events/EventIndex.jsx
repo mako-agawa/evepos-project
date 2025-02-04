@@ -10,7 +10,7 @@ import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
 
 import { LocationMarkerIcon } from "@heroicons/react/outline";
-import defaultEventImage from '/public/default-image.jpg';
+import defaultEventImage from '/public/default-image.png';
 import defaultUserImage from '/public/default-user.svg';
 
 

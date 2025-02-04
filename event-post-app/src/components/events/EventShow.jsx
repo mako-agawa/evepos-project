@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
-import defaultEventImage from '/public/default-image.jpg';
+import defaultEventImage from '/public/default-image.png';
 import defaultUserImage from '/public/default-user.svg';
 import LikeButton from '../ui/LikeButton';
 
