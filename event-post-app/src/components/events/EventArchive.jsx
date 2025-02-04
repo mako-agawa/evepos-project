@@ -88,7 +88,7 @@ const EventIndex = () => {
                                             {/* タイトル & いいねボタン */}
                                             <div className="flex items-center justify-between mt-1">
                                                 <h2
-                                                    className="font-semibold  border-b border-orange-200 shadow-sm"
+                                                    className="font-semibold  border-b border-gray-200 shadow-sm"
                                                 >
                                                     {event.title}
                                                 </h2>
