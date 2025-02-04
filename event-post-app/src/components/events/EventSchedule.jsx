@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
 import { LocationMarkerIcon } from "@heroicons/react/outline";
-import defaultEventImage from '/public/image.png';
+import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
 
 const EventIndex = () => {

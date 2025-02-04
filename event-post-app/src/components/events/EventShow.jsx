@@ -11,8 +11,8 @@ import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
-import defaultEventImage from '/public/image.png';
 import defaultUserImage from '/public/user.svg';
+import defaultEventImage from '/public/image.svg';
 import LikeButton from '../ui/LikeButton';
 
 
@@ -106,10 +106,6 @@ export default function EventShow() {
           />
         </div>
         <div className="flex justify-between gap-1">
-          <div className="flex bg-gray-200 p-1 rounded-md">
-            <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
-            <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
-          </div>
           <div className="flex justify-end">
             <LikeButton
               eventId={event.id}
@@ -119,8 +115,13 @@ export default function EventShow() {
               disabled={!currentUser}          // 未ログインの場合は無効
             />
           </div>
+          <div className="flex bg-gray-200 p-1 rounded-md">
+            <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
+            <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+          </div>
+
         </div>
-        <h1 className="text-xl font-bold py-1">{event.title}</h1>
+        <h1 className="text-xl font-bold py-2 ">{event.title}</h1>
 
 
         <div className='flex gap-2 justify-start'>
@@ -130,7 +131,7 @@ export default function EventShow() {
           </div>
         </div>
 
-        <p className=" font-semibold text-sm">費用: {event.price}</p>
+        <p className=" font-semibold mt-1 text-sm">料金: {event.price}</p>
       </div>
       <div className="flex justify-end items-center gap-4">
         {/* 🔹 モーダルを開くボタン */}
