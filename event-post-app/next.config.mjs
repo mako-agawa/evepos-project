@@ -1,22 +1,8 @@
 const nextConfig = {
-  reactStrictMode: false,  // 厳格モードの有効化
+  reactStrictMode: true,  // 厳格モードの有効化
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost', // 開発環境
-        port: '3001',          // 必要ならポート番号を指定
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost', // 開発環境
-        port: '3000',          // 必要ならポート番号を指定
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.evepos.net', // 本番環境
-      }
-    ]
+    domains: ["localhost", "api.evepos.net"], // 開発と本番の両方のドメインを許可
+    
   },
   experimental: {},  // 'appDir' を削除 (非推奨のため)
 };
