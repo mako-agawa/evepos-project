@@ -1,5 +1,5 @@
 const nextConfig = {
-  reactStrictMode: true,  // 厳格モードの有効化
+  reactStrictMode: false,  // 厳格モードの有効化
   images: {
     remotePatterns: [
       {
