@@ -141,7 +141,7 @@ export default function EventEdit() {
 
     return (
         <div className="flex flex-col h-full">
-            <h1 className="text-gray-500 border-b-2 border-orange-400 px-6 text-2xl mb-8">イベント編集</h1>
+            <h1 className="text-gray-500 border-b-2 border-orange-400 px-6 text-2xl mb-8">Edit Event</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded shadow-md bg-white w-full max-w-lg pb-12">
                 <div>
                     <Label htmlFor="title">タイトル:</Label>

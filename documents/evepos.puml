@@ -37,8 +37,8 @@ entity comments {
   *id : bigint
   --
   content : text
-  event_id : bigint
   user_id : bigint
+  event_id : bigint
   created_at : datetime
   updated_at : datetime
 }
@@ -51,11 +51,11 @@ entity events {
   location : string
   description : text
   price : string
+  image : string
+  likes_count : bigint
   user_id : bigint
   created_at : datetime
   updated_at : datetime
-  image : string
-  likes_count : bigint
 }
 
 entity likes {
@@ -75,9 +75,9 @@ entity users {
   password_digest : string
   thumbnail : string
   description : text
+  authentication_token : string
   created_at : datetime
   updated_at : datetime
-  authentication_token : string
 }
 
 ' ' 外部キーの関係を定義
