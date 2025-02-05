@@ -78,7 +78,10 @@
 <br>
 
 ## 画面遷移図
-![UI_map](/documents/UI.png)  
+
+<br>
+
+![UI_map]()  
 <br>
 
 ## ER 図
