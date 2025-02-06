@@ -3,36 +3,6 @@ hide circle
 hide methods
 skinparam linetype ortho
 
-' entity active_storage_attachments {
-'   *id : bigint
-'   --
-'   name : string
-'   record_type : string
-'   record_id : bigint
-'   blob_id : bigint
-'   created_at : datetime
-' }
-
-' entity active_storage_blobs {
-'   *id : bigint
-'   --
-'   key : string
-'   filename : string
-'   content_type : string
-'   metadata : text
-'   service_name : string
-'   byte_size : bigint
-'   checksum : string
-'   created_at : datetime
-' }
-
-' entity active_storage_variant_records {
-'   *id : bigint
-'   --
-'   blob_id : bigint
-'   variation_digest : string
-' }
-
 entity comments {
   *id : bigint
   --
@@ -80,9 +50,6 @@ entity users {
   updated_at : datetime
 }
 
-' ' 外部キーの関係を定義
-' active_storage_attachments }|--|| active_storage_blobs : "blob_id"
-' active_storage_variant_records }|--|| active_storage_blobs : "blob_id"
 
 comments }|--|| events : "event_id"
 comments }|--|| users : "user_id"

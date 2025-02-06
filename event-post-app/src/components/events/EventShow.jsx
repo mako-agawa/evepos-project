@@ -82,9 +82,9 @@ export default function EventShow() {
           <Image
             src={user.thumbnail_url || defaultUserImage}
             alt="image"
-            width={30}
-            height={30}
-            className="rounded-full border border-orange-400"
+            width={200}
+            height={200}
+            className="w-9 h-9 rounded-full border border-orange-400"
           />
 
           <p className="font-semibold text-gray-500">{user.name}</p>
@@ -102,7 +102,7 @@ export default function EventShow() {
             alt="image"
             width={500}
             height={300}
-            className="rounded-md my-2"
+            className="rounded-md mt-1 mb-2"
           />
         </div>
         <div className="flex justify-between gap-1">
@@ -189,7 +189,7 @@ export default function EventShow() {
                     alt="User thumbnail"
                     width={25}
                     height={25}
-                    className="rounded-full mr-1  border border-orange-400"
+                    className="rounded-full mr-1 border border-orange-400"
                   />
 
                   <p className="font-semibold text-xs text-gray-500">{comment.user?.name || "匿名"}</p>

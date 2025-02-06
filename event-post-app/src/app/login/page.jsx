@@ -16,8 +16,6 @@ export default function Login() {
     console.log(auth);
 
     try {
-      // console.log(email);
-      // console.log(password);
       await login(email, password);  // login 処理
       if (auth) {
         setMessage("ログインに成功しました");

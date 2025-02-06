@@ -109,7 +109,7 @@ const EventIndex = () => {
                                                 width={20}
                                                 height={20}
                                                 priority
-                                                className="rounded-full border border-orange-400 m mr-1"
+                                                className="w-6 h-6 rounded-full object-cover border border-orange-400 mr-1"
                                             />
                                             <span>{event.user.name}</span>
                                         </div>

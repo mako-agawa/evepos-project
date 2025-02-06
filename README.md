@@ -78,9 +78,6 @@
 <br>
 
 ## 画面遷移図
-
-<br>
-
 ![UI_map](/documents/UI.png)  
 <br>
 
