@@ -21,6 +21,7 @@ export default function UserShow() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const { logout } = useAuth();
 
+
     useEffect(() => {
         const fetchUser = async () => {
             if (!userId) return;
@@ -42,7 +43,7 @@ export default function UserShow() {
         };
 
         fetchUser();
-    }, [userId]);
+    }, [API_URL, userId]);
     console.log(user);
 
     const handleUserDelete = async () => {

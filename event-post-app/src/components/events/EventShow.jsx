@@ -61,7 +61,7 @@ export default function EventShow() {
     };
 
     fetchData();
-  }, [eventId]);
+  }, [API_URL, eventId]);
 
   // useEffect(() => {
   //   console.log("コメント投稿後、ユーザー情報を更新");

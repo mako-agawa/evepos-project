@@ -26,7 +26,7 @@ export function useCurrentUser() {
     };
 
     fetchUser();
-  }, [auth.token]);  // トークンの変更時のみ実行
+  }, [API_URL, auth.token, setAuth]);  // トークンの変更時のみ実行
 
   const refetchUser = async () => {
     try {

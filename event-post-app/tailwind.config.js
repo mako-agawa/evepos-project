@@ -5,7 +5,6 @@ module.exports = {
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
-	darkMode: false, // ダークモードを無効にする
 	theme: {
 		extend: {
 			fontFamily: {
