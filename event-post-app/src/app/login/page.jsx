@@ -19,6 +19,7 @@ export default function Login() {
       await login(email, password);  // login 処理
       if (auth) {
         setMessage("ログインに成功しました");
+        
       }
     } catch (error) {
       setMessage(error.message || "Failed to log in");

@@ -6,6 +6,7 @@ import { fetchAPI } from "@/utils/api";
 import { Button } from "@/components/ui/button"; 
 import Image from "next/image";
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
+import defaultUserImage from '/public/user.svg';
 
 export default function UserEdit() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -184,7 +185,7 @@ export default function UserEdit() {
                     {thumbnailPreview && (
                                             <div className="mt-2 flex justify-center">
                                                 <Image
-                                                    src={thumbnailPreview}
+                                                    src={thumbnailPreview  || defaultUserImage }
                                                     alt="選択した画像"
                                                     width={300}
                                                     height={300}

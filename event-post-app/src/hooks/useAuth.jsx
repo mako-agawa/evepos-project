@@ -29,7 +29,7 @@ export function useAuth() {
           currentUser: data.user,
           token: data.token,
         });
-
+        setPageMode("index");
         router.replace('/'); // ログイン成功後のリダイレクト
       } else {
         const errorData = await response.json();

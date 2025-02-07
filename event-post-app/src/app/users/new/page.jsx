@@ -122,7 +122,7 @@ export default function Register() {
                         </div>
                     ) : (
                         <div className="mt-2 flex justify-center">
-                            <Image src="/default-userImage.svg" alt="デフォルト画像" width={300} height={300} className="rounded-lg object-cover" />
+                            <Image src="/user.svg" alt="デフォルト画像" width={300} height={300} className="rounded-lg object-cover" />
                         </div>
                     )}
                 </div>

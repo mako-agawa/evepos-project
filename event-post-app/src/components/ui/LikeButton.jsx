@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { fetchAPI } from "@/utils/api";
+import Image from "next/image"; // Next.js の画像最適化を利用
 
-import { HeartIcon } from "@heroicons/react/outline";
 export default function LikeButton({
   eventId,
   initialLiked = false,
@@ -12,9 +12,13 @@ export default function LikeButton({
   disabled = false,
 }) {
   const [liked, setLiked] = useState(initialLiked);
-  console.log("liked", liked);
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  // 🔹 initialLiked の変更があった場合に、最新の liked 状態を反映
+  useEffect(() => {
+    setLiked(initialLiked);
+  }, [initialLiked]);
 
   const handleLikeToggle = async (e) => {
     e.stopPropagation();
@@ -23,23 +27,40 @@ export default function LikeButton({
       return;
     }
     
-    const method = liked ? "DELETE" : "POST";
-    
-    const url = liked 
-      ? `${API_URL}/events/${eventId}/likes/${currentUserId}` 
-      : `${API_URL}/events/${eventId}/likes`;
-
-    try {
-      const data = await fetchAPI(url, { method, cache: "no-cache" });
-      setLiked(!liked);
-      if (data && data.likes_count !== undefined) {
-        setLikesCount(data.likes_count);
-      } else {
-        setLikesCount(prev => liked ? prev - 1 : prev + 1);  // 楽観的UI更新
+  // 🔹 いいねの追加処理
+    const handkeLike = async () => {
+      try {
+        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
+          method: "POST",
+          cache: "no-cache",
+        });
+        setLiked(true);
+        setLikesCount((prev) => prev + 1);
+      } catch (error) {
+        console.error("Error while liking:", error);
       }
-    } catch (error) {
-      console.error("Error while liking/unliking:", error);
     }
+
+  // 🔹 いいねの削除処理
+    const handkeUnlike = async () => { 
+      try {
+        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes/${currentUserId}`, {
+          method: "DELETE",
+          cache: "no-cache",
+        });
+        setLiked(false);
+        setLikesCount((prev) => prev - 1);
+      } catch (error) {
+        console.error("Error while unliking:", error);
+      }
+    }
+
+    if (liked) {
+      handkeUnlike();
+    } else {
+      handkeLike();
+    }
+
   };
 
   return (
@@ -48,11 +69,17 @@ export default function LikeButton({
         onClick={handleLikeToggle}
         disabled={disabled}
         className={`rounded-full transition-colors duration-300 ${
-          liked ? "text-orange-400"  : "text-gray-400"
-        } ${disabled ? "opacity-50 cursor-not-allowed" : "hover:text-orange-400"}`}
+          disabled ? "opacity-50 cursor-not-allowed" : "hover:text-orange-400"
+        }`}
         aria-label="Like Button"
       >
-        <HeartIcon className="w-5 h-5" />
+        <Image
+          src={liked ? "/heart-filled.svg" : "/heart-outline.svg"}
+          alt="Like"
+          width={24}
+          height={24}
+          className="w-6 h-6"
+        />
       </button>
       <span className="text-xs">{likesCount} いいね</span>
     </div>

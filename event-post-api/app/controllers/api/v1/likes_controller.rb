@@ -26,8 +26,9 @@ module Api
       # POST /api/v1/events/:event_id/likes
 
       def create
-        puts "================="
+        puts "=======LIKE======="
         puts params[:event_id]
+        puts params[@event]
         puts "================="
         event = Event.find(params[:event_id])
         if current_user.liked_events.exists?(event.id)
@@ -41,6 +42,11 @@ module Api
 
       # DELETE /api/v1/events/:id/likes
       def destroy
+        puts "=====disLIKE====="
+        puts params[:event_id]
+        puts params[@event]
+
+        puts "================="
         event = Event.find(params[:event_id])
         if current_user.liked_events.exists?(event.id)
           current_user.liked_events.destroy(event)

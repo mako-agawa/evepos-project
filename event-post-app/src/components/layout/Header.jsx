@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAtom } from 'jotai';
-import { authAtom } from '@/atoms/authAtom';
+import { authAtom, pageModeAtom } from '@/atoms/authAtom';
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import usePageNavigation from "@/hooks/usePageNavigation";
@@ -17,6 +17,12 @@ const Header = () => {
   const [auth] = useAtom(authAtom);
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleNavigation } = usePageNavigation();
+  const [, setPageMode] = useAtom(pageModeAtom);
+
+  const handlePushLogin = () => {
+    setPageMode("login");
+    setMenuOpen(false)
+  }
 
   return (
     <header className="bg-orange-400 py-4 pl-6 pr-4 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center relative">
@@ -67,7 +73,7 @@ const Header = () => {
                 <Link
                   href="/login"
                   className=" text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => handlePushLogin()}
                 >
                   ログイン
                 </Link>

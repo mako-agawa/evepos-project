@@ -7,8 +7,8 @@ entity comments {
   *id : bigint
   --
   content : text
-  user_id : bigint
-  event_id : bigint
+  user_id : bigint (FK)
+  event_id : bigint (FK)
   created_at : datetime
   updated_at : datetime
 }
@@ -23,7 +23,7 @@ entity events {
   price : string
   image : string
   likes_count : bigint
-  user_id : bigint
+  user_id : bigint (FK)
   created_at : datetime
   updated_at : datetime
 }
@@ -31,8 +31,8 @@ entity events {
 entity likes {
   *id : bigint
   --
-  user_id : bigint
-  event_id : bigint
+  user_id : bigint (FK)
+  event_id : bigint (FK)
   created_at : datetime
   updated_at : datetime
 }
@@ -51,12 +51,12 @@ entity users {
 }
 
 
-comments }|--|| events : "event_id"
-comments }|--|| users : "user_id"
+comments }|--|| events
+comments }|--|| users
 
-likes }|--|| events : "event_id"
-likes }|--|| users : "user_id"
+likes }|--|| events
+likes }|--|| users
 
-events }|--|| users : "user_id"
+events }|--|| users
 
 @enduml

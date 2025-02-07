@@ -25,9 +25,9 @@ const RenderDescription = ({ text }) => {
   });
 
   return (
-    <div
-      className="prose text-xs" // Tailwind CSSの`prose`で見た目を整える
-      dangerouslySetInnerHTML={{ __html: sanitizedHtml }} // 正しい形式
+    <span // ✅ <div> ではなく <span> にする
+      className="prose text-xs"
+      dangerouslySetInnerHTML={{ __html: formattedText }}
     />
   );
 };

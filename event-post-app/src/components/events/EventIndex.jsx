@@ -69,7 +69,7 @@ const EventIndex = () => {
                             <div className="">
                                 <div className="relative w-full h-[110px]">
                                     {/* 日時 */}
-                                    <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-full">
+                                    <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-md">
                                         <p className="text-sm font-bold">{mmdd}</p>
                                         {/* <p className="text-xs">({weekday})</p> */}
                                     </div>
@@ -116,15 +116,15 @@ const EventIndex = () => {
                                     </div>
                                     {/* いいねボタンをオーバーレイ（absolute で右上） */}
                                 </div>
-                                <div className="flex justify-end">
-                                    <LikeButton
-                                        eventId={event.id}
-                                        initialLiked={event.liked || false}  // APIから `liked` を直接取得する場合
-                                        initialLikesCount={event.likes_count}
-                                        currentUserId={currentUser?.id}  // currentUser の ID を渡す
-                                        disabled={!currentUser}          // 未ログインの場合は無効
-                                    />
-                                </div>
+                            </div>
+                            <div className="flex justify-end">
+                                <LikeButton
+                                    eventId={event.id}
+                                    initialLiked={event.liked}  // APIから `liked` を直接取得する場合
+                                    initialLikesCount={event.likes_count}
+                                    currentUserId={currentUser?.id}  // currentUser の ID を渡す
+                                    disabled={!currentUser}          // 未ログインの場合は無効
+                                />
                             </div>
                         </div>
                     );

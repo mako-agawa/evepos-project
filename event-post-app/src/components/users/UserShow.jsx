@@ -93,7 +93,8 @@ export default function UserShow() {
                     <p className=" pl-6 font-bold text-2xl">{user.name}</p>
                 </div>
                 <p className=" font-semibold">メッセージ:</p>
-                <p className=" p-2 text-sm border border-orange-400 rounded-md"><RenderDescription text={user.description} /></p>
+                <div className=" p-2 text-sm border border-orange-400 rounded-md"><RenderDescription text={user.description} />
+                </div>
             </div>
 
             {isCurrentUser && (

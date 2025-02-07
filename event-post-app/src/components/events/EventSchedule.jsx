@@ -113,14 +113,14 @@ const EventIndex = () => {
                                             </div>
                                             {/* いいねボタンをオーバーレイ（absolute で右上） */}
                                         </div>
-                                        <div className="flex justify-end">
-                                            <LikeButton
-                                                eventId={event.id}
-                                                initialLiked={!!event.liked}
-                                                initialLikesCount={event.likes_count}
-                                                disabled={!currentUser}
-                                            />
-                                        </div>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <LikeButton
+                                            eventId={event.id}
+                                            initialLiked={!!event.liked}
+                                            initialLikesCount={event.likes_count}
+                                            disabled={!currentUser}
+                                        />
                                     </div>
                                 </div>
                             </div>
