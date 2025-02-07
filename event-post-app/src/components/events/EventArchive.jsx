@@ -45,7 +45,7 @@ const EventIndex = () => {
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
-    
+
     return (
         <div className="flex flex-col pb-4 h-full mx-auto">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Archive</h1>
@@ -106,7 +106,8 @@ const EventIndex = () => {
                                             </div>
                                             {/* いいねボタンをオーバーレイ（absolute で右上） */}
                                         </div>
-                                        <div className="flex justify-end">
+                                    </div>
+                                        <div className="flex absolute bottom-1 right-3 justify-end">
                                             <LikeButton
                                                 eventId={event.id}
                                                 initialLiked={event.liked}  // APIから `liked` を直接取得する場合
@@ -115,7 +116,6 @@ const EventIndex = () => {
                                                 disabled={!currentUser}          // 未ログインの場合は無効
                                             />
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                             <div className="absolute top-1 left-1 flex flex-col items-center bg-gray-400 text-white p-2 rounded-full">

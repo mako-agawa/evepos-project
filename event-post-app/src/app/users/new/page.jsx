@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 import { authAtom } from '@/atoms/authAtom';
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";  // 追加
 import Image from "next/image";
+import { pageModeAtom } from "@/atoms/authAtom";
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ export default function Register() {
     const [auth, setAuth] = useAtom(authAtom);
     const [message, setMessage] = useState('');
     const router = useRouter();
+    const [, setPageMode] = useAtom(pageModeAtom);
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     // 入力変更ハンドラー
@@ -59,11 +61,7 @@ export default function Register() {
 
         if (thumbnail) {
             userPayload.append("user[thumbnail]", thumbnail);
-        // } else {
-        //     // デフォルト画像をBlobとして読み込み、FormDataに追加
-        //     const response = await fetch('/default-userImage.svg');
-        //     const blob = await response.blob();
-        //     userPayload.append("user[thumbnail]", blob, "default-userImage.svg");
+            
         }
 
         try {
@@ -80,8 +78,10 @@ export default function Register() {
                     currentUser: data.user,
                     token: data.token,
                 });
+                setPageMode('index');
                 setMessage('登録に成功しました！');
                 router.push('/');
+                router.refresh();
             } else {
                 const errorResponse = await res.json();
                 setMessage(errorResponse.errors ? errorResponse.errors.join(", ") : '登録に失敗しました。');

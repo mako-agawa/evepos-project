@@ -60,7 +60,7 @@ const EventIndex = () => {
                         >
 
                             {/* 画像のコンテナ（relative を適用） */}
-                            <div className="">
+
                                 <div className="relative w-full h-[110px]">
                                     {/* 日時 */}
                                     <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-md">
@@ -110,7 +110,6 @@ const EventIndex = () => {
                                     </div>
                                     {/* いいねボタンをオーバーレイ（absolute で右上） */}
                                 </div>
-                            </div>
                             <div className="flex justify-end">
                                 <LikeButton
                                     eventId={event.id}
@@ -119,6 +118,7 @@ const EventIndex = () => {
                                     currentUserId={currentUser?.id}  // currentUser の ID を渡す
                                     disabled={!currentUser}          // 未ログインの場合は無効
                                 />
+
                             </div>
                         </div>
                     );
