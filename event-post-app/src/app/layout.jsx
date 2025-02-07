@@ -6,14 +6,10 @@ import Header from '../components/layout/Header';
 import Navbar from "@/components/layout/Navbar";
 import { Suspense } from "react";
 
-
-
-
 export const metadata = {
   title: "いべぽす",
   description: "あなたの好きを教えてください",
 };
-
 const notoSansJP = Noto_Sans_JP({
   subsets: [],
   weight: ["400", "700"],
@@ -21,12 +17,9 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export default function RootLayout({ children }) {
-
-
   return (
     <html lang="ja">
       <body className={`${notoSansJP.variable} antialiased bg-gray-100 text-gray-600  mb-36`}>
-
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
           {children}

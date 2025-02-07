@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchAPI } from "@/utils/api";
-import Image from "next/image"; // Next.js の画像最適化を利用
+import { Heart } from "lucide-react";
 
 export default function LikeButton({
   eventId,
@@ -23,25 +23,26 @@ export default function LikeButton({
 
   useEffect(() => {
     const fetchLikes = async () => {
-
       try {
         const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`);
         setLikesCount(data.length);
         if (!currentUserId) {
-          return
+          return;
         }
-        const currentUserLike = data.find((like) => like.user_id === currentUserId);
-        if (currentUserLike) {
+        const userLike = data.find((like) => like.user_id === currentUserId);
+        if (userLike) {
           setLiked(true);
-          setCurrentUserLike(currentUserLike);
+          setCurrentUserLike(userLike);
+        } else {
+          setLiked(false);
+          setCurrentUserLike(null);
         }
       } catch (error) {
         console.error("Error while fetching likes:", error);
       }
-    }
+    };
     fetchLikes();
   }, [eventId, currentUserId]);
-
 
   const handleLikeToggle = async (e) => {
     e.stopPropagation();
@@ -50,38 +51,41 @@ export default function LikeButton({
       return;
     }
 
-    // 🔹 いいねの追加処理
-    const handkeLike = async () => {
-      try {
-        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
-          method: "POST",
-          cache: "no-cache",
-        });
-        setLiked(true);
-        setLikesCount((prev) => prev + 1);
-      } catch (error) {
-        console.error("Error while liking:", error);
-      }
-    }
-
-    // 🔹 いいねの削除処理
-    const handkeUnlike = async () => {
-      try {
-        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes/${currentUserLike.id}`, {
-          method: "DELETE",
-          cache: "no-cache",
-        });
-        setLiked(false);
-        setLikesCount((prev) => prev - 1);
-        setCurrentUserLike(null);
-      } catch (error) {
-        console.error("Error while unliking:", error);
-      }
-    }
-    if (liked) {
-      handkeUnlike();
+    if (liked && currentUserLike) {
+      handleUnlike();
     } else {
-      handkeLike();
+      handleLike();
+    }
+  };
+
+  // 🔹 いいねの追加処理
+  const handleLike = async () => {
+    try {
+      const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
+        method: "POST",
+        cache: "no-cache",
+      });
+      setLiked(true);
+      setLikesCount((prev) => prev + 1);
+      setCurrentUserLike(data); // ← ここで `currentUserLike` を更新
+    } catch (error) {
+      console.error("Error while liking:", error);
+    }
+  };
+
+  // 🔹 いいねの削除処理
+  const handleUnlike = async () => {
+    if (!currentUserLike) return; // currentUserLike がない場合は処理しない
+    try {
+      await fetchAPI(`${API_URL}/events/${eventId}/likes/${currentUserLike.id}`, {
+        method: "DELETE",
+        cache: "no-cache",
+      });
+      setLiked(false);
+      setLikesCount((prev) => Math.max(prev - 1, 0));
+      setCurrentUserLike(null); // ← `currentUserLike` をリセット
+    } catch (error) {
+      console.error("Error while unliking:", error);
     }
   };
 
@@ -93,12 +97,9 @@ export default function LikeButton({
           }`}
         aria-label="Like Button"
       >
-        <Image
-          src={liked ? "/heart-filled.svg" : "/heart-outline.svg"}
-          alt="Like"
-          width={24}
-          height={24}
-          className="w-6 h-6"
+        <Heart
+          size={24}
+          className={`w-6 h-6 ${liked ? "text-orange-400 fill-orange-400" : "text-gray-400 fill-none"}`}
         />
       </button>
       <span className="text-xs">{likesCount} いいね</span>
