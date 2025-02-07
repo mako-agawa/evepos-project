@@ -22,6 +22,7 @@ entity events {
   description : text
   price : string
   image : string
+  liked : boolean
   likes_count : bigint
   user_id : bigint (FK)
   created_at : datetime
