@@ -117,9 +117,10 @@ const EventIndex = () => {
                                     <div className="flex justify-end">
                                         <LikeButton
                                             eventId={event.id}
-                                            initialLiked={!!event.liked}
+                                            initialLiked={event.liked}  // APIから `liked` を直接取得する場合
                                             initialLikesCount={event.likes_count}
-                                            disabled={!currentUser}
+                                            currentUserId={currentUser?.id}  // currentUser の ID を渡す
+                                            disabled={!currentUser}          // 未ログインの場合は無効
                                         />
                                     </div>
                                 </div>

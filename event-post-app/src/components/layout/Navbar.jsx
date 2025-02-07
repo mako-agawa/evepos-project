@@ -6,14 +6,11 @@ import usePageNavigation from "@/hooks/usePageNavigation";
 import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useEffect, useState } from "react";
-import { DebugAuthState } from "@/hooks/DebugAuthState";
-
 
 const Navbar = () => {
   const { handleNavigation, getActiveClass } = usePageNavigation();
   const [auth] = useAtom(authAtom);
   const [isClient, setIsClient] = useState(false);
-  const debug = DebugAuthState();
   // クライアントサイドでのみレンダリングするフラグを設定
   useEffect(() => {
     setIsClient(true);
@@ -25,7 +22,6 @@ const Navbar = () => {
   if (!isClient) {
     return null;
   }
-  console.log(debug);
 
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 shadow-md">

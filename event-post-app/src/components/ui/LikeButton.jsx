@@ -8,11 +8,12 @@ export default function LikeButton({
   eventId,
   initialLiked = false,
   initialLikesCount = 0,
-  currentUserId = null,
+  currentUserId,
   disabled = false,
 }) {
   const [liked, setLiked] = useState(initialLiked);
   const [likesCount, setLikesCount] = useState(initialLikesCount);
+  const [currentUserLike, setCurrentUserLike] = useState(null);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   // 🔹 initialLiked の変更があった場合に、最新の liked 状態を反映
@@ -20,14 +21,36 @@ export default function LikeButton({
     setLiked(initialLiked);
   }, [initialLiked]);
 
+  useEffect(() => {
+    const fetchLikes = async () => {
+
+      try {
+        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`);
+        setLikesCount(data.length);
+        if (!currentUserId) {
+          return
+        }
+        const currentUserLike = data.find((like) => like.user_id === currentUserId);
+        if (currentUserLike) {
+          setLiked(true);
+          setCurrentUserLike(currentUserLike);
+        }
+      } catch (error) {
+        console.error("Error while fetching likes:", error);
+      }
+    }
+    fetchLikes();
+  }, [eventId, currentUserId]);
+
+
   const handleLikeToggle = async (e) => {
     e.stopPropagation();
     if (disabled) {
-      console.warn("ログインしていないため、いいねできません。");
+      window.alert("ログインしていないため、いいねできません。");
       return;
     }
-    
-  // 🔹 いいねの追加処理
+
+    // 🔹 いいねの追加処理
     const handkeLike = async () => {
       try {
         const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
@@ -41,36 +64,33 @@ export default function LikeButton({
       }
     }
 
-  // 🔹 いいねの削除処理
-    const handkeUnlike = async () => { 
+    // 🔹 いいねの削除処理
+    const handkeUnlike = async () => {
       try {
-        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes/${currentUserId}`, {
+        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes/${currentUserLike.id}`, {
           method: "DELETE",
           cache: "no-cache",
         });
         setLiked(false);
         setLikesCount((prev) => prev - 1);
+        setCurrentUserLike(null);
       } catch (error) {
         console.error("Error while unliking:", error);
       }
     }
-
     if (liked) {
       handkeUnlike();
     } else {
       handkeLike();
     }
-
   };
 
   return (
     <div className="flex items-center">
       <button
         onClick={handleLikeToggle}
-        disabled={disabled}
-        className={`rounded-full transition-colors duration-300 ${
-          disabled ? "opacity-50 cursor-not-allowed" : "hover:text-orange-400"
-        }`}
+        className={`rounded-full transition-colors duration-300 ${disabled ? "opacity-50 cursor-not-allowed" : "hover:text-orange-400"
+          }`}
         aria-label="Like Button"
       >
         <Image

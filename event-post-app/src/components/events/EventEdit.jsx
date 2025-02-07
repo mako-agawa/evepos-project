@@ -22,10 +22,8 @@ export default function EventEdit() {
     const router = useRouter();
     const params = useParams();
     const eventId = params?.id;
-
     const [message, setMessage] = useState("");
     const [imageFile, setImageFile] = useState(null);
-    console.log("imageFile:", imageFile);
     const [imagePreview, setImagePreview] = useState(null);
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(new Date());
@@ -83,7 +81,6 @@ export default function EventEdit() {
             const processedFile = await compressAndConvertToPNG(file);
             setImageFile(processedFile);
             setImagePreview(URL.createObjectURL(processedFile));
-            console.log("Processed file (PNG):", processedFile);
         } catch (error) {
             setMessage("画像の圧縮または変換に失敗しました。");
         }
@@ -91,9 +88,6 @@ export default function EventEdit() {
 
     // フォーム送信処理
     const onSubmit = async (data) => {
-        console.log("===== ON SUBMIT =====");
-        console.log("送信データ:", data);
-
         const token = localStorage.getItem("token");
         if (!token) {
             setMessage("認証エラー: ログインしてください");
@@ -113,12 +107,7 @@ export default function EventEdit() {
         if (imageFile) {
             formData.append("image", imageFile);
         }
-
-        console.log("===== SENT FORM DATA =====");
-        formData.forEach((value, key) => {
-            console.log(`${key}:`, value);
-        });
-
+   
         try {
             const response = await fetch(`${API_URL}/events/${eventId}`, {
                 method: "PATCH",
@@ -127,7 +116,6 @@ export default function EventEdit() {
                 },
                 body: formData,
             });
-            console.log("Response:", response);
 
             if (!response.ok) throw new Error("イベントの更新に失敗しました");
 

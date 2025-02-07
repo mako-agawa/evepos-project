@@ -3,17 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-
 import { Button } from '../ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import RenderDescription from '../general/RenderDescription';
-
 import defaultUserImage from '/public/user.svg';
 
 export default function UserShow() {
     const [user, setUser] = useState();
-
     const { currentUser } = useCurrentUser();
     const router = useRouter();
     const params = useParams();
@@ -21,38 +18,29 @@ export default function UserShow() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const { logout } = useAuth();
 
-
     useEffect(() => {
         const fetchUser = async () => {
             if (!userId) return;
-
             try {
                 const res = await fetch(`${API_URL}/users/${userId}`, { method: 'GET' });
-
                 if (!res.ok) {
                     const errorData = await res.json().catch(() => null);
                     throw new Error(errorData?.message || `HTTP Error: ${res.status}`);
                 }
-
                 const userData = await res.json();
                 setUser(userData);
             } catch (error) {
                 console.error("Fetch error:", error.message);
             }
-
         };
-
         fetchUser();
     }, [API_URL, userId]);
-    console.log(user);
 
     const handleUserDelete = async () => {
         // 確認ダイアログの戻り値を変数に格納
         const isConfirmed = confirm("本当にこのユーザーを削除しますか？");
-
         // キャンセルされた場合は処理を中断
         if (!isConfirmed) return;
-
         try {
             const response = await fetch(`${API_URL}/api/v1/users/${userId}`, {
                 method: "DELETE",
@@ -60,7 +48,6 @@ export default function UserShow() {
                     "Content-Type": "application/json",
                 },
             });
-
             if (response) {
                 alert("ユーザーが削除されました。");
                 logout();
@@ -72,9 +59,7 @@ export default function UserShow() {
         }
     };
 
-
     if (!user) return null;
-
     const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
     return (
@@ -82,7 +67,6 @@ export default function UserShow() {
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">{isCurrentUser ? "Myページ" : "ユーザーページ"}</h1>
             <div className="flex flex-col p-8 my-4 rounded shadow-md bg-white w-full">
                 <div className="flex  items-center">
-
                     <Image
                         src={user.thumbnail_url || defaultUserImage}
                         alt="User Thumbnail"
@@ -102,7 +86,6 @@ export default function UserShow() {
                     <Button onClick={() => router.push(`/users/${userId}/edit`)} className="bg-green-500 text-white px-4 py-2 rounded">
                         編集
                     </Button>
-
                     <Button
                         onClick={() => handleUserDelete(userId)}
                         className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"

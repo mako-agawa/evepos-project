@@ -82,7 +82,6 @@ module Api
       private
 
       def event_params
-        puts params.inspect
         params.permit(:title, :date, :location, :description, :price, :image)
       end
 

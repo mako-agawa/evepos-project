@@ -1,8 +1,5 @@
 "use client";
 import { useState } from "react";
-
-
-
 import { useParams, useRouter } from "next/navigation";
 import { fetchAPI } from "@/utils/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -18,11 +15,6 @@ export default function CommentForm({ setComments }) {
     const router = useRouter();
     const params = useParams();
     const eventId = params?.id;
-    console.log("====================================");
-    console.log(API_URL);
-    console.log(eventId);
-    console.log(setComments);
-    console.log("====================================");
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -30,7 +22,6 @@ export default function CommentForm({ setComments }) {
             [name]: value,
         }));
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,25 +33,16 @@ export default function CommentForm({ setComments }) {
             }
         };
 
-        console.log("====================================");
-        console.log("subimit");
-        console.log(commentPayload);
-        console.log("user_id: currentUser.id", currentUser.id);
-        console.log("====================================");
         try {
             const res = await fetchAPI(`${API_URL}/events/${eventId}/comments`, {
                 method: "POST",
                 body: JSON.stringify(commentPayload),
             });
             setComments((prev) => [res, ...prev]); // 🔹 新しいコメントを一覧に追加
-
-
-
             setFormData({ comment: "" });
             setIsSuccess(true);
             setMessage("コメントを作成しました！");
             router.push(`/events/${eventId}/comments`); //  ページ全体をリロード
-
         } catch (error) {
             setIsSuccess(false);
             setMessage("コメント作成に失敗しました。");
@@ -71,7 +53,6 @@ export default function CommentForm({ setComments }) {
         <div className="flex flex-col items-center px-5">
             <div className="bg-white p-8 rounded shadow-md w-full">
                 <form onSubmit={handleSubmit} className="space-y-6">
-
                     <input
                         type="text"
                         id="comment"
@@ -81,7 +62,6 @@ export default function CommentForm({ setComments }) {
                         required
                         className="w-full border border-gray-300 rounded p-2"
                     />
-
                     <Button
                         type="submit"
                         className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl"

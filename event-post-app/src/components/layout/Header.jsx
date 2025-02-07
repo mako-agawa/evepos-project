@@ -13,12 +13,10 @@ import defaultUserImage from '/public/user.svg';
 
 const Header = () => {
   const { currentUser } = useCurrentUser();
-  console.log(currentUser);
   const [auth] = useAtom(authAtom);
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleNavigation } = usePageNavigation();
   const [, setPageMode] = useAtom(pageModeAtom);
-
   const handlePushLogin = () => {
     setPageMode("login");
     setMenuOpen(false)

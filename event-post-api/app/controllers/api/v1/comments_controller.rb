@@ -49,7 +49,6 @@ module Api
       # コメントデータを整形
       # コメントデータを整形
       def format_comment(comment)
-        puts comment.user
         {
           id: comment.id,
           content: comment.content,
@@ -60,8 +59,6 @@ module Api
 
       # ユーザー情報を整形するヘルパーメソッド
       def format_user(user)
-        puts user
-        puts user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         {
           id: user.id,
           name: user.name,

@@ -15,21 +15,17 @@ import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '../ui/LikeButton';
 
-
-
 export default function EventShow() {
   const [event, setEvent] = useState(null);
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
-
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
-
-  const { currentUser, refetchUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
+  const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const params = useParams();
-  const eventId = params?.id; 33
+  const eventId = params?.id;
 
   // 修正: オプショナルチェイニングを使用
   const mmdd = getEventDate(event?.date);
@@ -49,7 +45,6 @@ export default function EventShow() {
       try {
         const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
         setEvent(eventData);
-        console.log("eventData", eventData.date);
         const userData = await fetchAPI(`${API_URL}/users/${eventData.user_id}`);
         setUser(userData);
 
@@ -62,11 +57,6 @@ export default function EventShow() {
 
     fetchData();
   }, [API_URL, eventId]);
-
-  // useEffect(() => {
-  //   console.log("コメント投稿後、ユーザー情報を更新");
-  //   refetchUser(); // 🔹 `currentUser` を最新に更新
-  // }, [comments]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;
@@ -109,7 +99,7 @@ export default function EventShow() {
           <div className="flex justify-end">
             <LikeButton
               eventId={event.id}
-              initialLiked={event.liked || false}  // APIから `liked` を直接取得する場合
+              initialLiked={event.liked}  // APIから `liked` を直接取得する場合
               initialLikesCount={event.likes_count}
               currentUserId={currentUser?.id}  // currentUser の ID を渡す
               disabled={!currentUser}          // 未ログインの場合は無効

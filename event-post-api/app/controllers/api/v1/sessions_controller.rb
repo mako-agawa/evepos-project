@@ -6,9 +6,7 @@ module Api
 
       def create
         user = User.find_by(email: params[:email])
-        puts "User found: #{user.present? ? user.email : 'Not found'}"
         if user&.authenticate(params[:password])
-          puts '====== success ======='
           token = encode_token({ user_id: user.id }) # トークンを生成
 
           data = {
@@ -18,8 +16,6 @@ module Api
             thumbnail: nil, # 修正: null → nil
             description: user.description
           }
-          puts data
-
           render json: { token: token, message: 'Logged in successfully!', user: data }, status: :ok
         else
           render json: { error: 'Invalid email or password' }, status: :unauthorized

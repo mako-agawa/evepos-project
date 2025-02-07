@@ -13,7 +13,7 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(auth);
+
 
     try {
       await login(email, password);  // login 処理

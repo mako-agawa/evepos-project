@@ -3,7 +3,7 @@
 module Api
   module V1
     class LikesController < ApplicationController
-      before_action :authenticate_user # ユーザー認証
+      before_action :authenticate_user, only: %i[create destroy] # ユーザー認証
       before_action :set_event # 対象イベントの取得
 
       def index
@@ -26,10 +26,6 @@ module Api
       # POST /api/v1/events/:event_id/likes
 
       def create
-        puts "=======LIKE======="
-        puts params[:event_id]
-        puts params[@event]
-        puts "================="
         event = Event.find(params[:event_id])
         if current_user.liked_events.exists?(event.id)
           render json: { message: 'Already liked', likes_count: event.likes_count }, status: :ok
@@ -42,11 +38,6 @@ module Api
 
       # DELETE /api/v1/events/:id/likes
       def destroy
-        puts "=====disLIKE====="
-        puts params[:event_id]
-        puts params[@event]
-
-        puts "================="
         event = Event.find(params[:event_id])
         if current_user.liked_events.exists?(event.id)
           current_user.liked_events.destroy(event)

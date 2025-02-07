@@ -45,17 +45,14 @@ const EventIndex = () => {
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
-
-
+    
     return (
         <div className="flex flex-col pb-4 h-full mx-auto">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Archive</h1>
             <div className="w-full">
                 {events.map((event) => {
-                    const isCreator = currentUser && event.user_id === currentUser.id;
                     const mmdd = getEventDate(event.date);
                     const weekday = getEventWeekday(event.date);
-                    const hhmm = getEventTime(event.date)
 
                     return (
                         <div
@@ -93,10 +90,6 @@ const EventIndex = () => {
                                                     {event.title}
                                                 </h2>
                                             </div>
-
-
-
-
                                             {/* 投稿者情報 */}
                                             <div className="flex mt-2 text-xs text-gray-500">
                                                 <div className="flex items-center">
@@ -116,9 +109,10 @@ const EventIndex = () => {
                                         <div className="flex justify-end">
                                             <LikeButton
                                                 eventId={event.id}
-                                                initialLiked={!!event.liked}
+                                                initialLiked={event.liked}  // APIから `liked` を直接取得する場合
                                                 initialLikesCount={event.likes_count}
-                                                disabled={!currentUser}
+                                                currentUserId={currentUser?.id}  // currentUser の ID を渡す
+                                                disabled={!currentUser}          // 未ログインの場合は無効
                                             />
                                         </div>
                                     </div>

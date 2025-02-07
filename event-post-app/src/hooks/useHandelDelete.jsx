@@ -3,9 +3,7 @@
 import { fetchAPI } from "@/utils/api";
 
 const useHandleDelete = (API_URL, eventId, comments, setComments) => {
-
   // イベント削除
-
   const handleEventDelete = async () => {
     console.log("eventId:", eventId);
     if (!confirm("本当にこのイベントを削除しますか？")) return;
@@ -22,7 +20,6 @@ const useHandleDelete = (API_URL, eventId, comments, setComments) => {
   // コメント削除
   const handleCommentDelete = async (commentId) => {
     if (!confirm("本当にこのコメントを削除しますか？")) return;
-
     try {
       await fetchAPI(`${API_URL}/events/${eventId}/comments/${commentId}`, { method: "DELETE" });
 
@@ -35,11 +32,9 @@ const useHandleDelete = (API_URL, eventId, comments, setComments) => {
     }
   };
 
-
   // ユーザー削除
   const handleUserDelete = async (userId) => {
     if (!confirm("本当にこのユーザーを削除しますか？")) return;
-
     try {
       await fetchAPI(`${API_URL}/users/${userId}`, { method: "DELETE" });
       alert("ユーザーが削除されました。");
@@ -47,7 +42,6 @@ const useHandleDelete = (API_URL, eventId, comments, setComments) => {
       alert("ユーザーの削除に失敗しました。");
     }
   };
-
   return { handleEventDelete, handleCommentDelete, handleUserDelete };
 };
 

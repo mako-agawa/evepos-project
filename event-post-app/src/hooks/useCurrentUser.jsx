@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { fetchAPI } from "@/utils/api";

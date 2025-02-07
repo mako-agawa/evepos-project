@@ -50,7 +50,7 @@ module Api
         end
       end
 
-      
+
       # ユーザー削除
       def destroy
         if current_user&.id == params[:id].to_i
@@ -68,7 +68,6 @@ module Api
       private
 
       def user_info_with_thumbnail(user)
-          Rails.logger.info "Received Params: #{params.inspect}"
         {
           id: user.id,
           name: user.name,

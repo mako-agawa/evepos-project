@@ -22,7 +22,8 @@ export default function EventCreate() {
     const [message, setMessage] = useState("");
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
-
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(new Date());
     const { control, setValue, handleSubmit, register } = useForm({
         defaultValues: {
             title: "",
@@ -32,9 +33,6 @@ export default function EventCreate() {
             price: "",
         },
     });
-
-    const [date, setDate] = useState(null);
-    const [time, setTime] = useState(new Date());
 
     useEffect(() => {
         if (date && time) {
@@ -52,7 +50,6 @@ export default function EventCreate() {
             const processedFile = await compressAndConvertToPNG(file);
             setImageFile(processedFile);
             setImagePreview(URL.createObjectURL(processedFile));
-            console.log("Processed file (PNG):", processedFile);
         } catch (error) {
             setMessage("画像の圧縮または変換に失敗しました。");
         }

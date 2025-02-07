@@ -7,12 +7,10 @@ import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../ui/LikeButton";
-import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
-
+import { getEventDate } from "@/components/general/EventDateDisplay"
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
-
 
 const EventIndex = () => {
     const [auth] = useAtom(authAtom);
@@ -27,7 +25,6 @@ const EventIndex = () => {
             try {
                 const eventData = await fetchAPI(`${API_URL}/events`);
                 setEvents(eventData);
-                console.log("eventData", eventData);
             } catch (error) {
                 setError(error.message);
                 console.error("Failed to fetch events:", error);
@@ -53,10 +50,7 @@ const EventIndex = () => {
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">New Events</h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 {events.map((event) => {
-                    const isCreator = currentUser && event.user_id === currentUser.id;
                     const mmdd = getEventDate(event.date);
-                    const weekday = getEventWeekday(event.date);
-                    const hhmm = getEventTime(event.date)
 
                     return (
                         <div
