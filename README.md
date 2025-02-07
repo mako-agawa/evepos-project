@@ -121,27 +121,27 @@
 
 | 新着イベント一覧 / スケジュール       | 新規投稿                     |
 | ----------------------------------- | -------------------------------- |
-| <img width="100%" alt="top" src=""> | <img width="100%" alt="" src=""> |
+| <img width="100%" alt="index&schedule" src=""> | <img width="100%" alt="create_event" src=""> |
 |                                     |                                  |
 
 | イベント詳細ページ             | コメント機能                      |                        
 | -------------------------------- | -------------------------------- |
-| <img width="100%" alt="" src=""> | <img width="100%" alt="" src=""> |
+| <img width="100%" alt="event_show" src=""> | <img width="100%" alt="comment" src=""> |
 |                                  |                                  |
 
 |  イベント詳細ページ     | イベント編集                |
 | -------------------------------- | -------------------------------- |
-| <img width="100%" alt="" src=""> | <img width="100%" alt="" src=""> |
+| <img width="100%" alt="event_show" src=""> | <img width="100%" alt="event_edit" src=""> |
 |                                  |                                  |
 
 |  ログイン　                   |  ログイン後                        |
 | -------------------------------- | -------------------------------- |
-| <img width="100%" alt="" src=""> | <img width="100%" alt="" src=""> |
+| <img width="100%" alt="login" src=""> | <img width="100%" alt="login_done" src=""> |
 |                                  |                                  |
 
 |  ログインユーザー         |  ユーザー編集                                    |
 | --------------------------------------- | --------------------------------------- |
-| <img width="100%" alt="create_" src=""> | <img width="100%" alt="account" src=""> |
+| <img width="100%" alt="current_user" src=""> | <img width="100%" alt="user_edit" src=""> |
 |                                         |                                         |
 
 
