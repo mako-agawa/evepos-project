@@ -72,12 +72,12 @@ export default function UserShow() {
                         alt="User Thumbnail"
                         width={72}
                         height={72}
-                        className="w-24 h-24 rounded-full border-2 border-orange-400 mb-4 shadow-md"
+                        className="w-24 h-24 rounded-full object-cover border-2 border-orange-400 mb-4 shadow-md"
                     />
                     <p className=" pl-6 font-bold text-2xl">{user.name}</p>
                 </div>
                 <p className=" font-semibold">メッセージ:</p>
-                <div className=" p-2 text-sm border border-orange-400 rounded-md"><RenderDescription text={user.description} />
+                <div className=" p-2 text-sm border border-gray-400 rounded-md"><RenderDescription text={user.description} />
                 </div>
             </div>
 

@@ -23,7 +23,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-orange-400 py-4 pl-6 pr-4 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center relative">
+    <header className="bg-orange-400 py-4 pl-5 pr-6 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center relative">
       <Link href="/" onClick={() => handleNavigation("index")} className="text-white text-3xl font-bold hover:cursor">
         {/* いべぽす */}
         evepos
@@ -46,7 +46,7 @@ const Header = () => {
                 <div className="flex flex-col items-center w-full">
                   <Link
                     href={`/users/${currentUser.id}`}
-                    className="flex flex-row items-center justify-center  text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
+                    className="flex flex-row items-center justify-center font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                     onClick={() => setMenuOpen(false)}
                   >
                     <Image
@@ -54,14 +54,14 @@ const Header = () => {
                       alt={currentUser.name}
                       width={32}
                       height={32}
-                      className="rounded-full border border-orange-400 mr-2"
+                      className="w-8 h-8 rounded-full border object-cover border-orange-400 mr-2"
                     />
-                    {currentUser.name} さん
+                    {currentUser.name}さん
                   </Link>
 
                   <Link
                     href="/logout"
-                    className=" text-lg font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
+                    className="font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                     onClick={() => setMenuOpen(false)}
                   >
                     ログアウト

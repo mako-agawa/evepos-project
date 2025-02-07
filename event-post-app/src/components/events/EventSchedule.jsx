@@ -114,7 +114,8 @@ const EventIndex = () => {
                                             {/* いいねボタンをオーバーレイ（absolute で右上） */}
                                         </div>
                                     </div>
-                                    <div className="flex justify-end">
+                                </div>
+                                    <div className="flex absolute bottom-1 right-3 justify-end">
                                         <LikeButton
                                             eventId={event.id}
                                             initialLiked={event.liked}  // APIから `liked` を直接取得する場合
@@ -123,7 +124,6 @@ const EventIndex = () => {
                                             disabled={!currentUser}          // 未ログインの場合は無効
                                         />
                                     </div>
-                                </div>
                             </div>
                             <div className="absolute top-1 left-1 flex flex-col items-center bg-orange-400 text-white p-2 rounded-full">
                                 <p className="text-s font-bold">{mmdd}</p>

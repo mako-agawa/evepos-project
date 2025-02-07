@@ -66,24 +66,25 @@ export default function EventShow() {
   return (
     <div className="flex flex-col max-w-screen-lg">
       <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">Event info</h1>
-      <div className="pt-2 pb-6 px-4 my-4 mb-8 relative rounded shadow-md bg-white">
-        <div className="flex justify-end items-center gap-2">
+      <div className="flex flex-col pt-10 pb-4 px-4 mt-2 mb-8 relative rounded shadow-md bg-white">
+
+        {/* 日時 */}
+        <div className="flex items-center absolute top-2 left-4 gap-1 bg-orange-400 text-white py-1 px-2 rounded-full">
+          <p className="font-bold">{mmdd}</p>
+          <p className="text-sm">({weekday})</p>
+          <p className="font-bold">{hhmm}</p>
+        </div>
+        <div className="flex items-center absolute top-2 right-4 gap-2">
           <p className="font-semibold text-xs text-gray-500">post by</p>
           <Image
             src={user.thumbnail_url || defaultUserImage}
             alt="image"
             width={200}
             height={200}
-            className="w-9 h-9 rounded-full border border-orange-400"
+            className="w-8 h-8 rounded-full object-cover border border-orange-400"
           />
 
           <p className="font-semibold text-gray-500">{user.name}</p>
-        </div>
-        {/* 日時 */}
-        <div className="flex absolute top-2 left-4  items-center gap-1 bg-orange-400 text-white py-1 px-2 rounded-full">
-          <p className="font-bold">{mmdd}</p>
-          <p className="text-sm">({weekday})</p>
-          <p className="font-bold">{hhmm}</p>
         </div>
         {/* 画像 */}
         <div>
@@ -95,33 +96,30 @@ export default function EventShow() {
             className="rounded-md mt-1 mb-2"
           />
         </div>
-        <div className="flex justify-between gap-1">
-          <div className="flex justify-end">
-            <LikeButton
-              eventId={event.id}
-              initialLiked={event.liked}  // APIから `liked` を直接取得する場合
-              initialLikesCount={event.likes_count}
-              currentUserId={currentUser?.id}  // currentUser の ID を渡す
-              disabled={!currentUser}          // 未ログインの場合は無効
-            />
-          </div>
+        <div className="flex justify-end">
           <div className="flex bg-gray-200 p-1 rounded-md">
             <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
             <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
           </div>
-
         </div>
-        <h1 className="text-xl font-bold py-2 ">{event.title}</h1>
-
-
-        <div className='flex gap-2 justify-start'>
-
-          <div className='my-2 border border-orange-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
-            {<RenderDescription text={event.description} /> || "No description"}
-          </div>
+        <h1 className="text-xl font-bold">{event.title}</h1>
+        
+        <div className='mt-4 mb-3 border border-gray-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
+          {<RenderDescription text={event.description} /> || "No description"}
+        </div>
+        <div className="w-fit  bg-gray-200 py-1 px-2 rounded-md">
+          <p className=" font-semibold mt-1  text-sm">料金: {event.price}</p>
         </div>
 
-        <p className=" font-semibold mt-1 text-sm">料金: {event.price}</p>
+        <div className="flex justify-end">
+          <LikeButton
+            eventId={event.id}
+            initialLiked={event.liked}  // APIから `liked` を直接取得する場合
+            initialLikesCount={event.likes_count}
+            currentUserId={currentUser?.id}  // currentUser の ID を渡す
+            disabled={!currentUser}          // 未ログインの場合は無効
+          />
+        </div>
       </div>
       <div className="flex justify-end items-center gap-4">
         {/* 🔹 モーダルを開くボタン */}
@@ -179,7 +177,7 @@ export default function EventShow() {
                     alt="User thumbnail"
                     width={25}
                     height={25}
-                    className="rounded-full mr-1 border border-orange-400"
+                    className="w-6 h-6 rounded-full object-cover mr-1 border border-orange-400"
                   />
 
                   <p className="font-semibold text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
