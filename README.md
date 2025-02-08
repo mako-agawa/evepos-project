@@ -1,7 +1,7 @@
 # いべぽす
 
 <a href="https://www.evepos.net">
-    <img width="100%" alt="トップページ" src="./documents/evepostop.png" />
+    <img width="100%" alt="トップページ" src="./documents/top.png" />
 </a>
 
 ### アプリ URL: https://www.evepos.net
