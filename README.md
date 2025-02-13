@@ -55,7 +55,7 @@
 
 - インフラ
   - AWS を使い、ALB と Nginx を通すことで常時 SSL 通信を行っている。
-  - Github Actions による CI/CD パイプラインを構築している。
+  - GitHub Actions による CI/CD パイプラインを構築している。
 
 <br>
 
@@ -74,7 +74,7 @@
 
 - インフラ・開発環境
   - AWS: VPC,EC2,Route53,ALB,RDS,ACM,SSM
-  - Github Actions(CI/CD)
+  - GitHub Actions(CI/CD)
 <br>
 
 ## 画面遷移図
