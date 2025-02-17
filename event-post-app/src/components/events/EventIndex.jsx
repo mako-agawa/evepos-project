@@ -33,6 +33,7 @@ const EventIndex = () => {
         fetchEvents();
     }, [API_URL]);
 
+
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
@@ -51,6 +52,7 @@ const EventIndex = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 {events.map((event) => {
                     const mmdd = getEventDate(event.date);
+                    console.log(event);
 
                     return (
                         <div
