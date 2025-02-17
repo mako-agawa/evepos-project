@@ -5,7 +5,9 @@ module Api
     class LikesController < ApplicationController
       before_action :authenticate_user, only: %i[create destroy] # ユーザー認証
       before_action :set_event # 対象イベントの取得
+      include Rails.application.routes.url_helpers
 
+      # GET /api/v1/events/:event_id/likes　確認用
       def index
         likes = @event.likes.includes(:user).map do |like|
           {
@@ -16,7 +18,7 @@ module Api
             user: {
               id: like.user.id,
               name: like.user.name,
-              email: like.user.email
+              thumbnail_url: like.user.thumbnail.attached? ? url_for(like.user.thumbnail) : nil
             }
           }
         end
@@ -30,9 +32,17 @@ module Api
         if current_user.liked_events.exists?(event.id)
           render json: { message: 'Already liked', likes_count: event.likes_count }, status: :ok
         else
-          current_user.liked_events << event
+          like = current_user.likes.create!(event: event)
           event.increment!(:likes_count)
-          render json: { message: 'Liked successfully', likes_count: event.likes_count }, status: :ok
+          render json: {
+            message: 'Liked successfully',
+            likes_count: event.likes_count,
+            user: {
+              id: current_user.id,
+              name: current_user.name,
+              thumbnail_url: current_user.thumbnail.attached? ? url_for(current_user.thumbnail) : nil
+            }
+          }, status: :ok
         end
       end
 

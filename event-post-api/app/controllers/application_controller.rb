@@ -5,20 +5,18 @@ class ApplicationController < ActionController::API
 
   def authenticate_user
     token = request.headers['Authorization']&.split(' ')&.last
-    if token.present?
-      payload = decode_token(token)
-      if payload
-        @current_user = User.find_by(id: payload['user_id'])
-        render json: { error: 'User not found' }, status: :unauthorized unless @current_user
-      else
-        render json: { error: 'Invalid token' }, status: :unauthorized
-      end
-    else
-      render json: { error: 'Missing token' }, status: :unauthorized
-    end
+    return render json: { error: 'Missing token' }, status: :unauthorized unless token.present?
+
+    payload = decode_token(token)
+    return render json: { error: 'Invalid token' }, status: :unauthorized unless payload
+
+    @current_user = User.find_by(id: payload['user_id'])
+    return render json: { error: 'User not found' }, status: :unauthorized unless @current_user
   end
 
-  attr_reader :current_user
+  def current_user
+    @current_user
+  end
 
   def encode_token(payload)
     expiration_time = 3.months.from_now.to_i # 有効期限は3か月
