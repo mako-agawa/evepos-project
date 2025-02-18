@@ -111,7 +111,7 @@ export default function LikeButton({
               alt={user?.name || "User"}
               width={24}
               height={24}
-              className="w-6 h-6 rounded-full border border-gray-400"
+              className="w-6 h-6 rounded-full border object-cover border-gray-400"
             />
           ))}
       </div>

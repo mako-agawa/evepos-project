@@ -111,7 +111,7 @@ export default function EventShow() {
           <p className=" font-semibold mt-1  text-sm">料金: {event.price}</p>
         </div>
 
-        <div className="flex justify-end">
+        <div className="mt-2 flex justify-end">
           <LikeButton
             eventId={event.id}
             initialLiked={event.liked}  // APIから `liked` を直接取得する場合
