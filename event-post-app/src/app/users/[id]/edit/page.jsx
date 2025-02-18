@@ -126,8 +126,8 @@ export default function UserEdit() {
         <div className="flex flex-col items-center h-full px-4 py-16">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Edit Profile</h1>
             <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg">
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="name">Name:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="name">名前:</label>
                     <input
                         type="text"
                         id="name"
@@ -138,8 +138,8 @@ export default function UserEdit() {
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="email">Email:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="email">Eメール:</label>
                     <input
                         type="email"
                         id="email"
@@ -150,8 +150,8 @@ export default function UserEdit() {
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="password">Password:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="password">パスワード:</label>
                     <input
                         type="password"
                         id="password"
@@ -161,8 +161,8 @@ export default function UserEdit() {
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="password_confirmation">Password Confirmation:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="password_confirmation">パスワード(確認用):</label>
                     <input
                         type="password"
                         id="password_confirmation"
@@ -172,8 +172,8 @@ export default function UserEdit() {
                         className="w-full border border-gray-300 rounded p-2"
                     />
                 </div>
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="thumbnail">Thumbnail:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="thumbnail">プロフィール画像:</label>
                     <input
                         type="file"
                         id="thumbnail"
@@ -194,8 +194,8 @@ export default function UserEdit() {
                                             </div>
                                         )}
                 </div>
-                <div>
-                    <label className="text-mb block mb-2" htmlFor="description">Description:</label>
+                <div className="mb-3">
+                    <label className="text-mb block" htmlFor="description">メッセージ:</label>
                     <textarea
                         id="description"
                         name="description"

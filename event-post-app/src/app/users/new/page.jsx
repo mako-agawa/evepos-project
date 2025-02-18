@@ -95,26 +95,26 @@ export default function Register() {
     return (
         <div className="flex flex-col items-center justify-center  h-full mx-auto px-4 py-16">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">Register</h1>
-            <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg space-y-6">
+            <form onSubmit={handleSubmit} className="bg-white p-8 mx-auto rounded shadow-md w-full max-w-lg">
                 {/* 各入力フィールド */}
-                <div>
-                    <label htmlFor="name">Name:</label>
+                <div className="mb-3">
+                    <label htmlFor="name">名前:</label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full border rounded p-2" />
                 </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
+                <div className="mb-3">
+                    <label htmlFor="email">Eメール:</label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full border rounded p-2" />
                 </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
+                <div className="mb-3">
+                    <label htmlFor="password">パスワード:</label>
                     <input type="password" name="password" value={formData.password} onChange={handleChange} required className="w-full border rounded p-2" />
                 </div>
-                <div>
-                    <label htmlFor="password_confirmation">Password Confirmation:</label>
+                <div className="mb-3">
+                    <label htmlFor="password_confirmation">パスワード(確認用):</label>
                     <input type="password" name="password_confirmation" value={formData.password_confirmation} onChange={handleChange} required className="w-full border rounded p-2" />
                 </div>
-                <div>
-                    <label htmlFor="thumbnail">Thumbnail:</label>
+                <div className="mb-3">
+                    <label htmlFor="thumbnail">プロフィール画像:</label>
                     <input type="file" name="thumbnail" accept="image/*" onChange={handleImageChange} className="w-full border rounded p-2" />
                     {thumbnailPreview ? (
                         <div className="mt-2 flex justify-center">
@@ -126,8 +126,8 @@ export default function Register() {
                         </div>
                     )}
                 </div>
-                <div>
-                    <label htmlFor="description">Description:</label>
+                <div className="mb-3">
+                    <label htmlFor="description">メッセージ:</label>
                     <textarea name="description" value={formData.description} onChange={handleChange} required className="w-full border rounded p-2" rows="4" />
                 </div>
                 <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">登録する</button>
