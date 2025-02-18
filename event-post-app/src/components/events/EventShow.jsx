@@ -62,7 +62,7 @@ export default function EventShow() {
   if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
-
+  console.log(event);
   return (
     <div className="flex flex-col max-w-screen-lg">
       <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">Event info</h1>
@@ -74,7 +74,7 @@ export default function EventShow() {
           <p className="text-sm">({weekday})</p>
           <p className="font-bold">{hhmm}</p>
         </div>
-        <div className="flex items-center absolute top-2 right-4 gap-2">
+        <div onClick={() => router.push(`/users/${event.user_id}`)} className="flex items-center absolute top-2 right-4 gap-2">
           <p className="font-semibold text-xs text-gray-500">post by</p>
           <Image
             src={user.thumbnail_url || defaultUserImage}
@@ -103,7 +103,7 @@ export default function EventShow() {
           </div>
         </div>
         <h1 className="text-xl font-bold">{event.title}</h1>
-        
+
         <div className='mt-4 mb-3 border border-gray-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
           {<RenderDescription text={event.description} /> || "No description"}
         </div>
@@ -171,7 +171,7 @@ export default function EventShow() {
           comments.map((comment, index) => (
             <div key={comment?.id || `comment-${index}`} className="border border-orange-100 py-1 px-2 pb-2 mb-2 rounded shadow">
               <div className="flex justify-between items-top gap-2">
-                <div className='flex items-center'>
+                <div onClick={() => router.push(`/users/${comment.user.id}`)}  className='flex items-center'>
                   <Image
                     src={comment.user?.thumbnail_url || defaultUserImage}
                     alt="User thumbnail"

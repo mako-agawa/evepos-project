@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter, useParams } from "next/navigation";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { fetchAPI } from "@/utils/api";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -52,8 +52,16 @@ export default function EventEdit() {
                         description: data.description || "",
                         price: data.price || "",
                     });
-                    setDate(data.date ? new Date(data.date) : null);
-                    setImagePreview(data.image_url || null);
+                     // 日付をセット
+                     const eventDate = data.date ? parseISO(data.date) : null;
+                     setDate(eventDate);
+ 
+                     // 既存の時間をセット（date から時間部分だけ取得）
+                     if (eventDate) {
+                         setTime(new Date(eventDate));
+                     }
+ 
+                     setImagePreview(data.image_url || null);
                 }
             } catch (error) {
                 console.error("イベントの取得に失敗しました:", error);
@@ -95,9 +103,6 @@ export default function EventEdit() {
         }
 
         const formData = new FormData();
-        // Object.keys(data).forEach((key) => {
-        //     formData.append(`event[${key}]`, data[key]);
-        // });
         formData.append("title", data.title);
         formData.append("date", data.date);
         formData.append("location", data.location);

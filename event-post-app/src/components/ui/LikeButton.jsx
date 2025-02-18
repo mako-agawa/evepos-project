@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchAPI } from "@/utils/api";
 import { Heart } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function LikeButton({
   eventId,
@@ -18,6 +19,7 @@ export default function LikeButton({
   const [likedUsers, setLikedUsers] = useState([]); 
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   useEffect(() => {
     setLiked(initialLiked);
@@ -98,11 +100,11 @@ export default function LikeButton({
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-1">
       {/* いいねしたユーザーのサムネイル表示 */}
-      <div className="flex -space-x-2">
+      <div onClick={() => router.push(`/events/${eventId}/liked`)} className="flex -space-x-2">
         {likedUsers.length > 0 &&
-          likedUsers.map((user) => (
+          likedUsers.slice(0, 5).map((user) => ( // 👈 4人までに制限
             <Image
               key={user?.id}
               src={user?.thumbnail_url || "/user.svg"}
@@ -126,7 +128,7 @@ export default function LikeButton({
           className={`w-6 h-6 ${liked ? "text-orange-400 fill-orange-400" : "text-gray-400 fill-none"}`}
         />
       </button>
-      <span className="text-xs">{likesCount} いいね</span>
+      <span className="text-s font-bold text-gray-400">{likesCount}</span>
     </div>
   );
 }

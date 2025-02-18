@@ -110,7 +110,7 @@ const EventIndex = () => {
                                             <span>{event.user.name}</span>
                                         </div>
                                     </div>
-                                    {/* いいねボタンをオーバーレイ（absolute で右上） */}
+
                                 </div>
                             <div className="flex justify-end">
                                 <LikeButton
