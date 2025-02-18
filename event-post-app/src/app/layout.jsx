@@ -9,6 +9,12 @@ import { Suspense } from "react";
 export const metadata = {
   title: "いべぽす",
   description: "あなたの好きを教えてください",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+
 };
 const notoSansJP = Noto_Sans_JP({
   subsets: [],
