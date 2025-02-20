@@ -5,8 +5,10 @@ import "./globals.css";
 import Header from '../components/layout/Header';
 import Navbar from "@/components/layout/Navbar";
 import { Suspense } from "react";
+import { getURL } from "@/lib/utils";
 
 export const metadata = {
+  metadataBase: new URL(getURL()),
   title: "いべぽす",
   description: "あなたの好きを教えてください",
   icons: {
