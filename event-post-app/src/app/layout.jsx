@@ -11,11 +11,11 @@ export const metadata = {
   metadataBase: new URL(getURL()),
   title: "いべぽす",
   description: "あなたの好きを教えてください",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+  // icons: {
+  //   icon: "/favicon.ico",
+  //   shortcut: "/favicon.ico",
+  //   apple: "/apple-touch-icon.png",
+  // },
 
 };
 const notoSansJP = Noto_Sans_JP({
