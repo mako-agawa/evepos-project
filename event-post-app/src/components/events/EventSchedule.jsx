@@ -6,7 +6,7 @@ import { fetchAPI } from "@/utils/api";
 import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
-import LikeButton from "../ui/LikeButton";
+import LikeButton from "../like/LikeButton";
 import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import defaultEventImage from '/public/image.svg';
@@ -115,15 +115,15 @@ const EventIndex = () => {
                                         </div>
                                     </div>
                                 </div>
-                                    <div className="flex absolute bottom-1 right-3 justify-end">
-                                        <LikeButton
-                                            eventId={event.id}
-                                            initialLiked={event.liked}  // APIから `liked` を直接取得する場合
-                                            initialLikesCount={event.likes_count}
-                                            currentUserId={currentUser?.id}  // currentUser の ID を渡す
-                                            disabled={!currentUser}          // 未ログインの場合は無効
-                                        />
-                                    </div>
+                                <div className="flex absolute bottom-1 right-3 justify-end">
+                                    <LikeButton
+                                        eventId={event.id}
+                                        initialLiked={event.liked}  // APIから `liked` を直接取得する場合
+                                        initialLikesCount={event.likes_count}
+                                        currentUserId={currentUser?.id}  // currentUser の ID を渡す
+                                        disabled={!currentUser}          // 未ログインの場合は無効
+                                    />
+                                </div>
                             </div>
                             <div className="absolute top-1 left-1 flex flex-col items-center bg-orange-400 text-white p-2 rounded-full">
                                 <p className="text-s font-bold">{mmdd}</p>

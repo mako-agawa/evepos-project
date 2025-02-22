@@ -6,7 +6,7 @@ import { fetchAPI } from "@/utils/api";
 import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
-import LikeButton from "../ui/LikeButton";
+import LikeButton from "../like/LikeButton";
 import { getEventDate } from "@/components/general/EventDateDisplay"
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import defaultEventImage from '/public/image.svg';
@@ -63,55 +63,55 @@ const EventIndex = () => {
 
                             {/* 画像のコンテナ（relative を適用） */}
 
-                                <div className="relative w-full h-[110px]">
-                                    {/* 日時 */}
-                                    <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-md">
-                                        <p className="text-sm font-bold">{mmdd}</p>
-                                        {/* <p className="text-xs">({weekday})</p> */}
-                                    </div>
-                                    <Image
-                                        src={event.image_url || defaultEventImage}
-                                        alt={event.title}
-                                        width={210}
-                                        height={150}
-                                        priority
-                                        className="object-cover shadow-sm rounded-md w-full h-[110px]"
-                                    />
+                            <div className="relative w-full h-[110px]">
+                                {/* 日時 */}
+                                <div className="flex  absolute top-0 left-0 items-center bg-orange-400 text-white font-semibold py-1 px-2 rounded-md">
+                                    <p className="text-sm font-bold">{mmdd}</p>
+                                    {/* <p className="text-xs">({weekday})</p> */}
+                                </div>
+                                <Image
+                                    src={event.image_url || defaultEventImage}
+                                    alt={event.title}
+                                    width={210}
+                                    height={150}
+                                    priority
+                                    className="object-cover shadow-sm rounded-md w-full h-[110px]"
+                                />
 
-                                    <div className="flex absolute bottom-0 right-0 text-xs opacity-90 bg-gray-200 p-1 rounded-md">
-                                        <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
-                                        <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+                                <div className="flex absolute bottom-0 right-0 text-xs opacity-90 bg-gray-200 p-1 rounded-md">
+                                    <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
+                                    <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+                                </div>
+                            </div>
+                            {/* イベント詳細 */}
+                            <div className="flex flex-col items-start w-full mt-2">
+                                {/* タイトル & いいねボタン */}
+                                <div className="w-full my-1">
+                                    <h2
+                                        className="font-semibold border-b text-sm ">
+                                        {event.title}
+                                    </h2>
+                                </div>
+
+
+
+
+                                {/* 投稿者情報 */}
+                                <div className="flex mt-1 text-xs text-gray-500">
+                                    <div className="flex items-center">
+                                        <Image
+                                            src={event.user.thumbnail_url || defaultUserImage}
+                                            alt={event.user.name}
+                                            width={20}
+                                            height={20}
+                                            priority
+                                            className="w-6 h-6 rounded-full object-cover border border-orange-400 mr-1"
+                                        />
+                                        <span>{event.user.name}</span>
                                     </div>
                                 </div>
-                                {/* イベント詳細 */}
-                                <div className="flex flex-col items-start w-full mt-2">
-                                    {/* タイトル & いいねボタン */}
-                                    <div className="w-full my-1">
-                                        <h2
-                                            className="font-semibold border-b text-sm ">
-                                            {event.title}
-                                        </h2>
-                                    </div>
 
-
-
-
-                                    {/* 投稿者情報 */}
-                                    <div className="flex mt-1 text-xs text-gray-500">
-                                        <div className="flex items-center">
-                                            <Image
-                                                src={event.user.thumbnail_url || defaultUserImage}
-                                                alt={event.user.name}
-                                                width={20}
-                                                height={20}
-                                                priority
-                                                className="w-6 h-6 rounded-full object-cover border border-orange-400 mr-1"
-                                            />
-                                            <span>{event.user.name}</span>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            </div>
                             <div className="flex justify-end">
                                 <LikeButton
                                     eventId={event.id}

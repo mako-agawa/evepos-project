@@ -10,7 +10,7 @@ import { getURL } from "@/lib/utils";
 export const metadata = {
   metadataBase: new URL(getURL()),
   title: "いべぽす",
-  description: "あなたの好きを教えてください",
+  description: "伝えたいをポストしよう",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

@@ -13,7 +13,7 @@ import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
-import LikeButton from '../ui/LikeButton';
+import LikeButton from '../like/LikeButton';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);
@@ -171,7 +171,7 @@ export default function EventShow() {
           comments.map((comment, index) => (
             <div key={comment?.id || `comment-${index}`} className="border border-orange-100 py-1 px-2 pb-2 mb-2 rounded shadow">
               <div className="flex justify-between items-top gap-2">
-                <div onClick={() => router.push(`/users/${comment.user.id}`)}  className='flex items-center'>
+                <div onClick={() => router.push(`/users/${comment.user.id}`)} className='flex items-center'>
                   <Image
                     src={comment.user?.thumbnail_url || defaultUserImage}
                     alt="User thumbnail"
