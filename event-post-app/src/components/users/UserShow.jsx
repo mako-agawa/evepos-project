@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import RenderDescription from '../general/RenderDescription';
 import defaultUserImage from '/public/user.svg';
+import Link from 'next/link';
 
 export default function UserShow() {
     const [user, setUser] = useState();
@@ -63,7 +64,7 @@ export default function UserShow() {
     const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
     return (
-        <div className="flex flex-col bg-gray-100 px-4 max-w-screen-lg mx-auto h-screen">
+        <div className="flex flex-col bg-gray-100 px-4 max-w-screen-lg mx-auto mb-8">
             <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">{isCurrentUser ? "Myページ" : "ユーザーページ"}</h1>
             <div className="flex flex-col p-8 my-4 rounded shadow-md bg-white w-full">
                 <div className="flex  items-center">
@@ -79,6 +80,9 @@ export default function UserShow() {
                 <p className=" font-semibold">メッセージ:</p>
                 <div className=" p-2 text-sm border border-gray-400 rounded-md"><RenderDescription text={user.description} />
                 </div>
+            <Link href={`/users/${userId}/liked`} className="cursor-pointer bg-orange-400 p-2 rounded-md mt-4 shadow-md">
+                <h1 className="text-white">{user.name}さんが いいねしたイベント</h1>
+            </Link>
             </div>
 
             {isCurrentUser && (
