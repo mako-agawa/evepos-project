@@ -1,10 +1,19 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,  // 厳格モードの有効化
   images: {
-    domains: ["localhost", "api.evepos.net"], // 開発と本番の両方のドメインを許可
-    
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost", // 開発環境
+      },
+      {
+        protocol: "https",
+        hostname: "api.evepos.net", // 本番環境
+      },
+    ],
   },
-  experimental: {},  // 'appDir' を削除 (非推奨のため)
+  experimental: {},  // 'appDir' は Next.js 13 以降デフォルトで有効なので不要
 };
 
 export default nextConfig;
