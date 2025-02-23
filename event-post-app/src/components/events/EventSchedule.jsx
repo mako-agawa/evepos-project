@@ -65,21 +65,21 @@ const EventIndex = () => {
                         >
                             <div className="flex ml-2 gap-4">
                                 {/* 画像のコンテナ（relative を適用） */}
-                                <div className="relative w-full h-[110px]">
+                                <div className="relative w-[160px] h-[110px]">
                                     <Image
                                         src={event.image_url || defaultEventImage}
                                         alt={event.title}
-                                        width={210}
+                                        width={150}
                                         height={150}
                                         priority
-                                        className="object-cover  shadow-sm rounded-md  w-full h-[110px]"
+                                        className="object-cover shadow-sm rounded-md w-[160px] h-[110px]"
                                     />
                                     <div className="flex absolute bottom-0 right-0 text-xs bg-gray-200 opacity-90 p-1 rounded-md">
                                         <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
                                         <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
                                     </div>
                                 </div>
-                                <div className="flex w-[260px] flex-col">
+                                <div className="flex w-[130px] flex-col">
 
                                     {/* イベント詳細 */}
                                     <div className="flex flex-col w-full">
