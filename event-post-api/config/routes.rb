@@ -5,9 +5,6 @@ Rails.application.routes.draw do
   # ヘルスチェック用
   get '/health_check', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
 
-  # デバッグ用ルート
-  get '/debug', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['Debug endpoint reached']] }
-
   # APIエンドポイント
   namespace :api do
     namespace :v1 do

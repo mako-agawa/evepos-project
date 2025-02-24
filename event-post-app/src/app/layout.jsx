@@ -33,7 +33,9 @@ export default function RootLayout({ children }) {
         <Suspense fallback={<div className="flex items-center justify-center h-screen">
           <p className="text-gray-600 text-lg">Loading...</p>
         </div>}>
+
           {children}
+          
         </Suspense>
         <Navbar />
       </body>

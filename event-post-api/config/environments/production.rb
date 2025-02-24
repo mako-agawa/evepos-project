@@ -43,11 +43,6 @@ Rails.application.configure do
         request.host == 'api.evepos.net' # 信頼するホスト
     }
   }
-
-  # メーラー設定
-  config.action_mailer.perform_caching = false
-  config.action_mailer.raise_delivery_errors = false
-
   # ログの詳細設定
   config.active_record.verbose_query_logs = false
   config.active_record.dump_schema_after_migration = false

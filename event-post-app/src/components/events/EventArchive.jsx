@@ -34,13 +34,13 @@ const EventIndex = () => {
         fetchEvents();
     }, [API_URL]);
 
-    if (!events.length && !error) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-2xl">該当のイベントはありません。</p>
-            </div>
-        );
-    }
+    // if (!events.length && !error) {
+    //     return (
+    //         <div className="flex items-center justify-center h-screen">
+    //             <p className="text-2xl">該当のイベントはありません。</p>
+    //         </div>
+    //     );
+    // }
 
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;

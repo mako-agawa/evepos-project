@@ -8,7 +8,7 @@ module Api
       setup do
         @event1 = events(:event1)
         @event2 = events(:event2)
-        @event3 = events(:event3) # ← 修正（上書きを防ぐ）
+        @event3 = events(:event3) 
       end
 
       test "イベント一覧 (index) が正常に取得できる" do

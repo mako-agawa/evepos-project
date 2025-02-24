@@ -37,13 +37,13 @@ export default function PostEvents() {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
 
-    if (!events.length) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <p className="text-2xl">読み込み中...</p>
-            </div>
-        );
-    }
+    // if (!events.length) {
+    //     return (
+    //         <div className="flex items-center justify-center h-screen">
+    //             <p className="text-2xl">読み込み中...</p>
+    //         </div>
+    //     );
+    // }
 
     // 🔹 ユーザーIDと一致する投稿のみフィルタリング
     const postEvents = events.filter(event => event.user_id == user_id); 
