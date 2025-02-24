@@ -18,8 +18,7 @@ module EventPost
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # フロントエンドのドメインを明示的に指定
-        origins 'https://original-product-seven.vercel.app',
-                'https://www.evepos.net',
+        origins 'https://www.evepos.net',
                 'http://localhost:3000' # ローカル環境用
         resource '*',
                  headers: :any,
