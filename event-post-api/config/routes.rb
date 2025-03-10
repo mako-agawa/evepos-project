@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         collection do
           get 'schedule', to: 'events#schedule'
           get 'archive', to: 'events#archive'
+          get 'liked/:user_id', to: 'events#user_liked'
         end
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
         resources :likes, only: %i[index create destroy], defaults: { format: :json }
