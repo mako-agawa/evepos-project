@@ -35,6 +35,7 @@ export default function LikeButton({
         if (!currentUserId) return;
 
         const userLike = data.find((like) => like.user_id === currentUserId);
+        // 
         if (userLike) {
           setLiked(true);
           setCurrentUserLike(userLike);

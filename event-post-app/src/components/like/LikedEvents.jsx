@@ -22,24 +22,9 @@ export default function LikedUsers() {
     useEffect(() => {
         const fetchLikedEvents = async () => {
             try {
-                // 🔹 user_id に該当する「いいね」した event_id を取得
-                const likesData = await fetchAPI(`${API_URL}/likes`);
-
-                console.log("==========")
-                console.log(likesData)
-                console.log("==========")
-                // いいねしたイベントIDのリストを取得
-                // const likedEventIds = likesData.map(like => like.event_id);
-
-
-                if (likedEventIds.length === 0) {
-                    setLikedEvents([]); // いいねしたイベントがない場合
-                    return;
-                }
-
                 // 🔹 取得した event_id のリストでイベントデータを取得
-                const eventsData = await fetchAPI(`${API_URL}/events?ids=${likedEventIds.join(",")}`);
-
+                const eventsData = await fetchAPI(`${API_URL}/events/liked/${user_id}`);
+                console.log(eventsData);
                 setLikedEvents(eventsData);
             } catch (error) {
                 setError(error.message);

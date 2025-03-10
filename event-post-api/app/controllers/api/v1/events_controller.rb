@@ -3,7 +3,7 @@
 module Api
   module V1
     class EventsController < ApplicationController
-      before_action :authenticate_user, only: %i[create update destroy like]
+      before_action :authenticate_user, only: %i[create update destroy like user_liked]
       before_action :set_event, only: %i[update destroy]
       before_action :authorize_user!, only: %i[update destroy]
       include Rails.application.routes.url_helpers # 画像URL生成用
@@ -27,6 +27,14 @@ module Api
         events = Event.includes(:user).where('date < ?', Date.today).order(date: :desc)
                       .map { |event| event_info_with_user(event) }
         render json: events
+      end
+
+      def user_liked
+        user = User.find_by(id: params[:user_id])
+        return render json: { error: 'User not found' }, status: :not_found unless user
+
+        liked_events = user.liked_events.includes(:user).order(created_at: :desc)
+        render json: liked_events.map { |event| event_info_with_user(event) }
       end
 
       # GET /api/v1/events/:id
