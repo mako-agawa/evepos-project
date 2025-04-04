@@ -6,6 +6,8 @@
 
 ### アプリ URL: https://www.evepos.net
 
+### アプリ紹介動画 URL: https://www.youtube.com/watch?v=IA6My9WqJGM
+
 ## 概要
 **いべぽす**は、バンドマンやパフォーマー、イベントを楽しみたい人たちが自由にライブや活動情報を発信・共有できるイベント投稿掲示板サービスです。
 
