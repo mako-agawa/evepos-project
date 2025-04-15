@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@babel/preset-react": "^7.26.3",
+    "@googlemaps/js-api-loader": "^1.16.8",
+    "@types/google.maps": "^3.58.1",
     "date-fns": "^4.1.0",
     "eslint-config-next": "^15.0.1",
     "next": "^15.0.1",

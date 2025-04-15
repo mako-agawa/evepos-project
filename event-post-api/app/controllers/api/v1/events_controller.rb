@@ -29,6 +29,21 @@ module Api
         render json: events
       end
 
+      def search
+        if params[:query].present?
+          search_term = params[:query].downcase
+          matched_events = Event.includes(:user).where(
+            "LOWER(title) LIKE :q OR LOWER(description) LIKE :q OR LOWER(location) LIKE :q",
+            q: "%#{search_term}%"
+          )
+          events = matched_events.map { |event| event_info_with_user(event) }
+        else
+          events = []
+        end
+
+        render json: events
+      end
+
       def user_liked
         user = User.find_by(id: params[:user_id])
         return render json: { error: 'User not found' }, status: :not_found unless user
