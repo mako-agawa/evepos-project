@@ -14,6 +14,7 @@ import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDat
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '../like/LikeButton';
+import MapImageGenerate from '../general/MapImageGenerate';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);
@@ -21,6 +22,7 @@ export default function EventShow() {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
+  const [isMapOpen, setIsMapOpen] = useState(false); // 🔹 モーダル開閉の状態管理
   const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
@@ -96,12 +98,15 @@ export default function EventShow() {
             className="rounded-md mt-1 mb-2"
           />
         </div>
-        <div className="flex justify-end">
-          <div className="flex bg-gray-200 p-1 rounded-md">
+        <div className='flex justify-end'>
+          <Button
+            onClick={() => setIsMapOpen(true)}
+            className="text-white bg-gray-200 hover:bg-gray-500 rounded p-3 text-md">
             <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
             <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
-          </div>
+          </Button>
         </div>
+
         <h1 className="text-xl font-bold">{event.title}</h1>
 
         <div className='mt-4 mb-3 border border-gray-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
@@ -129,6 +134,9 @@ export default function EventShow() {
         >
           コメントを書く
         </Button>
+
+
+
         {isCurrentUser && (
           <div className="flex gap-4">
             <Button onClick={() => router.push(`/events/${eventId}/edit`)} className="bg-green-500 text-white px-4 py-2 rounded">
@@ -141,6 +149,19 @@ export default function EventShow() {
         )}
       </div>
 
+
+
+      {/* 🔹 マップ表示部分 */}
+      {isMapOpen && (
+        <div
+          className="fixed inset-0 flex items-center justify-center px-4 bg-black bg-opacity-50"
+          onClick={() => setIsMapOpen(false)} // 🔹 背景クリックで閉じる
+        >
+          <MapImageGenerate location={event.location} />
+
+
+        </div>
+      )}
 
       {/* 🔹 モーダル部分 */}
       {isOpen && (
@@ -196,6 +217,8 @@ export default function EventShow() {
           <p className="text-gray-500 text-center mt-4">コメントはありません</p>
         )}
       </div>
+
+
     </div>
   );
 }
