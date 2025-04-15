@@ -47,7 +47,7 @@ const EventSearch = () => {
     };
 
     fetchData();
-  }, [triggerSearch, searchKeyword]);
+  }, [triggerSearch, searchKeyword, url]);
 
   const handleSearchClick = () => {
     setTriggerSearch(true);

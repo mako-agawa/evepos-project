@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   # APIエンドポイント
   namespace :api do
     namespace :v1 do
-      root 'events#index'
-
       # ユーザーリソース
       resources :users, only: %i[index show create update destroy], defaults: { format: :json }
       get '/current_user', to: 'users#current_user', defaults: { format: :json }
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
           get 'schedule', to: 'events#schedule'
           get 'archive', to: 'events#archive'
           get 'liked/:user_id', to: 'events#user_liked'
+          get 'search', to: 'events#search'
         end
         resources :comments, only: %i[index create destroy], defaults: { format: :json }
         resources :likes, only: %i[index create destroy], defaults: { format: :json }

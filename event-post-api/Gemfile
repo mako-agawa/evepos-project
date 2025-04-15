@@ -8,8 +8,9 @@ gem 'sqlite3', '>= 1.4', groups: [:development, :test] # SQLite for development 
 gem 'mysql2', '>= 0.5'                                # MySQL for production
 
 # Web Server
-# gem 'unicorn'
 gem 'puma'
+
+gem 'bootsnap', require: false
 # Authentication
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
@@ -17,15 +18,11 @@ gem 'jwt'
 # Timezone Support (Windows specific)
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
-# Performance
-gem 'bootsnap', require: false
-
 # Cross-Origin Resource Sharing (CORS)
 gem 'rack-cors', require: 'rack/cors'
 
 gem 'activestorage', require: 'active_storage/engine'
 
-#s3を実装したい
 # Environment Variables for All Environments
 gem 'dotenv-rails', require: false
 
