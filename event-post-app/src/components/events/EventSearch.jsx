@@ -22,6 +22,7 @@ const EventSearch = () => {
   const router = useRouter();
   const events = searchResults
   console.log(events);
+  const url = getURL();
   const [triggerSearch, setTriggerSearch] = useState(false);
 
 
@@ -30,7 +31,7 @@ const EventSearch = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/v1/events/search?query=${searchKeyword}`);
+        const response = await fetch(`${url}/api/v1/events/search?query=${searchKeyword}`);
         const data = await response.json();
         // console.log(data);
         if (response.ok) {
