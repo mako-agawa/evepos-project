@@ -1,9 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useState } from "react";
-
 import { Search } from "lucide-react";
-import { getURL } from "@/lib/utils";
 import { getEventDate, getEventTime, getEventWeekday } from "../general/EventDateDisplay";
 import Image from "next/image";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
@@ -22,7 +20,7 @@ const EventSearch = () => {
   const router = useRouter();
   const events = searchResults
   console.log(events);
-  const url = getURL();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [triggerSearch, setTriggerSearch] = useState(false);
 
 
@@ -31,7 +29,7 @@ const EventSearch = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}/api/v1/events/search?query=${searchKeyword}`);
+        const response = await fetch(`${API_URL}/events/search?query=${searchKeyword}`);
         const data = await response.json();
         // console.log(data);
         if (response.ok) {
@@ -47,7 +45,7 @@ const EventSearch = () => {
     };
 
     fetchData();
-  }, [triggerSearch, searchKeyword, url]);
+  }, [triggerSearch, searchKeyword, API_URL]);
 
   const handleSearchClick = () => {
     setTriggerSearch(true);

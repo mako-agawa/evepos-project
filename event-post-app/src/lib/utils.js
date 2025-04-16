@@ -6,7 +6,7 @@ export function cn(...inputs) {
 }
 
 export const getURL = () => {
-  const url = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  const url = process.env.NEXT_PUBLIC_API_URL;
 
   return url
     ? `https://${url}`
