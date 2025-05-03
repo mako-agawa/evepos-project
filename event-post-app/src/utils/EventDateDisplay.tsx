@@ -1,9 +1,9 @@
 "use client";
 
 // 日付データ取得 (月/日)
-export function getEventDate(dateString) {
+export function getEventDate(dateString: string): string {
   const dateObj = new Date(dateString);
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     timeZone: "Asia/Tokyo",
     month: "2-digit",
     day: "2-digit",
@@ -12,9 +12,9 @@ export function getEventDate(dateString) {
 }
 
 // 曜日データ取得
-export function getEventWeekday(dateString) {
+export function getEventWeekday(dateString: string): string {
   const dateObj = new Date(dateString);
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     timeZone: "Asia/Tokyo",
     weekday: "short", // 短い形式 (例: 月, 火)
   };
@@ -22,9 +22,9 @@ export function getEventWeekday(dateString) {
 }
 
 // 時刻データ取得 (hh:mm)
-export function getEventTime(dateString) {
+export function getEventTime(dateString: string): string {
   const dateObj = new Date(dateString);
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     timeZone: "Asia/Tokyo",
     hour: "2-digit",
     minute: "2-digit",

@@ -1,44 +1,45 @@
-"use client";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Search } from "lucide-react";
-import { getEventDate, getEventTime, getEventWeekday } from "../general/EventDateDisplay";
-import Image from "next/image";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
-import LikeButton from "../like/LikeButton";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useAtom } from "jotai";
-import { authAtom } from "@/atoms/authAtom";
-import { useRouter } from "next/navigation";
+'use client';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { Search } from 'lucide-react';
+import { getEventDate, getEventWeekday } from '../../utils/EventDateDisplay';
+import Image from 'next/image';
+import { LocationMarkerIcon } from '@heroicons/react/outline';
+import LikeButton from '../like/LikeButton';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useAtom } from 'jotai';
+import { authAtom } from '@/atoms/authAtom';
+import { useRouter } from 'next/navigation';
+import defaultEventImage from '/public/image.svg';
+import defaultUserImage from '/public/user.svg';
 
 const EventSearch = () => {
   const [auth] = useAtom(authAtom);
   const currentUser = auth.currentUser;
-  // 🔹 ステートの初期化 キーワードを保持
+  const currentUserFromHook = useCurrentUser();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const router = useRouter();
-  const events = searchResults
-  console.log(events);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [triggerSearch, setTriggerSearch] = useState(false);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
   useEffect(() => {
     if (!triggerSearch) return;
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/events/search?query=${searchKeyword}`);
+        const response = await fetch(
+          `${API_URL}/events/search?query=${searchKeyword}`
+        );
         const data = await response.json();
         // console.log(data);
         if (response.ok) {
           setSearchResults(data);
         } else {
-          console.error("Error fetching data:", data);
+          console.error('Error fetching data:', data);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       } finally {
         setTriggerSearch(false);
       }
@@ -54,10 +55,10 @@ const EventSearch = () => {
   return (
     <>
       <div className="flex flex-col h-screen px-6">
-        {/* ロゴ */}
-        <h1 className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">Search</h1>
+        <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
+          Search
+        </div>
 
-        {/* 検索バー */}
         <div className="relative w-full max-w-2xl">
           <input
             type="text"
@@ -69,7 +70,6 @@ const EventSearch = () => {
           <Search className="absolute right-5 top-4 text-gray-500 w-6 h-6" />
         </div>
 
-        {/* ボタン */}
         <div className="flex gap-4 mt-6">
           <button
             onClick={handleSearchClick}
@@ -80,11 +80,11 @@ const EventSearch = () => {
         </div>
 
         <div className="w-full">
-          {events.map((event) => {
-            const isCreator = useCurrentUser && event.user_id === currentUser.id;
+          {searchResults.map((event) => {
+            const isCreator =
+              currentUserFromHook && event.user_id === currentUser?.id;
             const mmdd = getEventDate(event.date);
             const weekday = getEventWeekday(event.date);
-            const hhmm = getEventTime(event.date)
             console.log(event);
             return (
               <div
@@ -93,7 +93,6 @@ const EventSearch = () => {
                 className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-3"
               >
                 <div className="flex ml-2 gap-4">
-                  {/* 画像のコンテナ（relative を適用） */}
                   <div className="relative w-[160px] h-[110px]">
                     <Image
                       src={event.image_url || defaultEventImage}
@@ -105,28 +104,20 @@ const EventSearch = () => {
                     />
                     <div className="flex absolute bottom-0 right-0 text-xs bg-gray-200 opacity-90 p-1 rounded-md">
                       <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
-                      <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+                      <p className="text-gray-600 font-semibold text-xs">
+                        {event.location}
+                      </p>
                     </div>
                   </div>
                   <div className="flex w-[130px] flex-col">
-
-                    {/* イベント詳細 */}
                     <div className="flex flex-col w-full">
                       <div className="flex flex-col items-start w-full">
-
-                        {/* タイトル & いいねボタン */}
                         <div className="flex items-center justify-between mt-1">
-                          <h2
-                            className="font-semibold  border-b border-gray-200 shadow-sm"
-                          >
+                          <h2 className="font-semibold  border-b border-gray-200 shadow-sm">
                             {event.title}
                           </h2>
                         </div>
 
-
-
-
-                        {/* 投稿者情報 */}
                         <div className="flex mt-2 text-xs text-gray-500">
                           <div className="flex items-center">
                             <Image
@@ -140,17 +131,16 @@ const EventSearch = () => {
                             <span>{event.user.name}</span>
                           </div>
                         </div>
-                        {/* いいねボタンをオーバーレイ（absolute で右上） */}
                       </div>
                     </div>
                   </div>
                   <div className="flex absolute bottom-1 right-3 justify-end">
                     <LikeButton
                       eventId={event.id}
-                      initialLiked={event.liked}  // APIから `liked` を直接取得する場合
+                      initialLiked={event.liked} // APIから `liked` を直接取得する場合
                       initialLikesCount={event.likes_count}
-                      currentUserId={currentUser?.id}  // currentUser の ID を渡す
-                      disabled={!currentUser}          // 未ログインの場合は無効
+                      currentUserId={currentUser?.id} // currentUser の ID を渡す
+                      disabled={!currentUser} // 未ログインの場合は無効
                     />
                   </div>
                 </div>

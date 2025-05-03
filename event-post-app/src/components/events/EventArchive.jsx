@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../like/LikeButton";
-import { getEventDate, getEventWeekday, getEventTime } from "@/components/general/EventDateDisplay"
+import { getEventDate, getEventWeekday, getEventTime } from "@/utils/EventDateDisplay"
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';

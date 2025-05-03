@@ -1,18 +1,25 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import loader from '@/lib/googleMapsLoader';
+import loader from '@/components/Maps/googleMapsLoader';
+import { map } from 'zod';
 
 const MapImageGenerate = ({ location }) => {
   const [errorMessage, setErrorMessage] = useState('');
+  const MAP_ID = process.env.NEXT_PUBLIC_MAP_ID;
 
   useEffect(() => {
     if (!location) return;
-
     setErrorMessage(''); // 前回のエラーメッセージをクリア
 
     loader.load().then(async () => {
-      const { Map } = await google.maps.importLibrary('maps');
-      const geocoder = new google.maps.Geocoder();
+      const [{ Map }, { AdvancedMarkerElement }, { Geocoder }] = await Promise.all([
+        google.maps.importLibrary('maps'),
+        google.maps.importLibrary('marker'),
+        google.maps.importLibrary('geocoding'),
+      ]);
+
+      const geocoder = new Geocoder();
+      
 
       geocoder.geocode({ address: location }, (results, status) => {
         if (status === 'OK' && results[0]) {
@@ -24,20 +31,21 @@ const MapImageGenerate = ({ location }) => {
               lng: position.lng(),
             },
             zoom: 16,
+            map: MAP_ID
           });
 
-          const marker = new google.maps.Marker({
-            position: {
-              lat: position.lat(),
-              lng: position.lng(),
-            },
-            map: mapInstance, // ← 地図にマーカーを表示するには必須
-            icon: {
-              url: '/kkrn_icon_pin_1.png',
-              scaledSize: new google.maps.Size(40, 40), // マーカーのサイズを指定
-              origin: new google.maps.Point(0, 0), // マーカーの画像の原点
-              anchor: new google.maps.Point(15, 30), // マーカーの画像のアンカー
-            },
+          // AdvancedMarkerElementの使用
+          new AdvancedMarkerElement({
+            map: mapInstance,
+            position: position,
+            content: (() => {
+              const img = document.createElement('img');
+              img.src = '/kkrn_icon_pin_1.png';
+              img.style.width = '40px';
+              img.style.height = '40px';
+              img.style.transform = 'translate(-15px, -30px)';
+              return img;
+            })(),
           });
 
         } else if (status === 'ZERO_RESULTS') {

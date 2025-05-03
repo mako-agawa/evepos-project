@@ -1,9 +1,10 @@
 // app/layout.js
-import SpeedInsightsProvider from "@/components/general/SpeedInsightsProvider"; // ✅ 追加
+import SpeedInsightsProvider from "@/utils/SpeedInsightsProvider"; // ✅ 追加
+
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
-import Header from '../components/layout/Header';
-import Navbar from "@/components/layout/Navbar";
+import Header from '../components/ui/Header';
+import Navbar from "@/components/ui/Navbar";
 import { Suspense } from "react";
 // import { getURL } from "@/lib/utils";
 
@@ -28,16 +29,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body className={`${notoSansJP.variable} antialiased bg-gray-100 text-gray-600  mb-36`}>
-        <Header />
-        <SpeedInsightsProvider />
-        <Suspense fallback={<div className="flex items-center justify-center h-screen">
-          <p className="text-gray-600 text-lg">Loading...</p>
-        </div>}>
 
-          {children}
-          
-        </Suspense>
-        <Navbar />
+          <Header />
+          <SpeedInsightsProvider />
+          <Suspense fallback={<div className="flex items-center justify-center h-screen">
+            <p className="text-gray-600 text-lg">Loading...</p>
+          </div>}>
+
+            {children}
+
+          </Suspense>
+          <Navbar />
+
       </body>
     </html>
   );

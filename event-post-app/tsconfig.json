@@ -33,8 +33,15 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx",
+    "src/components/ui/form.jsx",
+    "src/components/ui/textarea.jsx",
+    "src/components/ui/popover.jsx",
+    "src/components/ui/calendar.tsx",
+    "src/components/ui/button.tsx",
+    "src/components/ui/label.jsx",
+    "src/components/ui/input.jsx"
+, "src/app/users/[id]/edit/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

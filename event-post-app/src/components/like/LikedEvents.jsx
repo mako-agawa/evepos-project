@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { fetchAPI } from "@/utils/api";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
-import { getEventDate, getEventWeekday } from "@/components/general/EventDateDisplay";
+import { getEventDate, getEventWeekday } from "@/utils/EventDateDisplay";
 import defaultUserImage from "/public/user.svg";
 import defaultEventImage from "/public/image.svg";
 
