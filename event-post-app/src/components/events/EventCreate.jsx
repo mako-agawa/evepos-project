@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { pageModeAtom } from "@/atoms/authAtom";
 import { useAtom } from "jotai";
-import InputDateTime from "../general/InputDateTime";
+import InputDateTime from "../../utils/InputDateTime";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

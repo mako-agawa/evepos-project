@@ -6,7 +6,7 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchAPI } from '@/utils/api';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import { getEventDate, getEventWeekday } from '@/components/general/EventDateDisplay';
+import { getEventDate, getEventWeekday } from '@/utils/EventDateDisplay';
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '../like/LikeButton';
@@ -46,7 +46,7 @@ export default function PostEvents() {
     // }
 
     // 🔹 ユーザーIDと一致する投稿のみフィルタリング
-    const postEvents = events.filter(event => event.user_id == user_id); 
+    const postEvents = events.filter(event => event.user_id == user_id);
 
     return (
         <div className="flex flex-col pb-4 h-full mx-auto">

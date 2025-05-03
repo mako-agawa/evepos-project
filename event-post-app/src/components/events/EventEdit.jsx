@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { CalendarIcon } from "lucide-react";
-import InputDateTime from "../general/InputDateTime";
+import InputDateTime from "../../utils/InputDateTime";
 import Image from "next/image";
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
 
@@ -52,16 +52,16 @@ export default function EventEdit() {
                         description: data.description || "",
                         price: data.price || "",
                     });
-                     // 日付をセット
-                     const eventDate = data.date ? parseISO(data.date) : null;
-                     setDate(eventDate);
- 
-                     // 既存の時間をセット（date から時間部分だけ取得）
-                     if (eventDate) {
-                         setTime(new Date(eventDate));
-                     }
- 
-                     setImagePreview(data.image_url || null);
+                    // 日付をセット
+                    const eventDate = data.date ? parseISO(data.date) : null;
+                    setDate(eventDate);
+
+                    // 既存の時間をセット（date から時間部分だけ取得）
+                    if (eventDate) {
+                        setTime(new Date(eventDate));
+                    }
+
+                    setImagePreview(data.image_url || null);
                 }
             } catch (error) {
                 console.error("イベントの取得に失敗しました:", error);
@@ -112,7 +112,7 @@ export default function EventEdit() {
         if (imageFile) {
             formData.append("image", imageFile);
         }
-   
+
         try {
             const response = await fetch(`${API_URL}/events/${eventId}`, {
                 method: "PATCH",
@@ -184,26 +184,26 @@ export default function EventEdit() {
 
                 {/* 画像アップロード */}
                 <div className="my-4">
-                                    <Label htmlFor="image">イベント画像:</Label>
-                                    <input
-                                        type="file"
-                                        id="image"
-                                        accept="image/*"
-                                        onChange={handleImageChange}
-                                        className="w-full border p-2 rounded"
-                                    />
-                                    {imagePreview && (
-                                        <div className="mt-2 flex justify-center">
-                                            <Image
-                                                src={imagePreview}
-                                                alt="選択した画像"
-                                                width={300}
-                                                height={200}
-                                                className="rounded-lg object-cover"
-                                            />
-                                        </div>
-                                    )}
-                                </div>
+                    <Label htmlFor="image">イベント画像:</Label>
+                    <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="w-full border p-2 rounded"
+                    />
+                    {imagePreview && (
+                        <div className="mt-2 flex justify-center">
+                            <Image
+                                src={imagePreview}
+                                alt="選択した画像"
+                                width={300}
+                                height={200}
+                                className="rounded-lg object-cover"
+                            />
+                        </div>
+                    )}
+                </div>
 
                 <div>
                     <Label htmlFor="location">場所:</Label>

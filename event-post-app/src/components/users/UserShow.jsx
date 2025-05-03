@@ -6,7 +6,7 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { Button } from '../ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
-import RenderDescription from '../general/RenderDescription';
+import RenderDescription from '../../utils/RenderDescription';
 import defaultUserImage from '/public/user.svg';
 import Link from 'next/link';
 
@@ -80,9 +80,9 @@ export default function UserShow() {
                 <p className=" font-semibold">メッセージ:</p>
                 <div className=" p-2 text-sm border border-gray-400 rounded-md"><RenderDescription text={user.description} />
                 </div>
-            <Link href={`/users/${userId}/liked`} className="cursor-pointer bg-orange-400 p-2 rounded-md mt-4 shadow-md">
-                <h1 className="text-white">{user.name}さんが いいねしたイベント</h1>
-            </Link>
+                <Link href={`/users/${userId}/liked`} className="cursor-pointer bg-orange-400 p-2 rounded-md mt-4 shadow-md">
+                    <h1 className="text-white">{user.name}さんが いいねしたイベント</h1>
+                </Link>
             </div>
 
             {isCurrentUser && (

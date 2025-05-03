@@ -6,15 +6,15 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
 import useHandleDelete from '@/hooks/useHandelDelete';
 import { fetchAPI } from '@/utils/api';
-import RenderDescription from '../general/RenderDescription';
+import RenderDescription from '../../utils/RenderDescription';
 import { Button } from '../ui/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import { getEventDate, getEventTime, getEventWeekday } from '../general/EventDateDisplay';
+import { getEventDate, getEventTime, getEventWeekday } from '../../utils/EventDateDisplay';
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '../like/LikeButton';
-import MapImageGenerate from '../general/MapImageGenerate';
+import MapImageGenerate from '../Maps/MapImageGenerate';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);

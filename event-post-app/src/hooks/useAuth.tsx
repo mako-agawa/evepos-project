@@ -1,8 +1,14 @@
 'use client';
 
+import type {  User } from "@/types/user"; // User型をインポート
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
+
+type AuthResponse = {
+  token: string;
+  user: User;
+};
 
 export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom);
@@ -10,7 +16,7 @@ export function useAuth() {
   const router = useRouter();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string): Promise<void> => {
     try {
       const response = await fetch(`${API_URL}/sessions`, {
         method: 'POST',
@@ -18,7 +24,7 @@ export function useAuth() {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        const data = await response.json();
+        const data:AuthResponse = await response.json();
         console.log("Server response:", response);
 
         localStorage.setItem("token", data.token);
