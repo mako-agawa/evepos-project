@@ -28,6 +28,7 @@ export default function EventShow() {
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
+  console.log("読み込み");
 
   // 修正: オプショナルチェイニングを使用
   const mmdd = getEventDate(event?.date);
@@ -64,7 +65,7 @@ export default function EventShow() {
   if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
-  console.log(event);
+  
   return (
     <div className="flex flex-col max-w-screen-lg">
       <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">Event info</h1>
