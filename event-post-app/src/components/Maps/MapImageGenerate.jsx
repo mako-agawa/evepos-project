@@ -6,10 +6,13 @@ import { map } from 'zod';
 const MapImageGenerate = ({ location }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const MAP_ID = process.env.NEXT_PUBLIC_MAP_ID;
+  console.log('MAP_ID:', MAP_ID);
 
   useEffect(() => {
     if (!location) return;
     setErrorMessage(''); // 前回のエラーメッセージをクリア
+
+
 
     loader.load().then(async () => {
       const [{ Map }, { AdvancedMarkerElement }, { Geocoder }] = await Promise.all([
@@ -19,9 +22,12 @@ const MapImageGenerate = ({ location }) => {
       ]);
 
       const geocoder = new Geocoder();
-      
+
 
       geocoder.geocode({ address: location }, (results, status) => {
+        if (!MAP_ID) {
+          console.warn('MAP_ID が設定されていません。高度な機能が正しく動作しない可能性があります。');
+        }
         if (status === 'OK' && results[0]) {
           const position = results[0].geometry.location;
 
@@ -31,7 +37,7 @@ const MapImageGenerate = ({ location }) => {
               lng: position.lng(),
             },
             zoom: 16,
-            map: MAP_ID
+            mapId: MAP_ID
           });
 
           // AdvancedMarkerElementの使用
