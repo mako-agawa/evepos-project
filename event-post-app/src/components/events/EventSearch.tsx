@@ -12,6 +12,7 @@ import { authAtom } from '@/atoms/authAtom';
 import { useRouter } from 'next/navigation';
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
+import MapImageGenerate from '../Maps/MapImageGenerate';
 
 const EventSearch = () => {
   const [auth] = useAtom(authAtom);
@@ -19,7 +20,9 @@ const EventSearch = () => {
   const currentUserFromHook = useCurrentUser();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  console.log("検索結果:", searchResults);
   const [triggerSearch, setTriggerSearch] = useState(false);
+  const [locationValue, setLocationValue] = useState("中野区");
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
@@ -35,6 +38,7 @@ const EventSearch = () => {
         // console.log(data);
         if (response.ok) {
           setSearchResults(data);
+          setLocationValue(data[0]?.location || "中野区"); //検索結果の１番目を取得 
         } else {
           console.error('Error fetching data:', data);
         }
@@ -52,32 +56,37 @@ const EventSearch = () => {
     setTriggerSearch(true);
   };
 
+
+ 
   return (
     <>
-      <div className="flex flex-col h-screen px-6">
+      <div className="flex flex-col h-screen w-full">
         <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
           Search
         </div>
+      <MapImageGenerate location={locationValue}  />
+        <div className="flex items-center mb-4">
+          <div className="relative w-full max-w-2xl">
+            <input
+              type="text"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              placeholder="イベントを検索..."
+              className="w-full px-5 py-4 text-lg border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            <Search className="absolute right-5 top-4 text-gray-500 w-6 h-6" />
+          </div>
 
-        <div className="relative w-full max-w-2xl">
-          <input
-            type="text"
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            placeholder="イベントを検索..."
-            className="w-full px-5 py-4 text-lg border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-          <Search className="absolute right-5 top-4 text-gray-500 w-6 h-6" />
+          <div className="ml-6">
+            <button
+              onClick={handleSearchClick}
+              className="px-6 py-3 bg-gray-200 rounded-md hover:bg-gray-300 transition whitespace-nowrap"
+            >
+              検索
+            </button>
+          </div>
         </div>
-
-        <div className="flex gap-4 mt-6">
-          <button
-            onClick={handleSearchClick}
-            className="px-6 py-3 bg-gray-200 rounded-md hover:bg-gray-300 transition"
-          >
-            イベント検索
-          </button>
-        </div>
+        
 
         <div className="w-full">
           {searchResults.map((event) => {

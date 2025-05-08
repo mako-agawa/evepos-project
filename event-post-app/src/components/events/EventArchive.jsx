@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { authAtom } from "@/atoms/authAtom";
 import { useRouter } from "next/navigation";
 import LikeButton from "../like/LikeButton";
-import { getEventDate, getEventWeekday, getEventTime } from "@/utils/EventDateDisplay"
+import { getEventDate, getEventWeekday} from "@/utils/EventDateDisplay";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
@@ -58,9 +58,9 @@ const EventIndex = () => {
                         <div
                             key={event.id}
                             onClick={() => router.push(`/events/${event.id}`)}
-                            className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-3"
+                            className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-6"
                         >
-                            <div className="flex ml-2 gap-4">
+                            <div className="flex ml-2 gap-2">
                                 {/* 画像のコンテナ（relative を適用） */}
                                 <div className="relative w-[160px] h-[110px]">
                                     <Image

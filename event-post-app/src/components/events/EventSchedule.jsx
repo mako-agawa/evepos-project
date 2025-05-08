@@ -33,15 +33,7 @@ const EventIndex = () => {
 
         fetchEvents();
     }, [API_URL]);
-
-    // if (!events.length && !error) {
-    //     return (
-    //         <div className="flex items-center justify-center h-screen">
-    //             <p className="text-2xl">該当のイベントはありません。</p>
-    //         </div>
-    //     );
-    // }
-
+    
     if (error) {
         return <div className="text-red-500 text-center">エラー: {error}</div>;
     }
@@ -61,7 +53,7 @@ const EventIndex = () => {
                         <div
                             key={event.id}
                             onClick={() => router.push(`/events/${event.id}`)}
-                            className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-3"
+                            className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-6"
                         >
                             <div className="flex ml-2 gap-4">
                                 {/* 画像のコンテナ（relative を適用） */}
