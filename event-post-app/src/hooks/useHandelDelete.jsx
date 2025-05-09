@@ -5,7 +5,7 @@ import { fetchAPI } from "@/utils/api";
 const useHandleDelete = (API_URL, eventId, comments, setComments) => {
   // イベント削除
   const handleEventDelete = async () => {
-    console.log("eventId:", eventId);
+
     if (!confirm("本当にこのイベントを削除しますか？")) return;
 
     try {

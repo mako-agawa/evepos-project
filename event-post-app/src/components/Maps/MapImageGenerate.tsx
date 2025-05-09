@@ -15,8 +15,7 @@ type Props = {
 const MapImageGenerate: React.FC<Props> = ({ location }) => {
   const [coordinates, setCoordinates] =
     useState<google.maps.LatLngLiteral | null>(null);
-  console.log('location:', location);
-  console.log('coordinates:', coordinates);
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const { isLoaded } = useJsApiLoader({
@@ -71,11 +70,11 @@ const MapImageGenerate: React.FC<Props> = ({ location }) => {
             >
               <Marker
                 position={coordinates}
-                icon={{
-                  url: '/kkrn_icon_pin_1.png',
-                  scaledSize: new google.maps.Size(40, 40), // 幅30px、高さ30pxに縮小
-                  anchor:new google.maps.Point(15, 30), // ピンの先端を基準にする
-                }}
+                // icon={{
+                //   url: '/kkrn_icon_pin_1.png',
+                //   scaledSize: new google.maps.Size(40, 40), // 幅30px、高さ30pxに縮小
+                //   anchor:new google.maps.Point(15, 30), // ピンの先端を基準にする
+                // }}
               />
             </GoogleMap>
           )}

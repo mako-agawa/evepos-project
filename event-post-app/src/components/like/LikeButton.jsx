@@ -70,7 +70,7 @@ export default function LikeButton({
         method: "POST",
         cache: "no-cache",
       });
-      console.log(data);
+
       setLiked(true);
       setLikesCount((prev) => prev + 1);
       setCurrentUserLike(data);
