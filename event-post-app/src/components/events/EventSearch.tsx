@@ -60,7 +60,7 @@ const EventSearch = () => {
  
   return (
     <>
-      <div className="flex flex-col h-screen w-full">
+      <div className="flex flex-col h-screen mx-auto">
         {/* <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
           Search
         </div> */}
