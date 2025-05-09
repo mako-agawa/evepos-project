@@ -61,11 +61,10 @@ const EventSearch = () => {
   return (
     <>
       <div className="flex flex-col h-screen w-full">
-        <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
+        {/* <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
           Search
-        </div>
-      <MapImageGenerate location={locationValue}  />
-        <div className="flex items-center my-4">
+        </div> */}
+        <div className="flex items-center mb-4">
           <div className="relative w-full max-w-2xl">
             <input
               type="text"
@@ -86,6 +85,7 @@ const EventSearch = () => {
             </button>
           </div>
         </div>
+      <MapImageGenerate location={locationValue}  />
         
 
         <div className="w-full">
