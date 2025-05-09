@@ -28,7 +28,6 @@ export default function EventShow() {
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
-  console.log("読み込み");
 
   // 修正: オプショナルチェイニングを使用
   const mmdd = getEventDate(event?.date);

@@ -20,7 +20,7 @@ const EventSearch = () => {
   const currentUserFromHook = useCurrentUser();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  console.log("検索結果:", searchResults);
+
   const [triggerSearch, setTriggerSearch] = useState(false);
   const [locationValue, setLocationValue] = useState("中野区");
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -35,7 +35,7 @@ const EventSearch = () => {
           `${API_URL}/events/search?query=${searchKeyword}`
         );
         const data = await response.json();
-        // console.log(data);
+
         if (response.ok) {
           setSearchResults(data);
           setLocationValue(data[0]?.location || "中野区"); //検索結果の１番目を取得 
@@ -61,10 +61,9 @@ const EventSearch = () => {
   return (
     <>
       <div className="flex flex-col h-screen w-full">
-        <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
+        {/* <div className="text-gray-400 border-b-2 border-orange-300 text-xl font-semibold mb-6">
           Search
-        </div>
-      <MapImageGenerate location={locationValue}  />
+        </div> */}
         <div className="flex items-center mb-4">
           <div className="relative w-full max-w-2xl">
             <input
@@ -86,6 +85,7 @@ const EventSearch = () => {
             </button>
           </div>
         </div>
+      <MapImageGenerate location={locationValue}  />
         
 
         <div className="w-full">
@@ -94,7 +94,7 @@ const EventSearch = () => {
               currentUserFromHook && event.user_id === currentUser?.id;
             const mmdd = getEventDate(event.date);
             const weekday = getEventWeekday(event.date);
-            console.log(event);
+            
             return (
               <div
                 key={event.id}

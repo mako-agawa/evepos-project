@@ -15,7 +15,7 @@ export default function LikedUsers() {
     const [event, setEvent] = useState(null);
     const [user, setUser] = useState(null);
     const [likedUsers, setLikedUsers] = useState([]);
-    console.log(likedUsers);
+
     const [error, setError] = useState(null);
     const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
 
@@ -128,7 +128,6 @@ export default function LikedUsers() {
                 <h1 className="text-gray-400 px-6 text-xl font-semibold my-6">いいねしたユーザー</h1>
                 <div className="grid grid-cols-4 gap-4">
                     {likedUsers.length > 0 && likedUsers.map((user) => (
-                        console.log(user.thumbnail_url),
                         <div key={user.user.id} onClick={() => router.push(`/users/${user.user_id}`)} className="flex flex-col items-center">
                             <Image
                                 src={user.user.thumbnail_url || defaultUserImage}

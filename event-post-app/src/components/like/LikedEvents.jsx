@@ -24,7 +24,7 @@ export default function LikedUsers() {
             try {
                 // 🔹 取得した event_id のリストでイベントデータを取得
                 const eventsData = await fetchAPI(`${API_URL}/events/liked/${user_id}`);
-                console.log(eventsData);
+
                 setLikedEvents(eventsData);
             } catch (error) {
                 setError(error.message);

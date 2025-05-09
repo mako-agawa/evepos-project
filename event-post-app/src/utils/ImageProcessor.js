@@ -17,8 +17,6 @@ export const compressAndConvertToPNG = async (file, options = {}) => {
   try {
     // 画像を圧縮
     const compressedFile = await imageCompression(file, { ...defaultOptions, ...options });
-    // console.log(`Original size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
-    // console.log(`Compressed size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
 
     // PNGに変換
     const pngFile = await convertToPNG(compressedFile);
@@ -55,7 +53,7 @@ const convertToPNG = (imageFile) => {
           if (blob) {
             const pngFile = new File([blob], `${imageFile.name.split('.')[0]}.png`, { type: 'image/png' });
             resolve(pngFile);
-            console.log(`Converted to PNG: ${pngFile.size} bytes`);
+            
           } else {
             reject(new Error("PNG変換に失敗しました"));
           }
