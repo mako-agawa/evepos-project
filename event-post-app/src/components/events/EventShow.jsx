@@ -16,13 +16,17 @@ import defaultEventImage from '/public/image.svg';
 import LikeButton from '../like/LikeButton';
 import MapImageGenerate from '../Maps/MapImageGenerate';
 
+
 export default function EventShow() {
   const [event, setEvent] = useState(null);
+  // console.log("event.location", event?.location)
   const [user, setUser] = useState(null);
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
   const [isMapOpen, setIsMapOpen] = useState(false); // 🔹 モーダル開閉の状態管理
+  const [locationValues, setLocationValues] = useState([]);
+  // console.log("locationValues", locationValues)
   const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
@@ -59,6 +63,12 @@ export default function EventShow() {
 
     fetchData();
   }, [API_URL, eventId]);
+
+  useEffect(() => {
+    if (event?.location) {
+      setLocationValues([event.location]);
+    }
+  }, [event?.location]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;
@@ -157,7 +167,7 @@ export default function EventShow() {
           className="fixed inset-0 flex items-center justify-center px-4 bg-black bg-opacity-50"
           onClick={() => setIsMapOpen(false)} // 🔹 背景クリックで閉じる
         >
-          <MapImageGenerate location={event.location} />
+          <MapImageGenerate locations={locationValues} />
 
 
         </div>

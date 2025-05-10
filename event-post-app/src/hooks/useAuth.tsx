@@ -25,10 +25,10 @@ export function useAuth() {
       });
       if (response.ok) {
         const data:AuthResponse = await response.json();
-        console.log("Server response:", response);
+        // console.log("Server response:", response);
 
         localStorage.setItem("token", data.token);
-        console.log("Saved token:", data.token);
+        // console.log("Saved token:", data.token);
 
         setAuth({
           isLoggedIn: true,
@@ -42,7 +42,7 @@ export function useAuth() {
         throw new Error(errorData.message || 'ログインに失敗しました');
       }
     } catch (error) {
-      console.error('Login error:', error.message);
+      // console.error('Login error:', error.message);
       throw error;
     }
   };
@@ -50,7 +50,7 @@ export function useAuth() {
   const logout = () => {
     // ローカルストレージのトークン削除
     localStorage.removeItem("token");
-    console.log("Removed token");
+    // console.log("Removed token");
 
     // Jotaiの認証状態をリセット
     setAuth({

@@ -9,13 +9,11 @@ const containerStyle = {
 };
 
 type Props = {
-  location: string;
+  locations: string[]; // 配列に変更
 };
 
-const MapImageGenerate: React.FC<Props> = ({ location }) => {
-  const [coordinates, setCoordinates] =
-    useState<google.maps.LatLngLiteral | null>(null);
-
+const MapImageGenerate: React.FC<Props> = ({ locations }) => {
+  const [coordinatesList, setCoordinatesList] = useState<google.maps.LatLngLiteral[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const { isLoaded } = useJsApiLoader({
@@ -23,33 +21,42 @@ const MapImageGenerate: React.FC<Props> = ({ location }) => {
   });
 
   useEffect(() => {
-    if (!location) return;
+    if (!locations || locations.length === 0) return;
     setErrorMessage('');
-    setCoordinates(null);
+    setCoordinatesList([]);
 
-    const fetchCoordinates = async () => {
-      try {
-        const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-            location
-          )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
-        );
-        const data = await response.json();
+    const fetchAllCoordinates = async () => {
+      const results: google.maps.LatLngLiteral[] = [];
 
-        if (data.status === 'OK' && data.results[0]) {
-          const loc = data.results[0].geometry.location;
-          setCoordinates({ lat: loc.lat, lng: loc.lng });
-        } else {
-          setErrorMessage('該当する場所が見つかりませんでした');
+      for (const location of locations) {
+        try {
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+              location
+            )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+          );
+          const data = await response.json();
+
+          if (data.status === 'OK' && data.results[0]) {
+            const loc = data.results[0].geometry.location;
+            results.push({ lat: loc.lat, lng: loc.lng });
+          } else {
+            setErrorMessage(`該当す場所が見つかりませんでした: ${location}`);
+          }
+        } catch (error) {
+          console.error(`ジオコーディング失敗: ${location}`, error);
         }
-      } catch (error) {
-        console.error(error);
-        setErrorMessage('ジオコーディングに失敗しました');
+      }
+
+      if (results.length > 0) {
+        setCoordinatesList(results);
+      } else {
+        setErrorMessage('該当する場所が見つかりませんでした');
       }
     };
 
-    fetchCoordinates();
-  }, [location]);
+    fetchAllCoordinates();
+  }, [locations]);
 
   if (!isLoaded) return <div>地図を読み込み中...</div>;
 
@@ -59,32 +66,24 @@ const MapImageGenerate: React.FC<Props> = ({ location }) => {
         <div className="text-red-500 text-sm font-semibold text-center py-4">
           {errorMessage}
         </div>
-      ) : (
-        <div className="rounded shadow">
-          {coordinates && (
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={coordinates}
-              zoom={15}
-              options={{ mapId: process.env.NEXT_PUBLIC_MAP_ID }}
-            >
-              <Marker
-                position={coordinates}
-                // icon={{
-                //   url: '/kkrn_icon_pin_1.png',
-                //   scaledSize: new google.maps.Size(40, 40), // 幅30px、高さ30pxに縮小
-                //   anchor:new google.maps.Point(15, 30), // ピンの先端を基準にする
-                // }}
-              />
-            </GoogleMap>
-          )}
-        </div>
-      )}
-
-      
+      ) : coordinatesList.length > 0 ? (
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={coordinatesList[0]} // 最初の地点を中心に
+          zoom={13}
+          options={{ mapId: process.env.NEXT_PUBLIC_MAP_ID }}
+        >
+          {coordinatesList.map((coord, index) => (
+            <Marker
+              key={index}
+              position={coord}
+ 
+            />
+          ))}
+        </GoogleMap>
+      ) : null}
     </div>
   );
-}
-
+};
 
 export default MapImageGenerate;

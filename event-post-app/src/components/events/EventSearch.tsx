@@ -22,23 +22,27 @@ const EventSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const [triggerSearch, setTriggerSearch] = useState(false);
-  const [locationValue, setLocationValue] = useState("中野区");
+  const [locationValues, setLocationValues] = useState(["中野区"]); // 初期値を設定
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
   useEffect(() => {
     if (!triggerSearch) return;
-
+  
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/events/search?query=${searchKeyword}`
-        );
+        const response = await fetch(`${API_URL}/events/search?query=${searchKeyword}`);
         const data = await response.json();
-
+  
         if (response.ok) {
           setSearchResults(data);
-          setLocationValue(data[0]?.location || "中野区"); //検索結果の１番目を取得 
+  
+          // location のみを抽出して配列に
+          const locations = data
+            .map((event: any) => event.location)
+            .filter((loc: string) => loc); // null/undefined を除外
+  
+          setLocationValues(locations); // 複数地点を保存
         } else {
           console.error('Error fetching data:', data);
         }
@@ -48,7 +52,7 @@ const EventSearch = () => {
         setTriggerSearch(false);
       }
     };
-
+  
     fetchData();
   }, [triggerSearch, searchKeyword, API_URL]);
 
@@ -85,10 +89,11 @@ const EventSearch = () => {
             </button>
           </div>
         </div>
-      <MapImageGenerate location={locationValue}  />
+        {/* 繰り返し配列  localtionValuesを繰り返す*/}
+      <MapImageGenerate locations={locationValues}  />
         
 
-        <div className="w-full">
+        <div className="w-full mt-4">
           {searchResults.map((event) => {
             const isCreator =
               currentUserFromHook && event.user_id === currentUser?.id;

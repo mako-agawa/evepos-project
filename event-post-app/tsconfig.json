@@ -41,7 +41,7 @@
     "src/components/ui/button.tsx",
     "src/components/ui/label.jsx",
     "src/components/ui/input.jsx"
-, "src/app/users/[id]/edit/page.jsx"  ],
+, "src/app/users/[id]/edit/page.jsx", "src/components/events/EventShow.jsx"  ],
   "exclude": [
     "node_modules"
   ]
