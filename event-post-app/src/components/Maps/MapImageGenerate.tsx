@@ -21,8 +21,11 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
   });
 
   useEffect(() => {
-    if (!locations || locations.length === 0) return;
-    setErrorMessage('');
+    setErrorMessage("");
+    if (!locations || locations.length === 0){
+      setErrorMessage("該当する場所が見つかりませんでした");
+      return;
+    }
     setCoordinatesList([]);
 
     const fetchAllCoordinates = async () => {
@@ -41,7 +44,7 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
             const loc = data.results[0].geometry.location;
             results.push({ lat: loc.lat, lng: loc.lng });
           } else {
-            setErrorMessage(`該当す場所が見つかりませんでした: ${location}`);
+            setErrorMessage("該当する場所が見つかりませんでした");
           }
         } catch (error) {
           console.error(`ジオコーディング失敗: ${location}`, error);
