@@ -35,7 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/ui/form.jsx",
-    "src/components/ui/textarea.jsx",
+    "src/components/ui/textarea.tsx",
     "src/components/ui/popover.jsx",
     "src/components/ui/calendar.tsx",
     "src/components/ui/button.tsx",
