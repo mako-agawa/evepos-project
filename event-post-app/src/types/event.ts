@@ -6,7 +6,7 @@ export interface Event {
   date: string;
   location: string;
   description?: string;
-  image_url?: string;
+  image_url?: string; // Optional, if you want to include an image URL
   createdAt: string;
   updatedAt: string;
   user: User; 
