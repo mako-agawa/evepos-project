@@ -6,7 +6,12 @@ import sanitizeHtml from "sanitize-html"; // XSS防止用
  * @param {string} text ユーザーが入力したテキスト
  * @returns JSX
  */
-const RenderDescription = ({ text }) => {
+
+interface RenderDescriptionProps {
+  text: string;
+}
+
+const RenderDescription = ({ text }: RenderDescriptionProps) => {
   // 1. 改行を <br> に変換
   let formattedText = text.replace(/\n/g, '<br />');
 
