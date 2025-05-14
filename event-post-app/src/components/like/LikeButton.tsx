@@ -105,7 +105,7 @@ export default function LikeButton({
       {/* いいねしたユーザーのサムネイル表示 */}
       <div onClick={() => router.push(`/events/${eventId}/liked`)} className="flex -space-x-2">
         {likedUsers.length > 0 &&
-          likedUsers.slice(0, 5).map((user) => ( // 👈 4人までに制限
+          likedUsers.slice(0, 5).map((user) => ( // 5人までに制限
             <Image
               key={user?.id}
               src={user?.thumbnail_url || "/user.svg"}

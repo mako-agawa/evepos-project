@@ -114,6 +114,9 @@ importers:
       '@types/react':
         specifier: 19.1.0
         version: 19.1.0
+      '@types/sanitize-html':
+        specifier: ^2.16.0
+        version: 2.16.0
       eslint:
         specifier: ^9.21.0
         version: 9.24.0(jiti@1.21.7)
@@ -1600,6 +1603,9 @@ packages:
 
   '@types/request@2.48.12':
     resolution: {integrity: sha512-G3sY+NpsA9jnwm0ixhAFQSJ3Q9JkpLZpJbI3GMv0mIAT0y3mRabYeINzal5WOChIiaTEGQYlHOKgkaM9EisWHw==}
+
+  '@types/sanitize-html@2.16.0':
+    resolution: {integrity: sha512-l6rX1MUXje5ztPT0cAFtUayXF06DqPhRyfVXareEN5gGCFaP/iwsxIyKODr9XDhfxPpN6vXUFNfo5kZMXCxBtw==}
 
   '@types/send@0.17.4':
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -5452,6 +5458,10 @@ snapshots:
       '@types/tough-cookie': 4.0.5
       form-data: 2.5.3
     optional: true
+
+  '@types/sanitize-html@2.16.0':
+    dependencies:
+      htmlparser2: 8.0.2
 
   '@types/send@0.17.4':
     dependencies:
