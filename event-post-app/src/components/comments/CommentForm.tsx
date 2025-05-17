@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from '@/styles/button';
 import { fetchAPI } from "@/utils/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { redirect } from "next/navigation";

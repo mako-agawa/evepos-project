@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { fetchAPI } from "@/utils/api";
-import { Button } from "@/components/ui/button"; 
+import { Button } from '@/styles/button'; 
 import Image from "next/image";
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";
 import defaultUserImage from '/public/user.svg';

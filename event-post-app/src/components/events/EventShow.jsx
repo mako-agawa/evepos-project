@@ -7,7 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import useHandleDelete from '@/hooks/useHandelDelete';
 import { fetchAPI } from '@/utils/api';
 import RenderDescription from '../../utils/RenderDescription';
-import { Button } from '../ui/button';
+import { Button } from '@/styles/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import { getEventDate, getEventTime, getEventWeekday } from '../../utils/EventDateDisplay';

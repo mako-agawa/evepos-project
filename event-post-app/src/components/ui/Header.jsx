@@ -6,7 +6,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAtom } from 'jotai';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
 import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/styles/button";
 import usePageNavigation from "@/hooks/usePageNavigation";
 import Image from "next/image";
 import defaultUserImage from '/public/user.svg';

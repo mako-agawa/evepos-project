@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { Button } from '../ui/button';
+import { Button } from '@/styles/button';
 import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import RenderDescription from '../../utils/RenderDescription';
