@@ -18,11 +18,11 @@ export function useCurrentUser() {
     const fetchUser = async () => {
       if (!auth.token) return; // トークンがない場合は何もしない
       try {
-        const data: User = (await fetchAPI(`${API_URL}/current_user`, {
+        const data: User = await fetchAPI(`${API_URL}/current_user`, {
           headers: {
             Authorization: `Bearer ${auth.token}`, // トークンをヘッダーに追加
           },
-        }));
+        });
         setCurrentUser(data);
         console.log('Fetched current user:', data);
         // 認証状態を更新（既存の値に currentUser を追加）

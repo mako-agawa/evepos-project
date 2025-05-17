@@ -1,37 +1,42 @@
 // Login.jsx
 'use client';
 
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import Link from "next/link";
+import { useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import Link from 'next/link';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { auth, login } = useAuth();  // login を取り出す
+  const { auth, login } = useAuth(); // login を取り出す
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-
     try {
-      await login(email, password);  // login 処理
+      await login(email, password); // login 処理
       if (auth) {
-        setMessage("ログインに成功しました");
-        
+        setMessage('ログインに成功しました');
       }
     } catch (error) {
-      setMessage(error.message || "Failed to log in");
+      setMessage(error.message || 'Failed to log in');
     }
   };
   return (
     <div className="flex flex-col items-center h-screen py-16 px-4">
-      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">ログイン</h1>
-      
-      <form onSubmit={handleLogin} className="p-8 rounded shadow-md bg-white w-full max-w-lg space-y-6 mt-6">
+      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">
+        ログイン
+      </h1>
+
+      <form
+        onSubmit={handleLogin}
+        className="p-8 rounded shadow-md bg-white w-full max-w-lg space-y-6 mt-6"
+      >
         <div>
-          <label className="text-xl block mb-2" htmlFor="email">Email:</label>
+          <label className="text-xl block mb-2" htmlFor="email">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -43,7 +48,9 @@ export default function Login() {
           />
         </div>
         <div>
-          <label className="text-xl block mb-2" htmlFor="password">Password:</label>
+          <label className="text-xl block mb-2" htmlFor="password">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -54,7 +61,10 @@ export default function Login() {
             className="w-full border border-gray-300 rounded p-2"
           />
         </div>
-        <button className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl" type="submit">
+        <button
+          className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl"
+          type="submit"
+        >
           ログインする
         </button>
       </form>

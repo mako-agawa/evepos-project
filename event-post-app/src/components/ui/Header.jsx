@@ -1,14 +1,14 @@
 'use client';
 
-import Link from "next/link";
-import { useState } from "react";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Link from 'next/link';
+import { useState } from 'react';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useAtom } from 'jotai';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
-import { X } from "lucide-react";
-import { Button } from "@/styles/button";
-import usePageNavigation from "@/hooks/usePageNavigation";
-import Image from "next/image";
+import { X } from 'lucide-react';
+import { Button } from '@/styles/button';
+import usePageNavigation from '@/hooks/usePageNavigation';
+import Image from 'next/image';
 import defaultUserImage from '/public/user.svg';
 
 const Header = () => {
@@ -19,14 +19,18 @@ const Header = () => {
   const [, setPageMode] = useAtom(pageModeAtom);
 
   const handlePushLogin = () => {
-    setPageMode("login");
+    setPageMode('login');
     setMenuOpen(false);
   };
 
   return (
     <header className="bg-orange-400 py-4 pl-5 pr-6 border-b border-gray-300 shadow-md sm:px-24 flex justify-between items-center">
       {/* ロゴ */}
-      <Link href="/" onClick={() => handleNavigation("index")} className="text-white text-3xl font-bold">
+      <Link
+        href="/"
+        onClick={() => handleNavigation('index')}
+        className="text-white text-3xl font-bold"
+      >
         evepos
       </Link>
 
@@ -103,11 +107,17 @@ const Header = () => {
       <nav className="hidden sm:flex space-x-8">
         {auth.isLoggedIn && currentUser ? (
           <>
-            <Link href={`/users/${currentUser.id}`} className="text-white text-xl font-bold hover:cursor">
+            <Link
+              href={`/users/${currentUser.id}`}
+              className="text-white text-xl font-bold hover:cursor"
+            >
               {currentUser.name} さん
             </Link>
 
-            <Link href="/users/logout" className="text-white text-xl font-bold hover:cursor">
+            <Link
+              href="/users/logout"
+              className="text-white text-xl font-bold hover:cursor"
+            >
               ログアウト
             </Link>
           </>

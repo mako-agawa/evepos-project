@@ -22,26 +22,28 @@ const EventSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const [triggerSearch, setTriggerSearch] = useState(false);
-  const [locationValues, setLocationValues] = useState(["中野区"]); // 初期値を設定
+  const [locationValues, setLocationValues] = useState(['中野区']); // 初期値を設定
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
   useEffect(() => {
     if (!triggerSearch) return;
-  
+
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/events/search?query=${searchKeyword}`);
+        const response = await fetch(
+          `${API_URL}/events/search?query=${searchKeyword}`
+        );
         const data = await response.json();
-  
+
         if (response.ok) {
           setSearchResults(data);
-  
+
           // location のみを抽出して配列に
           const locations = data
             .map((event: any) => event.location)
             .filter((loc: string) => loc); // null/undefined を除外
-  
+
           setLocationValues(locations); // 複数地点を保存
         } else {
           console.error('Error fetching data:', data);
@@ -52,7 +54,7 @@ const EventSearch = () => {
         setTriggerSearch(false);
       }
     };
-  
+
     fetchData();
   }, [triggerSearch, searchKeyword, API_URL]);
 
@@ -60,8 +62,6 @@ const EventSearch = () => {
     setTriggerSearch(true);
   };
 
-
- 
   return (
     <>
       <div className="flex flex-col h-screen mx-auto">
@@ -90,8 +90,7 @@ const EventSearch = () => {
           </div>
         </div>
         {/* 繰り返し配列  localtionValuesを繰り返す*/}
-      <MapImageGenerate locations={locationValues}  />
-        
+        <MapImageGenerate locations={locationValues} />
 
         <div className="w-full mt-4">
           {searchResults.map((event) => {
@@ -99,7 +98,7 @@ const EventSearch = () => {
               currentUserFromHook && event.user_id === currentUser?.id;
             const mmdd = getEventDate(event.date);
             const weekday = getEventWeekday(event.date);
-            
+
             return (
               <div
                 key={event.id}

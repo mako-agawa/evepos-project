@@ -1,4 +1,4 @@
-import type { User } from "@/types/user";
+import type { User } from '@/types/user';
 
 export interface Event {
   id: number;
@@ -9,5 +9,5 @@ export interface Event {
   image_url?: string; // Optional, if you want to include an image URL
   createdAt: string;
   updatedAt: string;
-  user: User; 
+  user: User;
 }

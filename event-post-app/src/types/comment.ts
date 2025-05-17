@@ -1,5 +1,5 @@
-import type { User } from "@/types/user";
-import type {Event} from "@/types/event";
+import type { User } from '@/types/user';
+import type { Event } from '@/types/event';
 
 interface Comment {
   id: number;

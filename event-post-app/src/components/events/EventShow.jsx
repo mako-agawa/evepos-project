@@ -10,12 +10,15 @@ import RenderDescription from '../../utils/RenderDescription';
 import { Button } from '@/styles/button';
 import CommentForm from '@/components/comments/CommentForm';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import { getEventDate, getEventTime, getEventWeekday } from '../../utils/EventDateDisplay';
+import {
+  getEventDate,
+  getEventTime,
+  getEventWeekday,
+} from '../../utils/EventDateDisplay';
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '../like/LikeButton';
 import MapImageGenerate from '../Maps/MapImageGenerate';
-
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);
@@ -37,9 +40,14 @@ export default function EventShow() {
   const mmdd = getEventDate(event?.date);
 
   const weekday = getEventWeekday(event?.date);
-  const hhmm = getEventTime(event?.date)
+  const hhmm = getEventTime(event?.date);
 
-  const { handleEventDelete, handleCommentDelete } = useHandleDelete(API_URL, eventId, comments, setComments);
+  const { handleEventDelete, handleCommentDelete } = useHandleDelete(
+    API_URL,
+    eventId,
+    comments,
+    setComments
+  );
 
   useEffect(() => {
     if (!eventId) {
@@ -51,10 +59,14 @@ export default function EventShow() {
       try {
         const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
         setEvent(eventData);
-        const userData = await fetchAPI(`${API_URL}/users/${eventData.user_id}`);
+        const userData = await fetchAPI(
+          `${API_URL}/users/${eventData.user_id}`
+        );
         setUser(userData);
 
-        const commentsData = await fetchAPI(`${API_URL}/events/${eventId}/comments`);
+        const commentsData = await fetchAPI(
+          `${API_URL}/events/${eventId}/comments`
+        );
         setComments(commentsData);
       } catch (error) {
         setError(error.message);
@@ -71,22 +83,27 @@ export default function EventShow() {
   }, [event?.location]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
-  if (!event || !user) return <div className="text-gray-600">読み込み中...</div>;
+  if (!event || !user)
+    return <div className="text-gray-600">読み込み中...</div>;
 
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
-  
+
   return (
     <div className="flex flex-col max-w-screen-lg">
-      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">Event info</h1>
+      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-4">
+        Event info
+      </h1>
       <div className="flex flex-col pt-10 pb-4 px-4 mt-2 mb-8 relative rounded shadow-md bg-white">
-
         {/* 日時 */}
         <div className="flex items-center absolute top-2 left-4 gap-1 bg-orange-400 text-white py-1 px-2 rounded-full">
           <p className="font-bold">{mmdd}</p>
           <p className="text-sm">({weekday})</p>
           <p className="font-bold">{hhmm}</p>
         </div>
-        <div onClick={() => router.push(`/users/${event.user_id}`)} className="flex items-center absolute top-2 right-4 gap-2">
+        <div
+          onClick={() => router.push(`/users/${event.user_id}`)}
+          className="flex items-center absolute top-2 right-4 gap-2"
+        >
           <p className="font-semibold text-xs text-gray-500">post by</p>
           <Image
             src={user.thumbnail_url || defaultUserImage}
@@ -108,19 +125,22 @@ export default function EventShow() {
             className="rounded-md mt-1 mb-2"
           />
         </div>
-        <div className='flex justify-end'>
+        <div className="flex justify-end">
           <Button
             onClick={() => setIsMapOpen(true)}
-            className="text-white bg-gray-200 hover:bg-gray-500 rounded p-3 text-md">
+            className="text-white bg-gray-200 hover:bg-gray-500 rounded p-3 text-md"
+          >
             <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
-            <p className="text-gray-600 font-semibold text-xs">{event.location}</p>
+            <p className="text-gray-600 font-semibold text-xs">
+              {event.location}
+            </p>
           </Button>
         </div>
 
         <h1 className="text-xl font-bold">{event.title}</h1>
 
-        <div className='mt-4 mb-3 border border-gray-200 font-semibold text-sm w-full rounded-md shadow-sm p-2'>
-          {<RenderDescription text={event.description} /> || "No description"}
+        <div className="mt-4 mb-3 border border-gray-200 font-semibold text-sm w-full rounded-md shadow-sm p-2">
+          {<RenderDescription text={event.description} /> || 'No description'}
         </div>
         <div className="w-fit  bg-gray-200 py-1 px-2 rounded-md">
           <p className=" font-semibold mt-1  text-sm">料金: {event.price}</p>
@@ -129,10 +149,10 @@ export default function EventShow() {
         <div className="mt-2 flex justify-end">
           <LikeButton
             eventId={event.id}
-            initialLiked={event.liked}  // APIから `liked` を直接取得する場合
+            initialLiked={event.liked} // APIから `liked` を直接取得する場合
             initialLikesCount={event.likes_count}
-            currentUserId={currentUser?.id}  // currentUser の ID を渡す
-            disabled={!currentUser}          // 未ログインの場合は無効
+            currentUserId={currentUser?.id} // currentUser の ID を渡す
+            disabled={!currentUser} // 未ログインの場合は無効
           />
         </div>
       </div>
@@ -145,21 +165,23 @@ export default function EventShow() {
           コメントを書く
         </Button>
 
-
-
         {isCurrentUser && (
           <div className="flex gap-4">
-            <Button onClick={() => router.push(`/events/${eventId}/edit`)} className="bg-green-500 text-white px-4 py-2 rounded">
+            <Button
+              onClick={() => router.push(`/events/${eventId}/edit`)}
+              className="bg-green-500 text-white px-4 py-2 rounded"
+            >
               編集
             </Button>
-            <Button onClick={handleEventDelete} className="bg-red-500 text-white px-4 py-2 rounded">
+            <Button
+              onClick={handleEventDelete}
+              className="bg-red-500 text-white px-4 py-2 rounded"
+            >
               削除
             </Button>
           </div>
         )}
       </div>
-
-
 
       {/* 🔹 マップ表示部分 */}
       {isMapOpen && (
@@ -168,8 +190,6 @@ export default function EventShow() {
           onClick={() => setIsMapOpen(false)} // 🔹 背景クリックで閉じる
         >
           <MapImageGenerate locations={locationValues} />
-
-
         </div>
       )}
 
@@ -194,15 +214,20 @@ export default function EventShow() {
         </div>
       )}
 
-
       <div className="px-8 py-4 pb-8 mt-8 mb-16 rounded shadow-md bg-white w-full">
         <h2 className="text-md text-gray-500 font-bold mb-2">コメント一覧</h2>
 
         {comments.length > 0 ? (
           comments.map((comment, index) => (
-            <div key={comment?.id || `comment-${index}`} className="border border-orange-100 py-1 px-2 pb-2 mb-2 rounded shadow">
+            <div
+              key={comment?.id || `comment-${index}`}
+              className="border border-orange-100 py-1 px-2 pb-2 mb-2 rounded shadow"
+            >
               <div className="flex justify-between items-top gap-2">
-                <div onClick={() => router.push(`/users/${comment.user.id}`)} className='flex items-center'>
+                <div
+                  onClick={() => router.push(`/users/${comment.user.id}`)}
+                  className="flex items-center"
+                >
                   <Image
                     src={comment.user?.thumbnail_url || defaultUserImage}
                     alt="User thumbnail"
@@ -211,14 +236,21 @@ export default function EventShow() {
                     className="w-6 h-6 rounded-full object-cover mr-1 border border-orange-400"
                   />
 
-                  <p className="font-semibold text-xs text-gray-500">{comment.user?.name || "匿名"}</p>
+                  <p className="font-semibold text-xs text-gray-500">
+                    {comment.user?.name || '匿名'}
+                  </p>
                 </div>
 
-                {currentUser && comment.user && currentUser.id === comment.user.id && (
-                  <button onClick={() => handleCommentDelete(comment.id)} className="bg-gray-400 text-white text-xs py-1 px-1 rounded">
-                    削除
-                  </button>
-                )}
+                {currentUser &&
+                  comment.user &&
+                  currentUser.id === comment.user.id && (
+                    <button
+                      onClick={() => handleCommentDelete(comment.id)}
+                      className="bg-gray-400 text-white text-xs py-1 px-1 rounded"
+                    >
+                      削除
+                    </button>
+                  )}
               </div>
               <p className=" pl-7">{comment.content}</p>
             </div>
@@ -227,8 +259,6 @@ export default function EventShow() {
           <p className="text-gray-500 text-center mt-4">コメントはありません</p>
         )}
       </div>
-
-
     </div>
   );
 }
