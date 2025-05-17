@@ -61,7 +61,7 @@ const Navbar = () => {
           </button>
         ) : (
           <button onClick={() => handleNavigation("login")}>
-            <Link href="/login" className={`flex flex-col items-center ${getActiveClass("login")} hover:text-orange-400`}>
+            <Link href="/users/login" className={`flex flex-col items-center ${getActiveClass("login")} hover:text-orange-400`}>
               <LogInIcon className="w-6 h-6" />
               <span className="text-xs mt-1">ログイン</span>
             </Link>

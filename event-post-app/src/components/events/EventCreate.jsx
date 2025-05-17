@@ -6,10 +6,10 @@ import Image from "next/image";
 import { pageModeAtom } from "@/atoms/authAtom";
 import { useAtom } from "jotai";
 import InputDateTime from "../../utils/InputDateTime";
-import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Calendar } from "@/styles/calendar";
+import { Button } from "@/styles/button";
+import { Label } from "@/styles/label";
+import { Popover, PopoverTrigger, PopoverContent } from "@/styles/popover";
 import { CalendarIcon } from "lucide-react";
 import { format } from 'date-fns';  // ここでformatをインポート
 import { compressAndConvertToPNG } from "@/utils/ImageProcessor";

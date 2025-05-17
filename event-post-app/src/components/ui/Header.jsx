@@ -44,7 +44,7 @@ const Header = () => {
           />
         ) : (
           <Link
-            href="/login"
+            href="/users/login"
             className="text-lg font-bold text-white hover:text-gray-100"
             onClick={handlePushLogin}
           >
@@ -76,7 +76,7 @@ const Header = () => {
 
                   {/* ログアウトボタン */}
                   <Link
-                    href="/logout"
+                    href="/users/logout"
                     className="font-bold px-4 py-2 hover:bg-gray-100 w-full text-center"
                     onClick={() => setMenuOpen(false)}
                   >
@@ -107,7 +107,7 @@ const Header = () => {
               {currentUser.name} さん
             </Link>
 
-            <Link href="/logout" className="text-white text-xl font-bold hover:cursor">
+            <Link href="/users/logout" className="text-white text-xl font-bold hover:cursor">
               ログアウト
             </Link>
           </>
