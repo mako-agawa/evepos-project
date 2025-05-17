@@ -5,6 +5,19 @@ import { fetchAPI } from "@/utils/api";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import type { User } from "@/types/user";
+import type { Like } from "@/types/like";
+
+
+interface LikeButtonProps {
+  eventId: number;
+  initialLiked?: boolean;
+  initialLikesCount?: number;
+  currentUserId?: number;
+  disabled?: boolean;
+}
+
+
 
 export default function LikeButton({
   eventId,
@@ -13,10 +26,10 @@ export default function LikeButton({
   currentUserId,
   disabled = false,
 }) {
-  const [liked, setLiked] = useState(initialLiked);
-  const [likesCount, setLikesCount] = useState(initialLikesCount);
-  const [currentUserLike, setCurrentUserLike] = useState(null);
-  const [likedUsers, setLikedUsers] = useState([]); 
+  const [liked, setLiked] = useState<boolean>(initialLiked);
+  const [likesCount, setLikesCount] = useState<number>(initialLikesCount);
+  const [currentUserLike, setCurrentUserLike] = useState<Like | null>(null);
+  const [likedUsers, setLikedUsers] = useState<User[]>([]); 
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
@@ -28,13 +41,13 @@ export default function LikeButton({
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`);
+        const data: Like[] = await fetchAPI(`${API_URL}/events/${eventId}/likes`);
         setLikesCount(data.length);
         setLikedUsers(data.map(like => like.user).filter(Boolean)); 
 
         if (!currentUserId) return;
 
-        const userLike = data.find((like) => like.user_id === currentUserId);
+        const userLike = data.find((like) => like.user.id === currentUserId);
         // 
         if (userLike) {
           setLiked(true);
@@ -50,7 +63,7 @@ export default function LikeButton({
     fetchLikes();
   }, [eventId, currentUserId]);
 
-  const handleLikeToggle = async (e) => {
+  const handleLikeToggle = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (disabled) {
       window.alert("ログインしていないため、いいねできません。");
@@ -66,7 +79,7 @@ export default function LikeButton({
 
   const handleLike = async () => {
     try {
-      const data = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
+      const data: Like = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
         method: "POST",
         cache: "no-cache",
       });
