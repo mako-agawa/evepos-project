@@ -1,4 +1,4 @@
-import imageCompression from "browser-image-compression";
+import imageCompression from 'browser-image-compression';
 
 /**
  * 画像を圧縮し、PNG形式に変換する関数
@@ -16,13 +16,16 @@ export const compressAndConvertToPNG = async (file, options = {}) => {
 
   try {
     // 画像を圧縮
-    const compressedFile = await imageCompression(file, { ...defaultOptions, ...options });
+    const compressedFile = await imageCompression(file, {
+      ...defaultOptions,
+      ...options,
+    });
 
     // PNGに変換
     const pngFile = await convertToPNG(compressedFile);
     return pngFile;
   } catch (error) {
-    console.error("画像圧縮または変換エラー:", error);
+    console.error('画像圧縮または変換エラー:', error);
     throw error;
   }
 };
@@ -51,11 +54,14 @@ const convertToPNG = (imageFile) => {
         // PNGに変換
         canvas.toBlob((blob) => {
           if (blob) {
-            const pngFile = new File([blob], `${imageFile.name.split('.')[0]}.png`, { type: 'image/png' });
+            const pngFile = new File(
+              [blob],
+              `${imageFile.name.split('.')[0]}.png`,
+              { type: 'image/png' }
+            );
             resolve(pngFile);
-            
           } else {
-            reject(new Error("PNG変換に失敗しました"));
+            reject(new Error('PNG変換に失敗しました'));
           }
         }, 'image/png');
       };

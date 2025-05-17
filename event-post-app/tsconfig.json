@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -19,9 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     "plugins": [
       {
@@ -40,9 +34,9 @@
     "src/components/ui/calendar.tsx",
     "src/components/ui/button.tsx",
     "src/components/ui/label.jsx",
-    "src/components/ui/input.jsx"
-, "src/app/users/[id]/edit/page.jsx", "src/components/events/EventShow.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "src/components/ui/input.jsx",
+    "src/app/users/[id]/edit/page.jsx",
+    "src/components/events/EventShow.jsx"
+  ],
+  "exclude": ["node_modules"]
 }

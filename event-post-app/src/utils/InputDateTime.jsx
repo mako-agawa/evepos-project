@@ -2,7 +2,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 
-
 /**
  * @param selectedTime - 選択された時間
  * @param onChange - 時間が変更されたときのコールバック関数
@@ -16,9 +15,9 @@ const InputDateTime = ({ selectedTime, onChange }) => {
       showTimeSelectOnly // ⬅️ **時間のみ選択可能にする**
       timeFormat="HH:mm"
       timeIntervals={15} // ⬅️ **15分刻みで選択**
-      dateFormat="HH:mm" 
-    //   timeCaption="時間"
-      className="border p-2 rounded w-full" 
+      dateFormat="HH:mm"
+      //   timeCaption="時間"
+      className="border p-2 rounded w-full"
     />
   );
 };

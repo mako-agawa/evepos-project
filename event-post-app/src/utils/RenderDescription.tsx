@@ -1,5 +1,5 @@
-import React from "react";
-import sanitizeHtml from "sanitize-html"; // XSS防止用
+import React from 'react';
+import sanitizeHtml from 'sanitize-html'; // XSS防止用
 
 /**
  * サニタイズしたHTMLの表示
@@ -23,9 +23,9 @@ const RenderDescription = ({ text }: RenderDescriptionProps) => {
 
   // 3. サニタイズして安全なHTMLを生成
   const sanitizedHtml = sanitizeHtml(formattedText, {
-    allowedTags: ["br", "a"], // 許可するタグに <br> も追加
+    allowedTags: ['br', 'a'], // 許可するタグに <br> も追加
     allowedAttributes: {
-      a: ["href", "target", "rel", "class"], // 許可する属性
+      a: ['href', 'target', 'rel', 'class'], // 許可する属性
     },
   });
 

@@ -13,7 +13,9 @@ type Props = {
 };
 
 const MapImageGenerate: React.FC<Props> = ({ locations }) => {
-  const [coordinatesList, setCoordinatesList] = useState<google.maps.LatLngLiteral[]>([]);
+  const [coordinatesList, setCoordinatesList] = useState<
+    google.maps.LatLngLiteral[]
+  >([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const { isLoaded } = useJsApiLoader({
@@ -21,9 +23,9 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
   });
 
   useEffect(() => {
-    setErrorMessage("");
-    if (!locations || locations.length === 0){
-      setErrorMessage("該当する場所が見つかりませんでした");
+    setErrorMessage('');
+    if (!locations || locations.length === 0) {
+      setErrorMessage('該当する場所が見つかりませんでした');
       return;
     }
     setCoordinatesList([]);
@@ -44,7 +46,7 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
             const loc = data.results[0].geometry.location;
             results.push({ lat: loc.lat, lng: loc.lng });
           } else {
-            setErrorMessage("該当する場所が見つかりませんでした");
+            setErrorMessage('該当する場所が見つかりませんでした');
           }
         } catch (error) {
           console.error(`ジオコーディング失敗: ${location}`, error);
@@ -77,11 +79,7 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
           options={{ mapId: process.env.NEXT_PUBLIC_MAP_ID }}
         >
           {coordinatesList.map((coord, index) => (
-            <Marker
-              key={index}
-              position={coord}
- 
-            />
+            <Marker key={index} position={coord} />
           ))}
         </GoogleMap>
       ) : null}

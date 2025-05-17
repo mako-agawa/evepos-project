@@ -6,10 +6,10 @@ const Page = () => {
   return (
     <div className="flex flex-col py-16 px-4">
       <UserShow />
-      <PostEvents/>
+      <PostEvents />
       <ExpiredEvents />
     </div>
   );
-}
+};
 
 export default Page;

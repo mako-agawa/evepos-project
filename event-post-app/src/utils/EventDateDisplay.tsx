@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
 // 日付データ取得 (月/日)
 export function getEventDate(dateString: string): string {
   const dateObj = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
-    timeZone: "Asia/Tokyo",
-    month: "2-digit",
-    day: "2-digit",
+    timeZone: 'Asia/Tokyo',
+    month: '2-digit',
+    day: '2-digit',
   };
-  return dateObj.toLocaleString("ja-JP", options); // "01/30"
+  return dateObj.toLocaleString('ja-JP', options); // "01/30"
 }
 
 // 曜日データ取得
 export function getEventWeekday(dateString: string): string {
   const dateObj = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
-    timeZone: "Asia/Tokyo",
-    weekday: "short", // 短い形式 (例: 月, 火)
+    timeZone: 'Asia/Tokyo',
+    weekday: 'short', // 短い形式 (例: 月, 火)
   };
-  return dateObj.toLocaleString("ja-JP", options); // "木"
+  return dateObj.toLocaleString('ja-JP', options); // "木"
 }
 
 // 時刻データ取得 (hh:mm)
 export function getEventTime(dateString: string): string {
   const dateObj = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
-    timeZone: "Asia/Tokyo",
-    hour: "2-digit",
-    minute: "2-digit",
+    timeZone: 'Asia/Tokyo',
+    hour: '2-digit',
+    minute: '2-digit',
     hour12: false, // 24時間制
   };
-  return dateObj.toLocaleString("ja-JP", options); // "15:20"
+  return dateObj.toLocaleString('ja-JP', options); // "15:20"
 }

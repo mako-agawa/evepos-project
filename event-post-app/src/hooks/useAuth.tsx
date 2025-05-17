@@ -1,6 +1,6 @@
 'use client';
 
-import type {  User } from "@/types/user"; // User型をインポート
+import type { User } from '@/types/user'; // User型をインポート
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
@@ -12,7 +12,7 @@ type AuthResponse = {
 
 export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom);
-  const [, setPageMode] = useAtom(pageModeAtom);  // ここで pageModeAtom を取得
+  const [, setPageMode] = useAtom(pageModeAtom); // ここで pageModeAtom を取得
   const router = useRouter();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -24,10 +24,10 @@ export function useAuth() {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        const data:AuthResponse = await response.json();
+        const data: AuthResponse = await response.json();
         // console.log("Server response:", response);
 
-        localStorage.setItem("token", data.token);
+        localStorage.setItem('token', data.token);
         // console.log("Saved token:", data.token);
 
         setAuth({
@@ -35,7 +35,7 @@ export function useAuth() {
           currentUser: data.user,
           token: data.token,
         });
-        setPageMode("index");
+        setPageMode('index');
         router.replace('/'); // ログイン成功後のリダイレクト
       } else {
         const errorData = await response.json();
@@ -49,7 +49,7 @@ export function useAuth() {
 
   const logout = () => {
     // ローカルストレージのトークン削除
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     // console.log("Removed token");
 
     // Jotaiの認証状態をリセット
@@ -59,7 +59,7 @@ export function useAuth() {
       token: null,
     });
     // ページモードをリセット
-    setPageMode("index");
+    setPageMode('index');
     // ページリロードによる再取得を実施
     router.replace('/');
   };
