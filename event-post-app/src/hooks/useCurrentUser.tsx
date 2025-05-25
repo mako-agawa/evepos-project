@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { fetchAPI } from '@/utils/api';
+import { fetchAPI } from '@/utils/fetchAPI';
 import { authAtom } from '@/atoms/authAtom';
-import type { User } from '@/types/user'; // User型をインポート
+import type { User } from '@/types/user.type'; // User型をインポート
 
 interface AuthState {
   token: string | null;
@@ -24,7 +24,7 @@ export function useCurrentUser() {
           },
         });
         setCurrentUser(data);
-        console.log('Fetched current user:', data);
+
         // 認証状態を更新（既存の値に currentUser を追加）
         setAuth((prevAuth) => ({ ...prevAuth, currentUser: data }));
       } catch (error) {

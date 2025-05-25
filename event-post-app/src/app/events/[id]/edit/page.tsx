@@ -1,4 +1,4 @@
-import EventEdit from '@/components/events/EventEdit';
+import EventEdit from '@/components/events/eventForms/edit/EventEdit';
 import React from 'react';
 
 const Page = () => {

@@ -12,7 +12,7 @@ interface RenderDescriptionProps {
 }
 
 const RenderDescription = ({ text }: RenderDescriptionProps) => {
-  // 1. 改行を <br> に変換
+  // letを使わず
   let formattedText = text.replace(/\n/g, '<br />');
 
   // 2. リンクを検出し、リンクタグに変換

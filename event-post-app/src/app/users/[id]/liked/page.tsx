@@ -1,5 +1,4 @@
 import LikedEvents from '@/components/like/LikedEvents';
-import React from 'react';
 
 const Page = () => {
   return (

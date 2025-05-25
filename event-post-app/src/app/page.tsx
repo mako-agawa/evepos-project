@@ -2,10 +2,10 @@
 
 import { useAtom } from 'jotai';
 import { pageModeAtom } from '@/atoms/authAtom';
-import EventIndex from '@/components/events/EventIndex';
-import EventSchedule from '@/components/events/EventSchedule';
-import EventArchive from '@/components/events/EventArchive';
-import EventSearch from '@/components/events/EventSearch';
+import EventIndex from '@/components/events/eventPages/EventIndex';
+import EventSchedule from '@/components/events/eventPages/EventSchedule';
+import EventArchive from '@/components/events/eventPages/EventArchive';
+import EventSearch from '@/components/events/eventPages/EventSearch';
 import type { PageMode } from '@/atoms/authAtom';
 
 export default function Events() {
