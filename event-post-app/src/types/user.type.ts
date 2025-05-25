@@ -4,5 +4,4 @@ export interface User {
   email: string;
   description?: string | null;
   thumbnail_url?: string | null;
-  
 }

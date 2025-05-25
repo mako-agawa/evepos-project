@@ -11,8 +11,10 @@ import LikeButton from '@/components/like/LikeButton';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
-import { getEventDate, getEventWeekday } from '@/components/events/utils/EventDateDisplay';
-
+import {
+  getEventDate,
+  getEventWeekday,
+} from '@/components/events/utils/EventDateDisplay';
 
 export default function EventArchive() {
   const [auth] = useAtom(authAtom);
@@ -130,5 +132,4 @@ export default function EventArchive() {
       </div>
     </div>
   );
-};
-
+}

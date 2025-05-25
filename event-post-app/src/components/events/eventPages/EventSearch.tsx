@@ -5,7 +5,10 @@ import { Search } from 'lucide-react';
 import Image from 'next/image';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import LikeButton from '@/components/like/LikeButton';
-import { getEventDate, getEventWeekday } from '@/components/events/utils/EventDateDisplay';
+import {
+  getEventDate,
+  getEventWeekday,
+} from '@/components/events/utils/EventDateDisplay';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useAtom } from 'jotai';
 import { authAtom } from '@/atoms/authAtom';
@@ -13,7 +16,6 @@ import { useRouter } from 'next/navigation';
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
 import MapImageGenerate from '@/components/maps/MapImageGenerate';
-
 
 export default function EventSearch() {
   const [auth] = useAtom(authAtom);

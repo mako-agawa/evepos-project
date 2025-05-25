@@ -6,7 +6,10 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchAPI } from '@/utils/fetchAPI';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import { getEventDate, getEventWeekday } from '@/components/events/utils/EventDateDisplay';
+import {
+  getEventDate,
+  getEventWeekday,
+} from '@/components/events/utils/EventDateDisplay';
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '@/components/like/LikeButton';

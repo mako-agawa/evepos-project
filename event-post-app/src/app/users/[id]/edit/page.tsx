@@ -1,4 +1,4 @@
-import { UserEdit } from "@/components/users/userForms/edit/UserEdit";
+import { UserEdit } from '@/components/users/userForms/edit/UserEdit';
 
 const Page = () => {
   return (

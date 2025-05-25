@@ -20,7 +20,6 @@ import defaultEventImage from '/public/image.svg';
 import LikeButton from '@/components/like/LikeButton';
 import MapImageGenerate from '@/components/maps/MapImageGenerate';
 
-
 export default function EventShow() {
   const [event, setEvent] = useState(null);
   // console.log("event.location", event?.location)

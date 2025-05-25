@@ -15,7 +15,7 @@ export default function CommentForm({
 }) {
   const [formData, setFormData] = useState({ comment: '' });
   const [message, setMessage] = useState('');
-  const [isSuccess, setIsSuccess] = useState(null);
+  // const [isSuccess, setIsSuccess] = useState(null);
   const { currentUser } = useCurrentUser();
 
   const handleChange = (e) => {
@@ -45,13 +45,13 @@ export default function CommentForm({
       setComments((prev) => [res.comment, ...prev]); // 🔹 新しいコメントを一覧に追加
 
       setFormData({ comment: '' });
-      setIsSuccess(true);
+      // setIsSuccess(true);
       setMessage('コメントを作成しました！');
 
       closeModal(); //  モーダルを閉じる
       redirect(`/events/${eventId}`); // 🔹 イベント詳細ページにリダイレクト
     } catch (error) {
-      setIsSuccess(false);
+      // setIsSuccess(false);
       setMessage('コメント作成に失敗しました。');
     }
   };

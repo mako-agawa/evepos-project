@@ -6,7 +6,13 @@ type Props = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export function TextInput({ label, id, type = 'text', value, onChange }: Props) {
+export function TextInput({
+  label,
+  id,
+  type = 'text',
+  value,
+  onChange,
+}: Props) {
   return (
     <div>
       <label className="text-xl block mb-2" htmlFor={id}>
