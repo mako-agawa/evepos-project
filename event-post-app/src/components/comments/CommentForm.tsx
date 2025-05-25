@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { Button } from '@/styles/button';
-import { fetchAPI } from '@/utils/api';
+import { fetchAPI } from '@/utils/fetchAPI';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { redirect } from 'next/navigation';
+import { SubmitButton } from '../utils/SubmitButton';
+import { Message } from '../utils/Message';
+import { TextInput } from '../utils/TextInput';
 
 export default function CommentForm({
   API_URL,
@@ -58,30 +60,16 @@ export default function CommentForm({
     <div className="flex flex-col items-center px-5">
       <div className="bg-white p-8 rounded shadow-md w-full">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="text"
+          <TextInput
+            label="comment"
             id="comment"
-            name="comment"
+            type="text"
             value={formData.comment}
             onChange={handleChange}
-            required
-            className="w-full border border-gray-300 rounded p-2"
           />
-
-          <Button
-            type="submit"
-            className="w-full text-white bg-orange-400 hover:bg-orange-500 rounded p-3 text-xl"
-          >
-            投稿する
-          </Button>
+          <SubmitButton label="投稿する" />
         </form>
-        {message && (
-          <p
-            className={`mt-4 text-xl ${isSuccess ? 'text-green-500' : 'text-red-500'}`}
-          >
-            {message}
-          </p>
-        )}
+        <Message message={message} />
       </div>
     </div>
   );

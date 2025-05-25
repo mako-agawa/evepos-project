@@ -1,6 +1,6 @@
-import UserShow from '@/components/users/UserShow';
-import PostEvents from '@/components/events/PostEvents';
-import ExpiredEvents from '@/components/events/ExpiredEvents';
+import UserShow from '@/components/users/userPage/UserShow';
+import PostEvents from '@/components/events/eventPages/PostEvents';
+import ExpiredEvents from '@/components/events/eventPages/ExpiredEvents';
 
 const Page = () => {
   return (

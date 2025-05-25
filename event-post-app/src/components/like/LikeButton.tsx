@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetchAPI } from '@/utils/api';
+import { fetchAPI } from '@/utils/fetchAPI';
 import { Heart } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import type { User } from '@/types/user';
-import type { Like } from '@/types/like';
+import type { User } from '@/types/user.type';
+import type { Like } from '@/types/like.type';
 
 interface LikeButtonProps {
   eventId: number;

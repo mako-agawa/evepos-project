@@ -1,10 +1,27 @@
 'use client';
 
-import { fetchAPI } from '@/utils/api';
+import { fetchAPI } from '@/utils/fetchAPI';
+import { Dispatch, SetStateAction } from 'react';
 
-const useHandleDelete = (API_URL, eventId, comments, setComments) => {
+interface Comment {
+  id: number;
+}
+
+type UseHandleDelete = {
+  handleEventDelete: (eventId: number) => Promise<void>;
+  handleCommentDelete: (commentId: number) => Promise<void>;
+  handleUserDelete: (userId: number) => Promise<void>;
+};
+
+const useHandleDelete = (
+  API_URL: string,
+  eventId: number,
+  comments: Comment[],
+  setComments: Dispatch<SetStateAction<Comment[]>>
+): UseHandleDelete => {
   // イベント削除
-  const handleEventDelete = async () => {
+  const handleEventDelete = async (eventId: number): Promise<void> => {
+    console.log('eventId:', eventId); // ここで確認
     if (!confirm('本当にこのイベントを削除しますか？')) return;
 
     try {
@@ -17,7 +34,7 @@ const useHandleDelete = (API_URL, eventId, comments, setComments) => {
   };
 
   // コメント削除
-  const handleCommentDelete = async (commentId) => {
+  const handleCommentDelete = async (commentId: number): Promise<void> => {
     if (!confirm('本当にこのコメントを削除しますか？')) return;
     try {
       await fetchAPI(`${API_URL}/events/${eventId}/comments/${commentId}`, {
@@ -36,7 +53,7 @@ const useHandleDelete = (API_URL, eventId, comments, setComments) => {
   };
 
   // ユーザー削除
-  const handleUserDelete = async (userId) => {
+  const handleUserDelete = async (userId: number): Promise<void> => {
     if (!confirm('本当にこのユーザーを削除しますか？')) return;
     try {
       await fetchAPI(`${API_URL}/users/${userId}`, { method: 'DELETE' });

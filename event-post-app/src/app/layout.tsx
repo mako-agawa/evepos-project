@@ -1,8 +1,8 @@
 // app/layout.js
 import { Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/ui/Header';
-import Navbar from '@/components/ui/Navbar';
+import Header from '@/components/commons/Header';
+import Navbar from '@/components/commons/Navbar';
 import { Suspense } from 'react';
 // import { getURL } from "@/lib/utils";
 
