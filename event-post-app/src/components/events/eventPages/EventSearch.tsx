@@ -15,7 +15,7 @@ import { authAtom } from '@/atoms/authAtom';
 import { useRouter } from 'next/navigation';
 import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
-import MapImageGenerate from '@/components/maps/MapImageGenerate';
+import MapImageGenerate from '@/components/Maps/MapImageGenerate';
 
 export default function EventSearch() {
   const [auth] = useAtom(authAtom);
