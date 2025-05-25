@@ -14,6 +14,7 @@ import defaultEventImage from '/public/image.svg';
 import defaultUserImage from '/public/user.svg';
 import MapImageGenerate from '@/components/maps/MapImageGenerate';
 
+
 export default function EventSearch() {
   const [auth] = useAtom(authAtom);
   const currentUser = auth.currentUser;
