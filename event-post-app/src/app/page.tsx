@@ -3,9 +3,9 @@
 import { useAtom } from 'jotai';
 import { pageModeAtom } from '@/atoms/authAtom';
 import EventIndex from '@/components/events/eventPages/EventIndex';
-import EventSchedule from '@/components/events/eventPages/EventSchedule';
-import EventArchive from '@/components/events/eventPages/EventArchive';
-import EventSearch from '@/components/events/eventPages/EventSearch';
+import EventSchedule from '@/components/events/eventPages/schedule/EventSchedule';
+import EventArchive from '@/components/events/eventPages/schedule/EventArchive';
+import EventSearch from '@/components/events/eventPages/search/EventSearch';
 import type { PageMode } from '@/atoms/authAtom';
 
 export default function Events() {

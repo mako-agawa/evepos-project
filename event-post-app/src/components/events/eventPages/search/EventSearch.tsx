@@ -1,67 +1,82 @@
 'use client';
+import { useEvents } from '../../hooks/useEvents';
+import { useSearchEvents } from './hooks/useSearchEvents';
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { fetchAPI } from '@/utils/fetchAPI';
-import { useAtom } from 'jotai';
-import { authAtom } from '@/atoms/authAtom';
-import { useRouter } from 'next/navigation';
 import LikeButton from '@/components/like/LikeButton';
 import {
   getEventDate,
   getEventWeekday,
-  getEventTime,
 } from '@/components/events/utils/EventDateDisplay';
+import MapImageGenerate from '@/components/map/MapImageGenerate';
+
+import Image from 'next/image';
+import { Search } from 'lucide-react';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import defaultEventImage from '/public/image.svg';
-import defaultUserImage from '/public/user.svg';
+import type { Event } from '@/types/event.type';
 
-export default function EventSchedule() {
-  const [auth] = useAtom(authAtom);
-  const router = useRouter();
-  const currentUser = auth.currentUser;
-  const [events, setEvents] = useState([]);
-  const [error, setError] = useState(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// type ImageSize =
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const eventData = await fetchAPI(`${API_URL}/events/schedule`);
-        setEvents(eventData);
-      } catch (error) {
-        setError(error.message);
-        console.error('Failed to fetch events:', error);
-      }
-    };
+export default function EventSearch() {
+  const {
+    currentUser,
+    currentUserFromHook,
+    router,
+    defaultEventImage,
+    defaultUserImage,
+  } = useEvents();
 
-    fetchEvents();
-  }, [API_URL]);
+  const {
+    searchKeyword,
+    setSearchKeyword,
+    searchResults,
+    triggerSearch,
+    setTriggerSearch,
+  } = useSearchEvents();
 
-  if (error) {
-    return <div className="text-red-500 text-center">エラー: {error}</div>;
-  }
+  const handleSearchClick = () => {
+    setTriggerSearch(true);
+  };
 
   return (
-    <div className="flex flex-col pb-4 h-full mx-auto">
-      <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">
-        Schedule
-      </h1>
-      <div className="w-full">
-        {events.map((event) => {
-          const isCreator = currentUser && event.user_id === currentUser.id;
+    <div className="flex flex-col h-screen mx-auto">
+      <div className="flex items-center mb-4">
+        <div className="relative w-full max-w-2xl">
+          <input
+            type="text"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            placeholder="イベントを検索..."
+            className="w-full px-5 py-4 text-lg border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+          <Search className="absolute right-5 top-4 text-gray-500 w-6 h-6" />
+        </div>
+
+        <div className="ml-6">
+          <button
+            onClick={handleSearchClick}
+            className="px-6 py-3 bg-gray-200 rounded-md hover:bg-gray-300 transition whitespace-nowrap"
+          >
+            検索
+          </button>
+        </div>
+      </div>
+
+      <MapImageGenerate searchResults={searchResults} />
+
+      <div className="w-full mt-4">
+        {searchResults.map((event: Event) => {
+          const isCreator =
+            currentUserFromHook && event.user.id === currentUser?.id;
           const mmdd = getEventDate(event.date);
           const weekday = getEventWeekday(event.date);
-          const hhmm = getEventTime(event.date);
 
           return (
             <div
               key={event.id}
               onClick={() => router.push(`/events/${event.id}`)}
-              className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-6"
+              className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-3"
             >
               <div className="flex ml-2 gap-4">
-                {/* 画像のコンテナ（relative を適用） */}
                 <div className="relative w-[160px] h-[110px]">
                   <Image
                     src={event.image_url || defaultEventImage}
@@ -78,18 +93,16 @@ export default function EventSchedule() {
                     </p>
                   </div>
                 </div>
+
                 <div className="flex w-[130px] flex-col">
-                  {/* イベント詳細 */}
                   <div className="flex flex-col w-full">
                     <div className="flex flex-col items-start w-full">
-                      {/* タイトル & いいねボタン */}
                       <div className="flex items-center justify-between mt-1">
-                        <h2 className="font-semibold  border-b border-gray-200 shadow-sm">
+                        <h2 className="font-semibold border-b border-gray-200 shadow-sm">
                           {event.title}
                         </h2>
                       </div>
 
-                      {/* 投稿者情報 */}
                       <div className="flex mt-2 text-xs text-gray-500">
                         <div className="flex items-center">
                           <Image
@@ -103,20 +116,21 @@ export default function EventSchedule() {
                           <span>{event.user.name}</span>
                         </div>
                       </div>
-                      {/* いいねボタンをオーバーレイ（absolute で右上） */}
                     </div>
                   </div>
                 </div>
+
                 <div className="flex absolute bottom-1 right-3 justify-end">
-                  <LikeButton
+                  {/* <LikeButton
                     eventId={event.id}
-                    initialLiked={event.liked} // APIから `liked` を直接取得する場合
+                    initialLiked={event.liked}
                     initialLikesCount={event.likes_count}
-                    currentUserId={currentUser?.id} // currentUser の ID を渡す
-                    disabled={!currentUser} // 未ログインの場合は無効
-                  />
+                    currentUserId={currentUser?.id}
+                    disabled={!currentUser}
+                  /> */}
                 </div>
               </div>
+
               <div className="absolute top-1 left-1 flex flex-col items-center bg-orange-400 text-white p-2 rounded-full">
                 <p className="text-s font-bold">{mmdd}</p>
                 <p className="text-xs">({weekday})</p>

@@ -1,5 +1,6 @@
 // authAtom.tsx
 import type { AuthState } from '@/types/auth.type';
+import { atom } from 'jotai';
 
 import { atomWithStorage } from 'jotai/utils';
 
