@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import MarkerFetchData from './MarkerFetchData';
+import type { Event } from '@/types/event.type';
 
 const containerStyle = {
   width: '100%',
@@ -9,59 +11,66 @@ const containerStyle = {
 };
 
 type Props = {
-  locations: string[]; // 配列に変更
+  searchResults: Event[]; // 配列に変更
 };
 
-const MapImageGenerate: React.FC<Props> = ({ locations }) => {
-  const [coordinatesList, setCoordinatesList] = useState<
-    google.maps.LatLngLiteral[]
+const MapImageGenerate: React.FC<Props> = ({ searchResults }) => {
+  const [eventsWithCoordinates, setEventsWithCoordinates] = useState<
+    (Event & { coordinate: google.maps.LatLngLiteral })[]
   >([]);
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
   });
 
+  const GOOGLE_MAPS_GEOCODE_URL =
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_GEOCODE_URL;
+
   useEffect(() => {
     setErrorMessage('');
-    if (!locations || locations.length === 0) {
+    if (!searchResults || searchResults.length === 0) {
       setErrorMessage('該当する場所が見つかりませんでした');
       return;
     }
-    setCoordinatesList([]);
+    setEventsWithCoordinates([]);
 
     const fetchAllCoordinates = async () => {
-      const results: google.maps.LatLngLiteral[] = [];
+      const results: (Event & { coordinate: google.maps.LatLngLiteral })[] = [];
 
-      for (const location of locations) {
+      for (const event of searchResults) {
         try {
           const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-              location
+            `${GOOGLE_MAPS_GEOCODE_URL}?address=${encodeURIComponent(
+              event.location
             )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
           );
           const data = await response.json();
 
           if (data.status === 'OK' && data.results[0]) {
             const loc = data.results[0].geometry.location;
-            results.push({ lat: loc.lat, lng: loc.lng });
+            results.push({
+              ...event,
+              coordinate: { lat: loc.lat, lng: loc.lng },
+            });
           } else {
             setErrorMessage('該当する場所が見つかりませんでした');
           }
         } catch (error) {
-          console.error(`ジオコーディング失敗: ${location}`, error);
+          console.error(`ジオコーディング失敗: ${event}`, error);
         }
       }
 
       if (results.length > 0) {
-        setCoordinatesList(results);
+        setEventsWithCoordinates(results);
       } else {
         setErrorMessage('該当する場所が見つかりませんでした');
       }
     };
 
     fetchAllCoordinates();
-  }, [locations]);
+  }, [searchResults]);
 
   if (!isLoaded) return <div>地図を読み込み中...</div>;
 
@@ -71,16 +80,14 @@ const MapImageGenerate: React.FC<Props> = ({ locations }) => {
         <div className="text-red-500 text-sm font-semibold text-center py-4">
           {errorMessage}
         </div>
-      ) : coordinatesList.length > 0 ? (
+      ) : eventsWithCoordinates.length > 0 ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={coordinatesList[0]} // 最初の地点を中心に
+          center={eventsWithCoordinates[0].coordinate} // 最初の地点を中心に
           zoom={13}
           options={{ mapId: process.env.NEXT_PUBLIC_MAP_ID }}
         >
-          {coordinatesList.map((coord, index) => (
-            <Marker key={index} position={coord} />
-          ))}
+          <MarkerFetchData searchResults={eventsWithCoordinates} />
         </GoogleMap>
       ) : null}
     </div>

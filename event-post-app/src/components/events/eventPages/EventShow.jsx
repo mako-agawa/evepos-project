@@ -18,7 +18,7 @@ import {
 import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 import LikeButton from '@/components/like/LikeButton';
-import MapImageGenerate from '@/components/Maps/MapImageGenerate';
+import MapImageGenerate from '@/components/map/MapImageGenerate';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);

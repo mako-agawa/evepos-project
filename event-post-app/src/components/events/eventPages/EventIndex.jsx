@@ -37,14 +37,6 @@ export default function EventIndex() {
     return <div className="text-red-500 text-center">エラー: {error}</div>;
   }
 
-  // if (!events.length) {
-  //     return (
-  //         <div className="flex items-center justify-center h-screen">
-  //             <p className="text-2xl">読み込み中...</p>
-  //         </div>
-  //     );
-  // }
-
   return (
     <div className="flex flex-col max-w-3xl h-full mx-auto">
       <h1 className="text-gray-400 border-b-2 border-orange-300 px-6 text-xl font-semibold mb-6">
