@@ -22,7 +22,7 @@ export default function LikeButton({
   initialLikesCount = 0,
   currentUserId,
   disabled = false,
-}) {
+}: LikeButtonProps) {
   const [liked, setLiked] = useState<boolean>(initialLiked);
   const [likesCount, setLikesCount] = useState<number>(initialLikesCount);
   const [currentUserLike, setCurrentUserLike] = useState<Like | null>(null);

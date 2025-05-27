@@ -1,4 +1,4 @@
-import EventShow from '@/components/events/eventPages/EventShow';
+import EventShow from '@/components/events/eventPages/show/EventShow';
 
 const page = () => {
   return (
