@@ -1,46 +1,41 @@
 'use client';
-
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import useHandleDelete from '@/hooks/useHandelDelete';
-import { fetchAPI } from '@/utils/fetchAPI';
-import RenderDescription from '@/utils/RenderDescription';
-import { Button } from '@/components/commons/button';
-import CommentForm from '@/components/comments/CommentForm';
-import { LocationMarkerIcon } from '@heroicons/react/outline';
 import {
   getEventDate,
   getEventTime,
   getEventWeekday,
 } from '@/components/events/utils/EventDateDisplay';
-import defaultUserImage from '/public/user.svg';
-import defaultEventImage from '/public/image.svg';
-import LikeButton from '@/components/like/LikeButton';
+import { useEvents } from '@/components/events/hooks/useEvents';
+import CommentForm from '@/components/comments/CommentForm';
 import MapImageGenerate from '@/components/map/MapImageGenerate';
+import LikeButton from '@/components/like/LikeButton';
+import { Button } from '@/components/commons/button';
+import RenderDescription from '@/utils/RenderDescription';
+import { fetchAPI } from '@/utils/fetchAPI';
+
+import { LocationMarkerIcon } from '@heroicons/react/outline';
 
 export default function EventShow() {
   const [event, setEvent] = useState(null);
-  // console.log("event.location", event?.location)
   const [user, setUser] = useState(null);
+  const [searchResults, setSearchResults] = useState([]); // 🔹 マップ用の検索結果
+  console.log('searchResults',searchResults); 
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
   const [isMapOpen, setIsMapOpen] = useState(false); // 🔹 モーダル開閉の状態管理
-  const [locationValues, setLocationValues] = useState([]);
-  // console.log("locationValues", locationValues)
-  const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
 
-  // 修正: オプショナルチェイニングを使用
-  const mmdd = getEventDate(event?.date);
-
-  const weekday = getEventWeekday(event?.date);
-  const hhmm = getEventTime(event?.date);
+  const { currentUser,
+    router,
+    defaultEventImage,
+    defaultUserImage,
+  } = useEvents();
 
   const { handleEventDelete, handleCommentDelete } = useHandleDelete(
     API_URL,
@@ -48,6 +43,11 @@ export default function EventShow() {
     comments,
     setComments
   );
+
+    // 修正: オプショナルチェイニングを使用
+  const mmdd = getEventDate(event?.date);
+  const weekday = getEventWeekday(event?.date);
+  const hhmm = getEventTime(event?.date);
 
   useEffect(() => {
     if (!eventId) {
@@ -59,6 +59,7 @@ export default function EventShow() {
       try {
         const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
         setEvent(eventData);
+        setSearchResults([eventData]);
         const userData = await fetchAPI(
           `${API_URL}/users/${eventData.user_id}`
         );
@@ -75,12 +76,6 @@ export default function EventShow() {
 
     fetchData();
   }, [API_URL, eventId]);
-
-  useEffect(() => {
-    if (event?.location) {
-      setLocationValues([event.location]);
-    }
-  }, [event?.location]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user)
@@ -189,7 +184,7 @@ export default function EventShow() {
           className="fixed inset-0 flex items-center justify-center px-4 bg-black bg-opacity-50"
           onClick={() => setIsMapOpen(false)} // 🔹 背景クリックで閉じる
         >
-          <MapImageGenerate locations={locationValues} />
+          <MapImageGenerate searchResults={searchResults} />
         </div>
       )}
 

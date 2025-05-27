@@ -6,6 +6,9 @@ export interface Event {
   date: string;
   location: string;
   description?: string;
+  price: string;
+  liked: boolean;
+  likes_count: number;
   image_url?: string; // Optional, if you want to include an image URL
   user: User;
 }

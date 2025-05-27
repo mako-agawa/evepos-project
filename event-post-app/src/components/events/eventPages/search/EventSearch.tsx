@@ -14,8 +14,6 @@ import { Search } from 'lucide-react';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import type { Event } from '@/types/event.type';
 
-// type ImageSize =
-
 export default function EventSearch() {
   const {
     currentUser,
@@ -25,14 +23,9 @@ export default function EventSearch() {
     defaultUserImage,
   } = useEvents();
 
-  const {
-    searchKeyword,
-    setSearchKeyword,
-    searchResults,
-    triggerSearch,
-    setTriggerSearch,
-  } = useSearchEvents();
-
+  const { searchKeyword, setSearchKeyword, searchResults, setTriggerSearch } =
+    useSearchEvents();
+  console.log('searchResults:', searchResults);
   const handleSearchClick = () => {
     setTriggerSearch(true);
   };
@@ -61,7 +54,9 @@ export default function EventSearch() {
         </div>
       </div>
 
-      <MapImageGenerate searchResults={searchResults} />
+      {searchResults.length > 0 && (
+        <MapImageGenerate searchResults={searchResults} />
+      )}
 
       <div className="w-full mt-4">
         {searchResults.map((event: Event) => {
@@ -121,13 +116,13 @@ export default function EventSearch() {
                 </div>
 
                 <div className="flex absolute bottom-1 right-3 justify-end">
-                  {/* <LikeButton
+                  <LikeButton
                     eventId={event.id}
                     initialLiked={event.liked}
                     initialLikesCount={event.likes_count}
                     currentUserId={currentUser?.id}
                     disabled={!currentUser}
-                  /> */}
+                  />
                 </div>
               </div>
 

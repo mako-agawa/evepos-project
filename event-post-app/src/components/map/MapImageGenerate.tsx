@@ -19,7 +19,7 @@ const MapImageGenerate: React.FC<Props> = ({ searchResults }) => {
     (Event & { coordinate: google.maps.LatLngLiteral })[]
   >([]);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('キーワードを入力して検索してください');
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
@@ -77,7 +77,7 @@ const MapImageGenerate: React.FC<Props> = ({ searchResults }) => {
   return (
     <div className="bg-white rounded shadow-md w-full max-w-lg p-4">
       {errorMessage ? (
-        <div className="text-red-500 text-sm font-semibold text-center py-4">
+        <div className="text-orange-500 text-sm font-semibold text-center py-4">
           {errorMessage}
         </div>
       ) : eventsWithCoordinates.length > 0 ? (
