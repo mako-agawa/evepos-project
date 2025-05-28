@@ -33,9 +33,9 @@ module Api
         if params[:query].present?
           search_term = params[:query].downcase
           matched_events = Event.includes(:user).where(
-            "LOWER(title) LIKE :q OR LOWER(description) LIKE :q OR LOWER(location) LIKE :q",
+            'LOWER(events.title) LIKE :q OR LOWER(events.description) LIKE :q OR LOWER(events.location) LIKE :q OR LOWER(users.name) LIKE :q',
             q: "%#{search_term}%"
-          )
+          ).references(:user) # ActiveRecordが users テーブルを参照できるようにする
           events = matched_events.map { |event| event_info_with_user(event) }
         else
           events = []
@@ -124,7 +124,7 @@ module Api
           price: event.price,
           likes_count: event.likes_count,
           user_id: event.user_id,
-          liked: current_user ? current_user.liked_events.exists?(event.id) : false,  # いいね済みかどうか
+          liked: current_user ? current_user.liked_events.exists?(event.id) : false, # いいね済みかどうか
           image_url: event.image.attached? ? url_for(event.image) : nil,
           user: format_user(event.user) # ユーザー情報を別メソッドで整形
         }
@@ -138,6 +138,7 @@ module Api
           thumbnail_url: user.thumbnail.attached? ? url_for(user.thumbnail) : nil
         }
       end
+
       # イベント作成者であるか確認する
       def authorize_user!
         render json: { error: 'Unauthorized' }, status: :forbidden unless @event.user_id == current_user.id
