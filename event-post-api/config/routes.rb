@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
 
   # ヘルスチェック用
-  get '/health_check', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
+  get '/health_check', to: ->(_env) { [200, { 'Content-Type' => 'text/plain' }, ['OK']] }
 
   # APIエンドポイント
   namespace :api do

@@ -14,18 +14,6 @@ module EventPost
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
-    # CORS 設定
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        # フロントエンドのドメインを明示的に指定
-        origins 'https://www.evepos.net',
-                'http://localhost:3000' # ローカル環境用
-        resource '*',
-                 headers: :any,
-                 methods: %i[get post put patch delete options head],
-                 expose: ['Authorization'],
-                 credentials: true # 認証情報を含むリクエストを許可
-      end
-    end
+    # CORS設定は環境ごとに設定（config/environments/development.rb と production.rb を参照）
   end
 end

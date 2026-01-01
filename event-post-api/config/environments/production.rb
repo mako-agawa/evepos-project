@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # ALBがSSLを管理する場合はコメントアウト
-  # config.force_ssl = true
+  config.force_ssl = false
 
   # シークレットキーの設定
   config.secret_key_base = ENV['SECRET_KEY_BASE'] || Rails.application.credentials.secret_key_base
@@ -28,6 +28,7 @@ Rails.application.configure do
   config.hosts += [
     'api.evepos.net', # カスタムドメイン
     'evepos-elb-1733878306.ap-northeast-1.elb.amazonaws.com', # ALBのDNS
+    'event-post-api-dark-leaf-3702.fly.dev', # Fly.ioのデフォルトドメイン
     '10.0.1.83',                                     # ALBまたはプロキシの内部IP
     '10.0.2.30',                                     # 他の内部IP (必要に応じて)
     '127.0.0.1',                                     # ローカルホスト (IPv4)
@@ -40,7 +41,8 @@ Rails.application.configure do
       # 特定のパスやIPを除外
       request.path == '/health_check' || # ヘルスチェック用
         %w[127.0.0.1 ::1 10.0.1.83 10.0.2.30].include?(request.remote_ip) || # 内部IP
-        request.host == 'api.evepos.net' # 信頼するホスト
+        request.host == 'api.evepos.net' || # 信頼するホスト
+        request.host&.end_with?('.fly.dev') # Fly.ioのドメインを許可
     }
   }
   # ログの詳細設定
@@ -66,4 +68,16 @@ Rails.application.configure do
   config.active_storage.service = :local
   config.active_storage.resolve_model_to_route = :rails_storage_redirect
 
+  # CORS設定（本番環境用）
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      # 本番環境では本番ドメインのみ許可（localhostは除外）
+      origins 'https://www.evepos.net', 'https://evepos.net'
+      resource '*',
+               headers: :any,
+               methods: %i[get post put patch delete options head],
+               expose: ['Authorization'],
+               credentials: true
+    end
+  end
 end

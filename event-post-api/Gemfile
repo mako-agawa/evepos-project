@@ -3,14 +3,12 @@ source 'https://rubygems.org'
 # Rails Framework
 gem 'rails', '~> 7.2.1', '>= 7.2.1.1'
 
-# Database
-gem 'sqlite3', '>= 1.4', groups: [:development, :test] # SQLite for development and test
-gem 'mysql2', '>= 0.5'                                # MySQL for production
-
 # Web Server
 gem 'puma'
 
+# Boot
 gem 'bootsnap', require: false
+
 # Authentication
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
@@ -21,16 +19,34 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 # Cross-Origin Resource Sharing (CORS)
 gem 'rack-cors', require: 'rack/cors'
 
+# Active Storage
 gem 'activestorage', require: 'active_storage/engine'
 
-# Environment Variables for All Environments
+# Environment Variables
 gem 'dotenv-rails', require: false
 
-# Development and Test Tools
-group :development, :test do
-  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude' # Debugging tool
-  gem 'brakeman', require: false                                   # Security scanner
-  gem 'rubocop-rails-omakase', require: false                     # Ruby/ Rails linting
-  gem 'rubocop', require: false                                   # General linting
-  gem 'rubocop-rails', require: false                             # Rails-specific linting
+# ==========================================
+# Database Configuration
+# ==========================================
+
+# 本番環境 (Fly.io) 用: PostgreSQL
+group :production do
+  gem "pg", "~> 1.1"
 end
+
+# 開発・テスト環境 (ローカル) 用: SQLite
+group :development, :test do
+  gem 'sqlite3', '>= 1.4'
+
+  # Development Tools
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
+  gem 'brakeman', require: false
+  gem 'rubocop-rails-omakase', require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+
+  # Docker tool
+  gem "dockerfile-rails", ">= 1.7"
+end
+
+gem "mysql2", "~> 0.5.7"

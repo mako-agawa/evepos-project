@@ -12,7 +12,7 @@ module Api
           render json: { error: 'Not authenticated' }, status: :unauthorized
         end
       end
-      
+
       def index
         # .with_attached_thumbnail を追加して、画像情報もまとめて取得する
         users = User.with_attached_thumbnail.all.map { |user| user_info_with_thumbnail(user) }
@@ -42,14 +42,18 @@ module Api
 
       # ユーザー情報の更新
       def update
-        @user = User.find_by(id: params[:id]) # ✅ ここで @user を定義
+        @user = User.find_by(id: params[:id])
+        return render json: { error: 'User not found' }, status: :not_found unless @user
+
+        # 認証されたユーザーが自分の情報のみ更新できるようにする
+        return render json: { error: 'Unauthorized action' }, status: :unauthorized unless current_user&.id == @user.id
+
         if @user.update(user_params)
           render json: { message: 'User updated successfully', user: user_info_with_thumbnail(@user) }, status: :ok
         else
           render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
         end
       end
-
 
       # ユーザー削除
       def destroy

@@ -3,7 +3,6 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-
   config.enable_reloading = true
 
   # Do not eager load code on boot.
@@ -47,7 +46,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 
-
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
@@ -60,4 +58,17 @@ Rails.application.configure do
 
   config.active_storage.service = :local
   config.active_storage.resolve_model_to_route = :rails_storage_redirect
+
+  # CORS設定（開発環境用）
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      # 開発環境ではlocalhostを許可
+      origins 'http://localhost:3000', 'http://127.0.0.1:3000'
+      resource '*',
+               headers: :any,
+               methods: %i[get post put patch delete options head],
+               expose: ['Authorization'],
+               credentials: true
+    end
+  end
 end

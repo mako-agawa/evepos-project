@@ -11,28 +11,30 @@ class ApplicationController < ActionController::API
     return render json: { error: 'Invalid token' }, status: :unauthorized unless payload
 
     @current_user = User.find_by(id: payload['user_id'])
-    return render json: { error: 'User not found' }, status: :unauthorized unless @current_user
+    render json: { error: 'User not found' }, status: :unauthorized unless @current_user
   end
 
-  def current_user
-    @current_user
-  end
+  attr_reader :current_user
 
   def encode_token(payload)
     expiration_time = 3.months.from_now.to_i # 有効期限は3か月
     payload[:exp] = expiration_time
-    secret_key = 'my_fixed_secret_key_for_testing_purposes'
+    secret_key = jwt_secret_key
     JWT.encode(payload, secret_key, 'HS256')
   end
 
   def decode_token(token)
-    secret_key = 'my_fixed_secret_key_for_testing_purposes'
+    secret_key = jwt_secret_key
     JWT.decode(token, secret_key, true, algorithm: 'HS256')[0]
   rescue JWT::ExpiredSignature
-    puts 'トークン期限切れ'
+    Rails.logger.warn 'トークン期限切れ'
     nil # 期限切れトークンの場合
   rescue JWT::DecodeError => e
-    puts "トークンのデコードエラー: #{e.message}"
+    Rails.logger.error "トークンのデコードエラー: #{e.message}"
     nil # トークンの形式が正しくない場合
+  end
+
+  def jwt_secret_key
+    ENV['JWT_SECRET_KEY'] || Rails.application.credentials.jwt_secret_key || Rails.application.secret_key_base
   end
 end

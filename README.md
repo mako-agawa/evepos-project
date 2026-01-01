@@ -4,8 +4,8 @@
     <img width="100%" alt="トップページ" src="./documents/top.png" />
 </a>
 
-### ~~アプリ URL: https://www.evepos.net~~
-現在サービス停止中
+### アプリ URL: https://www.evepos.net
+※バックエンドは現在 Fly.ioにデプロイ中（資料更新予定）
 
 
 ## 概要

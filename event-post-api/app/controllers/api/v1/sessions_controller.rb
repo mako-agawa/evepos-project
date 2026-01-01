@@ -1,8 +1,7 @@
 module Api
   module V1
     class SessionsController < ApplicationController
-      before_action :authenticate_user, except: [:create]
-      # skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
+      skip_before_action :authenticate_user, only: [:create] # 認証なしでcreateを許可
 
       def create
         user = User.find_by(email: params[:email])
@@ -21,7 +20,6 @@ module Api
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
-
     end
   end
 end
