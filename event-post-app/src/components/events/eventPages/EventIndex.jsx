@@ -9,8 +9,7 @@ import { useRouter } from 'next/navigation';
 import LikeButton from '@/components/like/LikeButton';
 import { getEventDate } from '@/components/events/utils/EventDateDisplay';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import defaultEventImage from '/public/image.svg';
-import defaultUserImage from '/public/user.svg';
+
 
 export default function EventIndex() {
   const [auth] = useAtom(authAtom);
@@ -18,12 +17,13 @@ export default function EventIndex() {
   const currentUser = auth.currentUser;
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const defaultEventImage = '/image.svg';
+  const defaultUserImage = '/user.svg'
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events`);
+        const eventData = await fetchAPI('/events');
         setEvents(eventData);
       } catch (error) {
         setError(error.message);
@@ -31,7 +31,7 @@ export default function EventIndex() {
       }
     };
     fetchEvents();
-  }, [API_URL]);
+  }, []);
 
   if (error) {
     return <div className="text-red-500 text-center">エラー: {error}</div>;

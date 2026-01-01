@@ -1,10 +1,12 @@
 'use client';
 
-import type { User } from '@/types/user.type'; // User型をインポート
+import type { User } from '@/types/user.type';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
+import { fetchAPI } from '@/utils/fetchAPI';
 
+// 戻り値の型定義
 type AuthResponse = {
   token: string;
   user: User;
@@ -12,55 +14,45 @@ type AuthResponse = {
 
 export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom);
-  const [, setPageMode] = useAtom(pageModeAtom); // ここで pageModeAtom を取得
+  const [, setPageMode] = useAtom(pageModeAtom);
   const router = useRouter();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
-      const response = await fetch(`${API_URL}/sessions`, {
+      // 1. fetchAPIは既にデータを返すので、変数名は response ではなく data が適切
+      const data = await fetchAPI<AuthResponse>('/sessions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        // fetchAPI側で Content-Type は自動付与されているので、ここで書かなくてもOK（書いても問題なし）
         body: JSON.stringify({ email, password }),
       });
-      if (response.ok) {
-        const data: AuthResponse = await response.json();
-        // console.log("Server response:", response);
-
-        localStorage.setItem('token', data.token);
-        // console.log("Saved token:", data.token);
-
-        setAuth({
-          isLoggedIn: true,
-          currentUser: data.user,
-          token: data.token,
-        });
-        setPageMode('index');
-        router.replace('/'); // ログイン成功後のリダイレクト
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'ログインに失敗しました');
+  
+      // 2. fetchAPI内でエラーなら throw されるので、ここに来た時点で成功確定
+      //    (data.token があるかどうかのチェックだけでも十分)
+      if (data.token) {
+         localStorage.setItem('token', data.token);
+         
+         setAuth({
+            isLoggedIn: true,
+            currentUser: data.user,
+            token: data.token,
+         });
+         setPageMode('index');
+         router.replace('/');
       }
     } catch (error) {
-      // console.error('Login error:', error.message);
-      throw error;
+       console.error("Login Failed:", error);
+       throw error; // UI側でエラーメッセージを表示するために再スロー
     }
   };
-
+  
   const logout = () => {
-    // ローカルストレージのトークン削除
     localStorage.removeItem('token');
-    // console.log("Removed token");
-
-    // Jotaiの認証状態をリセット
     setAuth({
       isLoggedIn: false,
       currentUser: null,
       token: null,
     });
-    // ページモードをリセット
     setPageMode('index');
-    // ページリロードによる再取得を実施
     router.replace('/');
   };
 

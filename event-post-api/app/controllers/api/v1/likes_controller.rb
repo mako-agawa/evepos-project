@@ -7,9 +7,9 @@ module Api
       before_action :set_event # 対象イベントの取得
       include Rails.application.routes.url_helpers
 
-      # GET /api/v1/events/:event_id/likes　確認用
       def index
-        likes = @event.likes.includes(:user).map do |like|
+        # 修正: ユーザー情報だけでなく、添付画像(thumbnail)の情報も一緒に取得する設定に変更
+        likes = @event.likes.includes(user: { thumbnail_attachment: :blob }).map do |like|
           {
             id: like.id,
             user_id: like.user_id,
@@ -18,6 +18,7 @@ module Api
             user: {
               id: like.user.id,
               name: like.user.name,
+              # 画像情報は既に取得済みなので、ここでSQLは発行されません
               thumbnail_url: like.user.thumbnail.attached? ? url_for(like.user.thumbnail) : nil
             }
           }
@@ -32,7 +33,7 @@ module Api
         if current_user.liked_events.exists?(event.id)
           render json: { message: 'Already liked', likes_count: event.likes_count }, status: :ok
         else
-          like = current_user.likes.create!(event: event)
+          current_user.likes.create!(event: event)
           event.increment!(:likes_count)
           render json: {
             message: 'Liked successfully',

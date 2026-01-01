@@ -14,7 +14,6 @@ type UseHandleDelete = {
 };
 
 const useHandleDelete = (
-  API_URL: string,
   eventId: number,
   comments: Comment[],
   setComments: Dispatch<SetStateAction<Comment[]>>
@@ -25,7 +24,7 @@ const useHandleDelete = (
     if (!confirm('本当にこのイベントを削除しますか？')) return;
 
     try {
-      await fetchAPI(`${API_URL}/events/${eventId}`, { method: 'DELETE' });
+      await fetchAPI(`/events/${eventId}`, { method: 'DELETE' });
       alert('イベントが削除されました。');
       window.location.href = '/'; // トップページへ遷移
     } catch (error) {
@@ -37,7 +36,7 @@ const useHandleDelete = (
   const handleCommentDelete = async (commentId: number): Promise<void> => {
     if (!confirm('本当にこのコメントを削除しますか？')) return;
     try {
-      await fetchAPI(`${API_URL}/events/${eventId}/comments/${commentId}`, {
+      await fetchAPI(`/events/${eventId}/comments/${commentId}`, {
         method: 'DELETE',
       });
 
@@ -52,17 +51,33 @@ const useHandleDelete = (
     }
   };
 
-  // ユーザー削除
   const handleUserDelete = async (userId: number): Promise<void> => {
-    if (!confirm('本当にこのユーザーを削除しますか？')) return;
+    if (
+      !confirm('本当にアカウントを削除しますか？\n（この操作は取り消せません）')
+    )
+      return;
+
     try {
-      await fetchAPI(`${API_URL}/users/${userId}`, { method: 'DELETE' });
+      await fetchAPI(`/users/${userId}`, { method: 'DELETE' });
+
       alert('ユーザーが削除されました。');
+
+      // ▼ 追加: ローカルストレージのトークンを削除（ログアウト扱いにする）
+      localStorage.removeItem('token');
+
+      // ▼ 追加: 強制的にトップページへリロード遷移
+      window.location.href = '/';
     } catch (error) {
+      console.error(error); // コンソールにエラーを出す
       alert('ユーザーの削除に失敗しました。');
     }
   };
-  return { handleEventDelete, handleCommentDelete, handleUserDelete };
+
+  return {
+    handleEventDelete,
+    handleCommentDelete,
+    handleUserDelete,
+  };
 };
 
 export default useHandleDelete;

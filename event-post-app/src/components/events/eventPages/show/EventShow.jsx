@@ -27,7 +27,6 @@ export default function EventShow() {
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false); // 🔹 モーダル開閉の状態管理
   const [isMapOpen, setIsMapOpen] = useState(false); // 🔹 モーダル開閉の状態管理
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const params = useParams();
   const eventId = params?.id;
 
@@ -38,7 +37,6 @@ export default function EventShow() {
   } = useEvents();
 
   const { handleEventDelete, handleCommentDelete } = useHandleDelete(
-    API_URL,
     eventId,
     comments,
     setComments
@@ -57,16 +55,16 @@ export default function EventShow() {
 
     const fetchData = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
+        const eventData = await fetchAPI(`/events/${eventId}`);
         setEvent(eventData);
         setSearchResults([eventData]);
         const userData = await fetchAPI(
-          `${API_URL}/users/${eventData.user_id}`
+          `/users/${eventData.user_id}`
         );
         setUser(userData);
 
         const commentsData = await fetchAPI(
-          `${API_URL}/events/${eventId}/comments`
+          `/events/${eventId}/comments`
         );
         setComments(commentsData);
       } catch (error) {
@@ -75,7 +73,7 @@ export default function EventShow() {
     };
 
     fetchData();
-  }, [API_URL, eventId]);
+  }, [eventId]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user)
@@ -200,7 +198,6 @@ export default function EventShow() {
           >
             <h2 className="text-lg font-bold  ml-5 my-2">コメントを投稿</h2>
             <CommentForm
-              API_URL={API_URL}
               eventId={eventId}
               setComments={setComments}
               closeModal={() => setIsOpen(false)}

@@ -6,63 +6,62 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { Button } from '@/components/commons/button';
 import { useAuth } from '@/components/auth/hooks/useAuth';
 import Image from 'next/image';
-import RenderDescription from '../../../utils/RenderDescription';
-import defaultUserImage from '/public/user.svg';
+import RenderDescription from '../../../utils/RenderDescription'; // パスは環境に合わせてください
 import Link from 'next/link';
+import { fetchAPI } from '@/utils/fetchAPI';
 
 export default function UserShow() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null); // 初期値をnullに
+  const [loading, setLoading] = useState(true); // ローディング状態を追加
   const { currentUser } = useCurrentUser();
   const router = useRouter();
   const params = useParams();
   const userId = params.id;
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { logout } = useAuth();
+  const defaultUserImage = '/user.svg';
 
   useEffect(() => {
     const fetchUser = async () => {
       if (!userId) return;
       try {
-        const res = await fetch(`${API_URL}/users/${userId}`, {
-          method: 'GET',
-        });
-        if (!res.ok) {
-          const errorData = await res.json().catch(() => null);
-          throw new Error(errorData?.message || `HTTP Error: ${res.status}`);
-        }
-        const userData = await res.json();
-        setUser(userData);
+        setLoading(true);
+        // 修正1: fetch ではなく fetchAPI を使用する
+        // fetchAPIはデータを直接返すので res.json() は不要
+        const data = await fetchAPI(`/users/${userId}`);
+        setUser(data);
       } catch (error) {
         console.error('Fetch error:', error.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
-  }, [API_URL, userId]);
+  }, [userId]);
 
   const handleUserDelete = async () => {
-    // 確認ダイアログの戻り値を変数に格納
     const isConfirmed = confirm('本当にこのユーザーを削除しますか？');
-    // キャンセルされた場合は処理を中断
     if (!isConfirmed) return;
     try {
-      const response = await fetch(`${API_URL}/api/v1/users/${userId}`, {
+      // 修正2: パスから /api/v1 を削除 (fetchAPIのBASE_URLに含まれているため)
+      const response = await fetchAPI(`/users/${userId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
-      if (response) {
-        alert('ユーザーが削除されました。');
-        logout();
-        router.push('/');
-      }
+      // fetchAPIは成功時にデータを返す(またはthrowしない)のでこれでOK
+      alert('ユーザーが削除されました。');
+      logout();
+      router.push('/');
     } catch (error) {
       console.error('Delete error:', error);
       alert('ユーザーの削除に失敗しました。');
     }
   };
 
-  if (!user) return null;
+  // 修正3: ローディング中の表示を追加
+  if (loading) return <div className="p-4">Loading...</div>;
+  
+  // ユーザーが見つからなかった場合
+  if (!user) return <div className="p-4">ユーザーが見つかりません</div>;
+
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
   return (
@@ -83,11 +82,12 @@ export default function UserShow() {
         </div>
         <p className=" font-semibold">メッセージ:</p>
         <div className=" p-2 text-sm border border-gray-400 rounded-md">
-          <RenderDescription text={user.description} />
+           {/* user.description が無い場合の対策 */}
+          <RenderDescription text={user.description || ''} />
         </div>
         <Link
           href={`/users/${userId}/liked`}
-          className="cursor-pointer bg-orange-400 p-2 rounded-md mt-4 shadow-md"
+          className="cursor-pointer bg-orange-400 p-2 rounded-md mt-4 shadow-md text-center inline-block"
         >
           <h1 className="text-white">{user.name}さんが いいねしたイベント</h1>
         </Link>
@@ -102,7 +102,7 @@ export default function UserShow() {
             編集
           </Button>
           <Button
-            onClick={() => handleUserDelete(userId)}
+            onClick={() => handleUserDelete()}
             className="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition-all"
           >
             退会

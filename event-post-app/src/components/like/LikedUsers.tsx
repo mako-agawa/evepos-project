@@ -14,21 +14,18 @@ import defaultUserImage from '/public/user.svg';
 import defaultEventImage from '/public/image.svg';
 
 export default function LikedUsers() {
-  const [event, setEvent] = useState(null);
-  const [user, setUser] = useState(null);
-  const [likedUsers, setLikedUsers] = useState([]);
+  // stateの初期値をnullや空配列にする際、型エラーを防ぐため any を想定させる
+  const [event, setEvent] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
+  const [likedUsers, setLikedUsers] = useState<any[]>([]);
 
-  const [error, setError] = useState(null);
-  const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const [error, setError] = useState<string | null>(null);
+  const { currentUser } = useCurrentUser();
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
 
-  // 修正: オプショナルチェイニングを使用
   const mmdd = getEventDate(event?.date);
-
   const weekday = getEventWeekday(event?.date);
 
   useEffect(() => {
@@ -39,28 +36,32 @@ export default function LikedUsers() {
 
     const fetchData = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
+        // 修正箇所1: URLを元に戻し、戻り値を 'any' としてキャスト
+        // これにより user_id も title も自由にアクセスできるようになります
+        const eventData = (await fetchAPI(`/events/${eventId}`)) as any;
         setEvent(eventData);
-        const userData = await fetchAPI(
-          `${API_URL}/users/${eventData.user_id}`
-        );
+
+        // 修正箇所2: eventData が any なので .user_id にアクセス可能
+        const userData = await fetchAPI(`/users/${eventData.user_id}`);
         setUser(userData);
-        const likedUsersData = await fetchAPI(
-          `${API_URL}/events/${eventId}/likes`
-        );
+
+        const likedUsersData = (await fetchAPI(
+          `/events/${eventId}/likes`
+        )) as any[];
         setLikedUsers(likedUsersData);
-      } catch (error) {
-        setError(error.message);
+      } catch (error: any) {
+        setError(error.message || 'エラーが発生しました');
       }
     };
 
     fetchData();
-  }, [API_URL, eventId]);
+  }, [eventId]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user)
     return <div className="text-gray-600">読み込み中...</div>;
 
+  // currentUserのチェックも安全に行う
   const isCurrentUser = currentUser && user && currentUser.id === user.id;
 
   return (
@@ -75,15 +76,14 @@ export default function LikedUsers() {
           className="cursor-pointer flex flex-row mb-2 relative w-full bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all py-3 px-3"
         >
           <div className="flex ml-2 gap-4">
-            {/* 画像のコンテナ（relative を適用） */}
             <div className="relative w-full h-[110px]">
               <Image
                 src={event.image_url || defaultEventImage}
-                alt={event.title}
+                alt={event.title || 'Event Image'}
                 width={210}
                 height={150}
                 priority
-                className="object-cover  shadow-sm rounded-md  w-full h-[110px]"
+                className="object-cover shadow-sm rounded-md w-full h-[110px]"
               />
               <div className="flex absolute bottom-0 right-0 text-xs bg-gray-200 opacity-90 p-1 rounded-md">
                 <LocationMarkerIcon className="w-4 h-4 text-orange-500" />
@@ -93,31 +93,27 @@ export default function LikedUsers() {
               </div>
             </div>
             <div className="flex w-[260px] flex-col">
-              {/* イベント詳細 */}
               <div className="flex flex-col w-full">
                 <div className="flex flex-col items-start w-full">
-                  {/* タイトル & いいねボタン */}
                   <div className="flex items-center justify-between mt-1">
-                    <h2 className="font-semibold  border-b border-gray-200 shadow-sm">
+                    <h2 className="font-semibold border-b border-gray-200 shadow-sm">
                       {event.title}
                     </h2>
                   </div>
 
-                  {/* 投稿者情報 */}
                   <div className="flex mt-2 text-xs text-gray-500">
                     <div className="flex items-center">
                       <Image
-                        src={event.user.thumbnail_url || defaultUserImage}
-                        alt={event.user.name}
+                        src={event.user?.thumbnail_url || defaultUserImage}
+                        alt={event.user?.name || 'User'}
                         width={24}
                         height={24}
                         priority
                         className="w-6 h-6 rounded-full object-cover border border-orange-400 mr-1"
                       />
-                      <span>{event.user.name}</span>
+                      <span>{event.user?.name}</span>
                     </div>
                   </div>
-                  {/* いいねボタンをオーバーレイ（absolute で右上） */}
                 </div>
               </div>
             </div>
@@ -132,21 +128,21 @@ export default function LikedUsers() {
         </h1>
         <div className="grid grid-cols-4 gap-4">
           {likedUsers.length > 0 &&
-            likedUsers.map((user) => (
+            likedUsers.map((likedUser) => (
               <div
-                key={user.user.id}
-                onClick={() => router.push(`/users/${user.user_id}`)}
+                key={likedUser.user.id}
+                onClick={() => router.push(`/users/${likedUser.user_id}`)}
                 className="flex flex-col items-center"
               >
                 <Image
-                  src={user.user.thumbnail_url || defaultUserImage}
-                  alt={user.user.name || 'User'}
+                  src={likedUser.user.thumbnail_url || defaultUserImage}
+                  alt={likedUser.user.name || 'User'}
                   width={100}
                   height={100}
                   className="w-20 h-20 rounded-full object-cover border border-orange-400"
                 />
                 <p className="text-xs font-semibold">
-                  {user.user.name || '匿名ユーザー'}
+                  {likedUser.user.name || '匿名ユーザー'}
                 </p>
               </div>
             ))}

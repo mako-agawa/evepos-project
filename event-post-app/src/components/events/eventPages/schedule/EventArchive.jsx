@@ -9,8 +9,7 @@ import { useRouter } from 'next/navigation';
 import LikeButton from '@/components/like/LikeButton';
 
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import defaultEventImage from '/public/image.svg';
-import defaultUserImage from '/public/user.svg';
+
 import {
   getEventDate,
   getEventWeekday,
@@ -22,12 +21,13 @@ export default function EventArchive() {
   const currentUser = auth.currentUser;
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const defaultEventImage = '/image.svg';
+  const defaultUserImage = '/user.svg'
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/archive`);
+        const eventData = await fetchAPI('/events/archive');
         setEvents(eventData);
       } catch (error) {
         setError(error.message);
@@ -36,15 +36,7 @@ export default function EventArchive() {
     };
 
     fetchEvents();
-  }, [API_URL]);
-
-  // if (!events.length && !error) {
-  //     return (
-  //         <div className="flex items-center justify-center h-screen">
-  //             <p className="text-2xl">該当のイベントはありません。</p>
-  //         </div>
-  //     );
-  // }
+  }, []);
 
   if (error) {
     return <div className="text-red-500 text-center">エラー: {error}</div>;

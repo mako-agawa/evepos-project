@@ -18,9 +18,8 @@ import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns'; // ここでformatをインポート
 import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG';
 import 'react-clock/dist/Clock.css';
-
+import { fetchAPI } from '@/utils/fetchAPI';
 export default function EventCreate() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [, setPageMode] = useAtom(pageModeAtom);
   const router = useRouter();
   const [message, setMessage] = useState('');
@@ -78,7 +77,10 @@ export default function EventCreate() {
         return;
       }
 
-      const response = await fetch(`${API_URL}/events`, {
+      // 修正1: 変数名を response から data に変更（意味合いを合わせるため）
+      // fetchAPI は内部で自動的に Authorization ヘッダーを付けるので、
+      // 実は headers の指定も削除してOKですが、残しても問題ありません。
+      await fetchAPI('/events', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -86,11 +88,11 @@ export default function EventCreate() {
         body: formData,
       });
 
-      if (!response.ok) throw new Error('イベントの作成に失敗しました');
 
-      setMessage('イベントが正常に作成されました！');
+      // 成功したらすぐにページ遷移
       setPageMode('index');
       router.push('/');
+
     } catch (error) {
       console.error('Error:', error);
       setMessage('イベントの作成に失敗しました。もう一度お試しください。');

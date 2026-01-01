@@ -13,12 +13,11 @@ interface AuthState {
 export function useCurrentUser() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [auth, setAuth] = useAtom(authAtom);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const fetchUser = async () => {
       if (!auth.token) return; // トークンがない場合は何もしない
       try {
-        const data: User = await fetchAPI(`${API_URL}/current_user`, {
+        const data: User = await fetchAPI('/current_user', {
           headers: {
             Authorization: `Bearer ${auth.token}`, // トークンをヘッダーに追加
           },
@@ -33,11 +32,11 @@ export function useCurrentUser() {
     };
 
     fetchUser();
-  }, [API_URL, auth.token, setAuth]); // トークンの変更時のみ実行
+  }, [auth.token, setAuth]); // トークンの変更時のみ実行
 
   const refetchUser = async () => {
     try {
-      const user: User = await fetchAPI(`${API_URL}/current_user`);
+      const user: User = await fetchAPI('/current_user');
       setCurrentUser(user);
     } catch (error) {
       console.error('ユーザー情報の再取得に失敗:', error);

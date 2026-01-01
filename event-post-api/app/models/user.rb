@@ -6,8 +6,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }
-
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
   has_many :events, dependent: :destroy # ユーザーが削除された場合、イベントも削除
   has_many :comments, dependent: :destroy

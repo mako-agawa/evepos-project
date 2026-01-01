@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # ユーザーリソース
       resources :users, only: %i[index show create update destroy], defaults: { format: :json }
-      get '/current_user', to: 'users#current_user', defaults: { format: :json }
+      get '/current_user', to: 'users#me', defaults: { format: :json }
 
       # イベントリソース
       resources :events, defaults: { format: :json } do

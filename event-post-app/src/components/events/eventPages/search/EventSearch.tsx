@@ -25,7 +25,7 @@ export default function EventSearch() {
 
   const { searchKeyword, setSearchKeyword, searchResults, setTriggerSearch } =
     useSearchEvents();
-  console.log('searchResults:', searchResults);
+  // console.log('searchResults:', searchResults);
   const handleSearchClick = () => {
     setTriggerSearch(true);
   };

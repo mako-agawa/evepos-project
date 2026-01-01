@@ -9,7 +9,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/commons/button';
 import usePageNavigation from '@/hooks/usePageNavigation';
 import Image from 'next/image';
-import defaultUserImage from '/public/user.svg';
+
 
 const Header = () => {
   const { currentUser } = useCurrentUser();
@@ -17,6 +17,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleNavigation } = usePageNavigation();
   const [, setPageMode] = useAtom(pageModeAtom);
+  const defaultUserImage = '/user.svg'
 
   const handlePushLogin = () => {
     setPageMode('login');
