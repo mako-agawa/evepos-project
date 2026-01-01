@@ -96,7 +96,10 @@ export default function EventEdit() {
   };
 
   // フォーム送信処理
+  // フォーム送信処理
   const onSubmit = async (data) => {
+    // fetchAPI内でトークン取得は行われるので、ここでの手動チェックは必須ではありませんが
+    // 念のため残してもOKです
     const token = localStorage.getItem('token');
     if (!token) {
       setMessage('認証エラー: ログインしてください');
@@ -115,21 +118,21 @@ export default function EventEdit() {
     }
 
     try {
-      const response = await fetch(`/events/${eventId}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
+      // 修正: fetch ではなく fetchAPI を使用する
+      // fetchAPI なら BASE_URL (localhost:3001...) が自動で付与されます
+      await fetchAPI(`/events/${eventId}`, {
+        method: 'PATCH', // Railsのupdateは通常 PATCH または PUT
+        body: formData,  // fetchAPIがFormDataを自動判別して適切なヘッダー処理をしてくれます
       });
 
-      if (!response.ok) throw new Error('イベントの更新に失敗しました');
+      // fetchAPI はエラー時に throw するので、ここに来た時点で成功確定
+      // if (!response.ok) ... のチェックは不要
 
       setMessage('イベントが正常に更新されました！');
       router.push(`/events/${eventId}`);
     } catch (error) {
       console.error('Error:', error);
-      setMessage('イベントの更新に失敗しました。もう一度お試しください。');
+      setMessage(error.message || 'イベントの更新に失敗しました。もう一度お試しください。');
     }
   };
 

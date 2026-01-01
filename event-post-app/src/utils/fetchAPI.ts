@@ -1,17 +1,18 @@
-// 開発環境と本番環境で切り替えられるように定義
+// src/utils/fetchAPI.ts
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
-// <T> を追加してジェネリクス関数にする
 export const fetchAPI = async <T>(
   path: string,
   options: RequestInit = {}
-): Promise<T> => { // 戻り値を Promise<T> に指定
-  
-  // トークンの取得（Next.jsなどのSSR環境を考慮して window チェックを入れるのが安全です）
+): Promise<T> => {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-  
+
+  // FormData判定
+  const isFormData = options.body instanceof FormData;
+
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
@@ -28,12 +29,20 @@ export const fetchAPI = async <T>(
   try {
     const response = await fetch(fullUrl, config);
     
+    // ▼▼▼ ここを修正：エラーメッセージを賢く取得する ▼▼▼
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || `Error: ${response.status}`);
+      
+      // Railsのエラー形式 (errors: ["..."]) に対応
+      const errorMessage = 
+        errorData?.errors?.join(', ') || // 配列なら連結
+        errorData?.message ||            // 単体メッセージならそれを使う
+        `Error: ${response.status}`;     // なければステータスコード
+        
+      throw new Error(errorMessage);
     }
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
-    // ここで JSON を T 型として返します
     return await response.json() as T;
 
   } catch (error: any) {

@@ -9,25 +9,28 @@ import {
   getEventDate,
   getEventWeekday,
 } from '@/components/events/utils/EventDateDisplay';
-import defaultUserImage from '/public/user.svg';
-import defaultEventImage from '/public/image.svg';
+import type { Event } from '@/types/event.type';
 
 export default function LikedUsers() {
-  const [likedEvents, setLikedEvents] = useState([]);
-  const [error, setError] = useState(null);
+  const [likedEvents, setLikedEvents] = useState<Event[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const params = useParams();
   const user_id = params?.id;
+  const defaultUserImage = '/user.svg';
+  const defaultEventImage = '/image.svg';
 
   useEffect(() => {
     const fetchLikedEvents = async () => {
       try {
         // 🔹 取得した event_id のリストでイベントデータを取得
-        const eventsData = await fetchAPI(`/events/liked/${user_id}`);
+        const eventsData = await fetchAPI<Event[]>(`/events/liked/${user_id}`);
 
         setLikedEvents(eventsData);
       } catch (error) {
-        setError(error.message);
+        const errorMessage =
+          error instanceof Error ? error.message : '不明なエラーが発生しました';
+        setError(errorMessage);
         console.error('Failed to fetch liked events:', error);
       }
     };

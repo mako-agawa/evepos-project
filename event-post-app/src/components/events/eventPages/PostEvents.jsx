@@ -10,8 +10,6 @@ import {
   getEventDate,
   getEventWeekday,
 } from '@/components/events/utils/EventDateDisplay';
-import defaultUserImage from '/public/user.svg';
-import defaultEventImage from '/public/image.svg';
 import LikeButton from '@/components/like/LikeButton';
 
 export default function PostEvents() {
@@ -22,6 +20,8 @@ export default function PostEvents() {
   const router = useRouter();
   const params = useParams();
   const user_id = params?.id; // 🔹 URLのユーザーIDを取得
+  const defaultUserImage = '/user.svg';
+  const defaultEventImage = '/image.svg';
 
   useEffect(() => {
     const fetchEvents = async () => {

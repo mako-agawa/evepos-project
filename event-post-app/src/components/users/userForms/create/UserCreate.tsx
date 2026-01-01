@@ -8,6 +8,13 @@ import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG'; // �
 import Image from 'next/image';
 import { pageModeAtom } from '@/atoms/authAtom';
 import { fetchAPI } from '@/utils/fetchAPI';
+import type { User } from '@/types/user.type';
+
+type AuthResponse = {
+  token: string;
+  user: User;
+  message?: string;
+};
 
 export default function UserCreate() {
   const [formData, setFormData] = useState({
@@ -23,7 +30,6 @@ export default function UserCreate() {
   const [message, setMessage] = useState('');
   const router = useRouter();
   const [, setPageMode] = useAtom(pageModeAtom);
-
 
   // 入力変更ハンドラー
   const handleChange = (e) => {
@@ -50,10 +56,13 @@ export default function UserCreate() {
   };
 
   // ユーザー登録時のハンドラー
+  // ユーザー登録時のハンドラー
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const userPayload = new FormData();
+    // Railsの strong parameters (params.require(:user)) に合わせるため
+    // user[name] の形式で送っているのは正解です！
     userPayload.append('user[name]', formData.name);
     userPayload.append('user[email]', formData.email);
     userPayload.append('user[password]', formData.password);
@@ -68,34 +77,33 @@ export default function UserCreate() {
     }
 
     try {
-      const res = await fetchAPI('/users', {
+      // 修正: 変数名を res から data に変更（中身はデータそのものなので）
+      const data = await fetchAPI<AuthResponse>('/users', {
         method: 'POST',
         body: userPayload,
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        localStorage.setItem('token', data.token);
-        setAuth({
-          isLoggedIn: true,
-          currentUser: data.user,
-          token: data.token,
-        });
-        setPageMode('index');
-        setMessage('登録に成功しました！');
-        router.push('/');
-        router.refresh();
-      } else {
-        const errorResponse = await res.json();
-        setMessage(
-          errorResponse.errors
-            ? errorResponse.errors.join(', ')
-            : '登録に失敗しました。'
-        );
-      }
+      // 修正2: if (res.ok) ... のチェックと res.json() を削除
+      // fetchAPI はエラー時に throw するので、ここに来た時点で成功です。
+
+      localStorage.setItem('token', data.token);
+      setAuth({
+        isLoggedIn: true,
+        currentUser: data.user,
+        token: data.token,
+      });
+      setPageMode('index');
+      setMessage('登録に成功しました！');
+      router.push('/');
+      router.refresh();
     } catch (error) {
       console.error('登録エラー:', error);
-      setMessage('登録中にエラーが発生しました。');
+      // fetchAPIが投げたエラーメッセージを表示するように修正
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : '登録中にエラーが発生しました。';
+      setMessage(errorMessage);
     }
   };
 

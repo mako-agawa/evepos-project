@@ -5,17 +5,17 @@ module Api
       include Rails.application.routes.url_helpers
 
       # 現在のユーザー情報を返す
-      def current_user
+      def me
         if @current_user
           render json: user_info_with_thumbnail(@current_user), status: :ok
         else
           render json: { error: 'Not authenticated' }, status: :unauthorized
         end
       end
-
-      # ユーザーの一覧を取得
+      
       def index
-        users = User.all.map { |user| user_info_with_thumbnail(user) }
+        # .with_attached_thumbnail を追加して、画像情報もまとめて取得する
+        users = User.with_attached_thumbnail.all.map { |user| user_info_with_thumbnail(user) }
         render json: users
       end
 
