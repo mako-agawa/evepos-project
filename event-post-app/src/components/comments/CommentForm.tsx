@@ -1,24 +1,30 @@
 'use client';
+
 import { useState } from 'react';
 import { fetchAPI } from '@/utils/fetchAPI';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // 変更点1: redirect ではなく useRouter を使う
 import { SubmitButton } from '../utils/SubmitButton';
 import { Message } from '../utils/Message';
 import { TextInput } from '../utils/TextInput';
 
+interface CommentFormProps {
+  eventId: string | number;
+  setComments: React.Dispatch<React.SetStateAction<any[]>>;
+  closeModal: () => void;
+}
+
 export default function CommentForm({
-  API_URL,
   eventId,
   setComments,
   closeModal,
-}) {
+}: CommentFormProps) {
   const [formData, setFormData] = useState({ comment: '' });
   const [message, setMessage] = useState('');
-  // const [isSuccess, setIsSuccess] = useState(null);
   const { currentUser } = useCurrentUser();
+  const router = useRouter(); 
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -26,32 +32,36 @@ export default function CommentForm({
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!currentUser) return; 
 
     const commentPayload = {
       comment: {
         content: formData.comment,
-        user_id: currentUser.id, // ログインユーザーの ID をセット
+        user_id: currentUser.id,
       },
     };
 
     try {
-      const res = await fetchAPI(`/events/${eventId}/comments`, {
+      const res = (await fetchAPI(`/events/${eventId}/comments`, {
         method: 'POST',
         body: JSON.stringify(commentPayload),
-      });
+      })) as { comment: any };
 
-      setComments((prev) => [res.comment, ...prev]); // 🔹 新しいコメントを一覧に追加
+      setComments((prev) => [res.comment, ...prev]);
 
       setFormData({ comment: '' });
-      // setIsSuccess(true);
       setMessage('コメントを作成しました！');
 
-      closeModal(); //  モーダルを閉じる
-      redirect(`/events/${eventId}`); // 🔹 イベント詳細ページにリダイレクト
+      closeModal();
+
+      router.push(`/events/${eventId}`); 
+      router.refresh(); // データ更新のためにリフレッシュ
+
     } catch (error) {
-      // setIsSuccess(false);
+      console.error(error);
       setMessage('コメント作成に失敗しました。');
     }
   };
