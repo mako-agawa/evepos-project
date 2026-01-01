@@ -7,6 +7,7 @@ import { authAtom } from '@/atoms/authAtom';
 import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG'; // 追加
 import Image from 'next/image';
 import { pageModeAtom } from '@/atoms/authAtom';
+import { fetchAPI } from '@/utils/fetchAPI';
 
 export default function UserCreate() {
   const [formData, setFormData] = useState({
@@ -67,7 +68,7 @@ export default function UserCreate() {
     }
 
     try {
-      const res = await fetch('/users', {
+      const res = await fetchAPI('/users', {
         method: 'POST',
         body: userPayload,
       });

@@ -23,15 +23,12 @@ export default function EventEdit() {
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
-
   // hooksにまとめる
   const [message, setMessage] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(new Date());
-  //
-
   // `react-hook-form` のセットアップ
   const { control, setValue, handleSubmit, register, reset } = useForm({
     defaultValues: {
@@ -47,7 +44,7 @@ export default function EventEdit() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const data = await fetchAPI('/events/${eventId}');
+        const data = await fetchAPI(`/events/${eventId}`);
         if (data) {
           reset({
             title: data.title || '',
@@ -118,7 +115,7 @@ export default function EventEdit() {
     }
 
     try {
-      const response = await fetch('/events/${eventId}', {
+      const response = await fetch(`/events/${eventId}`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,

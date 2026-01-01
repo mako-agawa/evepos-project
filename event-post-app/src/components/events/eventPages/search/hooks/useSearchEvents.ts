@@ -14,7 +14,7 @@ export const useSearchEvents = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          '/events/search?query=${searchKeyword}'
+          `/events/search?query=${searchKeyword}`
         );
         const data = await response.json();
 

@@ -18,7 +18,7 @@ import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns'; // ここでformatをインポート
 import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG';
 import 'react-clock/dist/Clock.css';
-
+import { fetchAPI } from '@/utils/fetchAPI';
 export default function EventCreate() {
   const [, setPageMode] = useAtom(pageModeAtom);
   const router = useRouter();
@@ -77,7 +77,7 @@ export default function EventCreate() {
         return;
       }
 
-      const response = await fetch('/events', {
+      const response = await fetchAPI('/events', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

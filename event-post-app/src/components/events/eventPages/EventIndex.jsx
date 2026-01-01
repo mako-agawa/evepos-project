@@ -9,8 +9,7 @@ import { useRouter } from 'next/navigation';
 import LikeButton from '@/components/like/LikeButton';
 import { getEventDate } from '@/components/events/utils/EventDateDisplay';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
-import defaultEventImage from '/public/image.svg';
-import defaultUserImage from '/public/user.svg';
+
 
 export default function EventIndex() {
   const [auth] = useAtom(authAtom);
@@ -18,6 +17,8 @@ export default function EventIndex() {
   const currentUser = auth.currentUser;
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
+  const defaultEventImage = '/image.svg';
+  const defaultUserImage = '/user.svg'
 
   useEffect(() => {
     const fetchEvents = async () => {

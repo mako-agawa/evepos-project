@@ -1,15 +1,17 @@
-// 開発環境と本番環境で切り替えられるように定義（とりあえず今は直書きでOK）
+// 開発環境と本番環境で切り替えられるように定義
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
-export const fetchAPI = async (
-  path: string, // url ではなく path に名前変更（誤解を防ぐため）
+// <T> を追加してジェネリクス関数にする
+export const fetchAPI = async <T>(
+  path: string,
   options: RequestInit = {}
-): Promise<any> => {
-  const token = localStorage.getItem('token');
+): Promise<T> => { // 戻り値を Promise<T> に指定
+  
+  // トークンの取得（Next.jsなどのSSR環境を考慮して window チェックを入れるのが安全です）
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
-    // トークンが存在する場合のみAuthorizationヘッダーを追加
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
@@ -20,16 +22,20 @@ export const fetchAPI = async (
       ...options.headers,
     },
   };
-  // 例: http://localhost:3000/api/v1 + /users
+
   const fullUrl = `${BASE_URL}${path}`;
+
   try {
     const response = await fetch(fullUrl, config);
+    
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       throw new Error(errorData?.message || `Error: ${response.status}`);
     }
 
-    return await response.json();
+    // ここで JSON を T 型として返します
+    return await response.json() as T;
+
   } catch (error: any) {
     console.error('API request error:', error.message);
     throw error;

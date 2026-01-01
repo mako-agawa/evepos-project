@@ -73,7 +73,7 @@ export default function EventShow() {
     };
 
     fetchData();
-  }, [API_URL, eventId]);
+  }, [eventId]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user)

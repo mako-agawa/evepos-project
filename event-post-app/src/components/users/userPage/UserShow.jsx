@@ -9,6 +9,7 @@ import Image from 'next/image';
 import RenderDescription from '../../../utils/RenderDescription';
 import defaultUserImage from '/public/user.svg';
 import Link from 'next/link';
+import { fetchAPI } from '@/utils/fetchAPI';
 
 export default function UserShow() {
   const [user, setUser] = useState();
@@ -44,11 +45,8 @@ export default function UserShow() {
     // キャンセルされた場合は処理を中断
     if (!isConfirmed) return;
     try {
-      const response = await fetch(`/api/v1/users/${userId}`, {
+      const response = await fetchAPI(`/api/v1/users/${userId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
       if (response) {
         alert('ユーザーが削除されました。');

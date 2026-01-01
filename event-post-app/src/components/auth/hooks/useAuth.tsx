@@ -4,7 +4,7 @@ import type { User } from '@/types/user.type'; // User型をインポート
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { authAtom, pageModeAtom } from '@/atoms/authAtom';
-
+import { fetchAPI } from '@/utils/fetchAPI';
 type AuthResponse = {
   token: string;
   user: User;
@@ -17,7 +17,7 @@ export function useAuth() {
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
-      const response = await fetch('/sessions', {
+      const response = await fetchAPI('/sessions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

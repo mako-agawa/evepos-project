@@ -93,7 +93,7 @@ export function UserEdit() {
     }
 
     try {
-      const response = await fetch(`/users/${userId}`, {
+      const response = await fetchAPI(`/users/${userId}`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`, // ✅ `Content-Type` は設定しない
