@@ -28,7 +28,6 @@ export default function LikeButton({
   const [currentUserLike, setCurrentUserLike] = useState<Like | null>(null);
   const [likedUsers, setLikedUsers] = useState<User[]>([]);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function LikeButton({
     const fetchLikes = async () => {
       try {
         const data: Like[] = await fetchAPI(
-          `${API_URL}/events/${eventId}/likes`
+          `/events/${eventId}/likes`
         );
         setLikesCount(data.length);
         setLikedUsers(data.map((like) => like.user).filter(Boolean));
@@ -78,7 +77,7 @@ export default function LikeButton({
 
   const handleLike = async () => {
     try {
-      const data: Like = await fetchAPI(`${API_URL}/events/${eventId}/likes`, {
+      const data: Like = await fetchAPI(`/events/${eventId}/likes`, {
         method: 'POST',
         cache: 'no-cache',
       });
@@ -99,7 +98,7 @@ export default function LikeButton({
     if (!currentUserLike) return;
     try {
       await fetchAPI(
-        `${API_URL}/events/${eventId}/likes/${currentUserLike.id}`,
+        `/events/${eventId}/likes/${currentUserLike.id}`,
         {
           method: 'DELETE',
           cache: 'no-cache',

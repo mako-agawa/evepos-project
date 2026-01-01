@@ -28,7 +28,7 @@ export default function EventSchedule() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/schedule`);
+        const eventData = await fetchAPI('/events/schedule');
         setEvents(eventData);
       } catch (error) {
         setError(error.message);

@@ -32,7 +32,7 @@ module Api
         if current_user.liked_events.exists?(event.id)
           render json: { message: 'Already liked', likes_count: event.likes_count }, status: :ok
         else
-          like = current_user.likes.create!(event: event)
+          current_user.likes.create!(event: event)
           event.increment!(:likes_count)
           render json: {
             message: 'Liked successfully',

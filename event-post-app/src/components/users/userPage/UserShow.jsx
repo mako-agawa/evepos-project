@@ -16,14 +16,13 @@ export default function UserShow() {
   const router = useRouter();
   const params = useParams();
   const userId = params.id;
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { logout } = useAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
       if (!userId) return;
       try {
-        const res = await fetch(`${API_URL}/users/${userId}`, {
+        const res = await fetch(`/users/${userId}`, {
           method: 'GET',
         });
         if (!res.ok) {
@@ -37,7 +36,7 @@ export default function UserShow() {
       }
     };
     fetchUser();
-  }, [API_URL, userId]);
+  }, [userId]);
 
   const handleUserDelete = async () => {
     // 確認ダイアログの戻り値を変数に格納
@@ -45,7 +44,7 @@ export default function UserShow() {
     // キャンセルされた場合は処理を中断
     if (!isConfirmed) return;
     try {
-      const response = await fetch(`${API_URL}/api/v1/users/${userId}`, {
+      const response = await fetch(`/api/v1/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ export const useSearchEvents = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState<Event[]>([]);
   const [triggerSearch, setTriggerSearch] = useState(false);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+ 
 
   useEffect(() => {
     if (!triggerSearch) return;
@@ -14,7 +14,7 @@ export const useSearchEvents = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/events/search?query=${searchKeyword}`
+          '/events/search?query=${searchKeyword}'
         );
         const data = await response.json();
 
@@ -33,7 +33,7 @@ export const useSearchEvents = () => {
     };
 
     fetchData();
-  }, [triggerSearch, searchKeyword, API_URL]);
+  }, [triggerSearch, searchKeyword]);
 
   return {
     searchKeyword,

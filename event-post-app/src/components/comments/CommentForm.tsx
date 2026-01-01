@@ -37,7 +37,7 @@ export default function CommentForm({
     };
 
     try {
-      const res = await fetchAPI(`${API_URL}/events/${eventId}/comments`, {
+      const res = await fetchAPI('/events/${eventId}/comments', {
         method: 'POST',
         body: JSON.stringify(commentPayload),
       });

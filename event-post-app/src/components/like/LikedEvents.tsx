@@ -18,13 +18,12 @@ export default function LikedUsers() {
   const router = useRouter();
   const params = useParams();
   const user_id = params?.id;
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchLikedEvents = async () => {
       try {
         // 🔹 取得した event_id のリストでイベントデータを取得
-        const eventsData = await fetchAPI(`${API_URL}/events/liked/${user_id}`);
+        const eventsData = await fetchAPI(`/events/liked/${user_id}`);
 
         setLikedEvents(eventsData);
       } catch (error) {
@@ -34,7 +33,7 @@ export default function LikedUsers() {
     };
 
     fetchLikedEvents();
-  }, [API_URL, user_id]);
+  }, [user_id]);
 
   if (error) {
     return <div className="text-red-500 text-center">エラー: {error}</div>;

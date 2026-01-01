@@ -22,7 +22,7 @@ export default function UserCreate() {
   const [message, setMessage] = useState('');
   const router = useRouter();
   const [, setPageMode] = useAtom(pageModeAtom);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 
   // 入力変更ハンドラー
   const handleChange = (e) => {
@@ -67,7 +67,7 @@ export default function UserCreate() {
     }
 
     try {
-      const res = await fetch(`${API_URL}/users`, {
+      const res = await fetch('/users', {
         method: 'POST',
         body: userPayload,
       });

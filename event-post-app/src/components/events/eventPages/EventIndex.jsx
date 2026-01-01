@@ -18,12 +18,11 @@ export default function EventIndex() {
   const currentUser = auth.currentUser;
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events`);
+        const eventData = await fetchAPI('/events');
         setEvents(eventData);
       } catch (error) {
         setError(error.message);
@@ -31,7 +30,7 @@ export default function EventIndex() {
       }
     };
     fetchEvents();
-  }, [API_URL]);
+  }, []);
 
   if (error) {
     return <div className="text-red-500 text-center">エラー: {error}</div>;

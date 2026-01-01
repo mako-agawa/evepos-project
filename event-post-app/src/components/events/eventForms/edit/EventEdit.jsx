@@ -20,7 +20,6 @@ import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG';
 import 'react-clock/dist/Clock.css';
 
 export default function EventEdit() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
@@ -48,7 +47,7 @@ export default function EventEdit() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const data = await fetchAPI(`${API_URL}/events/${eventId}`);
+        const data = await fetchAPI('/events/${eventId}');
         if (data) {
           reset({
             title: data.title || '',
@@ -74,7 +73,7 @@ export default function EventEdit() {
       }
     };
     fetchEvent();
-  }, [API_URL, eventId, reset]);
+  }, [eventId, reset]);
 
   // `date` と `time` を結合して `formData.date` に保存
   useEffect(() => {
@@ -119,7 +118,7 @@ export default function EventEdit() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/events/${eventId}`, {
+      const response = await fetch('/events/${eventId}', {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,

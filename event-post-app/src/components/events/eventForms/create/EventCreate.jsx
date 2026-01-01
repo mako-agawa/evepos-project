@@ -20,7 +20,6 @@ import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG';
 import 'react-clock/dist/Clock.css';
 
 export default function EventCreate() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [, setPageMode] = useAtom(pageModeAtom);
   const router = useRouter();
   const [message, setMessage] = useState('');
@@ -78,7 +77,7 @@ export default function EventCreate() {
         return;
       }
 
-      const response = await fetch(`${API_URL}/events`, {
+      const response = await fetch('/events', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

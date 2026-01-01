@@ -9,7 +9,6 @@ import { compressAndConvertToPNG } from '@/utils/compressAndConvertToPNG';
 import defaultUserImage from '/public/user.svg';
 
 export function UserEdit() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const params = useParams();
   const userId = params?.id;
@@ -30,7 +29,7 @@ export function UserEdit() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userData = await fetchAPI(`${API_URL}/users/${userId}`);
+        const userData = await fetchAPI(`/users/${userId}`);
         setFormData({
           name: userData.name || '',
           email: userData.email || '',
@@ -45,7 +44,7 @@ export function UserEdit() {
       }
     };
     fetchUser();
-  }, [API_URL, userId]);
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,7 +93,7 @@ export function UserEdit() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/users/${userId}`, {
+      const response = await fetch(`/users/${userId}`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`, // ✅ `Content-Type` は設定しない

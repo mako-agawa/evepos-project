@@ -18,7 +18,7 @@ export default function PostEvents() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const { currentUser } = useCurrentUser();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const router = useRouter();
   const params = useParams();
   const user_id = params?.id; // 🔹 URLのユーザーIDを取得
@@ -26,7 +26,7 @@ export default function PostEvents() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/schedule`);
+        const eventData = await fetchAPI('/events/schedule');
         setEvents(eventData);
       } catch (error) {
         setError(error.message);
@@ -34,19 +34,11 @@ export default function PostEvents() {
       }
     };
     fetchEvents();
-  }, [API_URL]);
+  }, []);
 
   if (error) {
     return <div className="text-red-500 text-center">エラー: {error}</div>;
   }
-
-  // if (!events.length) {
-  //     return (
-  //         <div className="flex items-center justify-center h-screen">
-  //             <p className="text-2xl">読み込み中...</p>
-  //         </div>
-  //     );
-  // }
 
   // 🔹 ユーザーIDと一致する投稿のみフィルタリング
   const postEvents = events.filter((event) => event.user_id == user_id);

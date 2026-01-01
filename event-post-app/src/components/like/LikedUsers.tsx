@@ -20,8 +20,6 @@ export default function LikedUsers() {
 
   const [error, setError] = useState(null);
   const { currentUser } = useCurrentUser(); // 🔹 refetchUser() でデータを再取得
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const router = useRouter();
   const params = useParams();
   const eventId = params?.id;
@@ -39,14 +37,14 @@ export default function LikedUsers() {
 
     const fetchData = async () => {
       try {
-        const eventData = await fetchAPI(`${API_URL}/events/${eventId}`);
+        const eventData = await fetchAPI(`/events/${eventId}`);
         setEvent(eventData);
         const userData = await fetchAPI(
-          `${API_URL}/users/${eventData.user_id}`
+          `/users/${eventData.user_id}`
         );
         setUser(userData);
         const likedUsersData = await fetchAPI(
-          `${API_URL}/events/${eventId}/likes`
+          `/events/${eventId}/likes`
         );
         setLikedUsers(likedUsersData);
       } catch (error) {
@@ -55,7 +53,7 @@ export default function LikedUsers() {
     };
 
     fetchData();
-  }, [API_URL, eventId]);
+  }, [eventId]);
 
   if (error) return <div className="text-red-500 text-lg">エラー: {error}</div>;
   if (!event || !user)

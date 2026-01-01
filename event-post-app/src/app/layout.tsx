@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
     <html lang="ja">
       <body
         className={`${notoSansJP.variable} antialiased bg-gray-100 text-gray-600  mb-36`}
+        suppressHydrationWarning={true}
       >
         <Header />
         <Suspense

@@ -14,11 +14,10 @@ export function useAuth() {
   const [auth, setAuth] = useAtom(authAtom);
   const [, setPageMode] = useAtom(pageModeAtom); // ここで pageModeAtom を取得
   const router = useRouter();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const login = async (email: string, password: string): Promise<void> => {
     try {
-      const response = await fetch(`${API_URL}/sessions`, {
+      const response = await fetch('/sessions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

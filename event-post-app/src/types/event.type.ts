@@ -12,3 +12,4 @@ export interface Event {
   image_url?: string; // Optional, if you want to include an image URL
   user: User;
 }
+
